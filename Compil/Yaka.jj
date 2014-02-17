@@ -155,10 +155,7 @@ void declConst() : {}
 
 void defConst() : {}
 {
-	
-  <ident>  	  	
-   "=" valConst()
-    
+  <ident> "=" valConst() {Declaration.declConst(identLu, entierLu);}
 }
 
 void valConst() : {}{
@@ -188,7 +185,12 @@ void type() :{}
  * Syntaxe des instructions.
  */
 void suiteExpr() : {}
-{ (expression() (";" (expression())? )*)? }
+{	
+	expression()
+	(";" (expression())? )*
+	//(expression()
+	//(";" (expression())? )*)?
+}
 
 
 
@@ -220,8 +222,9 @@ void terme() : {}
   )*
 }
 void facteur() : {}
-{   primaire() 
-  |  opNeg() primaire() 
+{  
+	primaire() 
+	|  opNeg() primaire() 
 }
 
 void primaire (): {}
@@ -232,11 +235,11 @@ void primaire (): {}
 }
 
 void valeur () : {}
-{ <entier> 		
+{ 
+  <entier> 		
  | <ident> 		
  | <VRAI> 		
  | <FAUX> 		
- 
 }
 
 void opRel() : {}
@@ -264,7 +267,8 @@ void opMul() : {}
 } 
 
 void opNeg() : {}
-{ "-" 		
+{ 
+   "-" 		
  | <NON>	
 }
 
