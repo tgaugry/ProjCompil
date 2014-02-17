@@ -1,20 +1,20 @@
 package Compil;
 
 public class IdConst extends Ident {
-	protected int val;
 	
 	public boolean estVar()
 	{
 		return false;
 	}
 	
-	public IdConst(int v)
+	public int IdConst(int v)
 	{
-		val = v;
+		super(INT, v);
 	}
 	
-	public getOffset()
+	public int IdConst(boolean b)
 	{
-		return offset;
+		super(BOOL, (int)b);
 	}
+	
 }
