@@ -1,5 +1,5 @@
 package Compil;
 
-public class Ident {
-
+public abstract class Ident {
+	public boolean estVar();
 }
