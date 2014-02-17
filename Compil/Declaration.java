@@ -10,10 +10,8 @@ public class Declaration {
 		table.rangeIdent (nom, id);
 	}
 	
-	public void declVar(String nom, int offset) {
-		IdVar id = new IdVar(offset);
+	public void declVar(String nom) {
+		IdVar id = new IdVar();
 		table.rangeIdent (nom, id);
-		
 	}
-	
 }
