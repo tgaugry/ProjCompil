@@ -16,9 +16,13 @@ options{
 PARSER_BEGIN(Yaka)
 
 
+package Compil;
 
 public class Yaka {
-
+	public static Declaration declaration;
+	public static TabIdent tabIdent;
+	public static Expression expression;
+	//public static YVM yvm;
 
   public static void main(String args[]) { 
     Yaka analyseur;
@@ -155,7 +159,7 @@ void declConst() : {}
 
 void defConst() : {}
 {
-  <ident> "=" valConst() {Declaration.declConst(identLu, entierLu);}
+  <ident> "=" valConst() {declaration.declConst(YakaTokenManager.identLu, YakaTokenManager.entierLu);}
 }
 
 void valConst() : {}{
