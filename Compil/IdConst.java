@@ -9,12 +9,12 @@ public class IdConst extends Ident {
 	
 	public IdConst(int v)
 	{
-		super(Ident.Type.INT, v);
+		super(Ident.TypeVar.INT, v);
 	}
 	
 	public IdConst(boolean b)
 	{
-		super(Ident.Type.BOOL, b? 1 : 0);
+		super(Ident.TypeVar.BOOL, b? 1 : 0);
 	}
 	
 }

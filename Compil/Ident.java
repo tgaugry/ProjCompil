@@ -4,11 +4,11 @@ package Compil;
 
 public abstract class Ident {
 	
-	protected Type type;
+	protected TypeVar type;
 	protected int valOuOffset;
-	public enum Type {BOOL, INT};
+	public enum TypeVar {BOOL, INT};
 	
-	public Ident(Type t, int v)
+	public Ident(TypeVar t, int v)
 	{
 		type = t;
 		valOuOffset = v;
@@ -21,7 +21,7 @@ public abstract class Ident {
 		return valOuOffset;
 	}
 	
-	public Type getType()
+	public TypeVar getType()
 	{
 		return type;
 	}

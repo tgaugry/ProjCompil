@@ -2,7 +2,7 @@ package Compil;
 
 import java.util.*;
 
-import Compil.Ident.Type;
+import Compil.Ident.TypeVar;
 
 public class Declaration {
 	
@@ -16,7 +16,7 @@ public class Declaration {
 	}
 	
 	public void declVar(String nom) {
-		IdVar id = new IdVar(Type.BOOL);
+		IdVar id = new IdVar(TypeVar.BOOL);
 		//table.rangeIdent (nom, id);
 	}
 }
