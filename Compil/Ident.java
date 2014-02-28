@@ -1,7 +1,5 @@
 package Compil;
 
-
-
 public abstract class Ident {
 	
 	protected TypeVar type;
