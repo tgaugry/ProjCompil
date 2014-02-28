@@ -8,7 +8,7 @@ public class IdVar extends Ident {
 		return true;
 	}
 	
-	public int IdVar(Type t)
+	public IdVar(Type t)
 	{
 		super(t, (lastOffset-=2));
 	}

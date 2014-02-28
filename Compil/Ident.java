@@ -1,11 +1,12 @@
 package Compil;
 
-public final enum Type {BOOL, INT};
+
 
 public abstract class Ident {
 	
 	protected Type type;
 	protected int valOuOffset;
+	public enum Type {BOOL, INT};
 	
 	public Ident(Type t, int v)
 	{
@@ -13,7 +14,7 @@ public abstract class Ident {
 		valOuOffset = v;
 	}
 	
-	public boolean estVar();
+	public abstract boolean estVar();
 	
 	public int getValOuOffset()
 	{

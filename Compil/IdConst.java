@@ -7,14 +7,14 @@ public class IdConst extends Ident {
 		return false;
 	}
 	
-	public int IdConst(int v)
+	public IdConst(int v)
 	{
-		super(INT, v);
+		super(Ident.Type.INT, v);
 	}
 	
-	public int IdConst(boolean b)
+	public IdConst(boolean b)
 	{
-		super(BOOL, (int)b);
+		super(Ident.Type.BOOL, b? 1 : 0);
 	}
 	
 }
