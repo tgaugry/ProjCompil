@@ -6,40 +6,45 @@ public class YVMAsm extends YVM {
 		super(nomFic);
 	}
 	public void entete() {
-		// ; entete
-		// .model SMALL
-		// .586
-		// .CODE
-		// debut:
-		// STARTUPCODE
+		Ecriture.ecrireStringln(output, "; entete\n" +
+				".model SMALL\n" +
+				".586\n" +
+				".CODE\n" +
+				"debut:\n" +
+				"STARTUPCODE\n");
 	}
 	public void ouvreprinc() {
-		// ; ouvrePrinc n
-		// mov bp,sp
-		// sub sp,n
+		Ecriture.ecrireString(output, "; ouvrePrinc");
+		Ecriture.ecrireInt(output, Yaka.tabIdent.compteVariables());
+		Ecriture.ecrireString(output, "\nmov bp,sp\nsub sp,");
+		Ecriture.ecrireInt(output, Yaka.tabIdent.compteVariables());
+		Ecriture.ecrireStringln(output, "");
 	}
 	public void iconst() {
-		// push n
+		Ecriture.ecrireString(output, "; iconst\npush ");
+		// faudrait récup le nombre, j'ai pas la doc, LAWL
+		//Ecriture.ecrireInt(output, Yaka.tabIdent.compteVariables());
+		Ecriture.ecrireStringln(output, "");
 	}
 	public void idiv(){
-		/* pop bx
-		 * pop ax
-		 * cwd
-		 * idiv bx
-		 * push ax
-		 */
+		Ecriture.ecrireStringln(output, "; idiv\n" +
+				"pop bx\n" +
+				"pop ax\n" +
+				"cwd\n" +
+				"idiv bx\n" +
+				"push ax");
 	}
 	public void iadd(){
-		/* pop bx
-		pop ax
-		add ax,bx
-		push ax
-		*/
+		Ecriture.ecrireStringln(output, "; iadd\n" +
+				"pop bx\n" +
+				"pop ax\n" +
+				"add ax,bx\n" +
+				"push ax");
 	}
 	public void istore(){
-		/* pop ax
-		 * mow word ptr[bp-2],ax
-		 */
+		Ecriture.ecrireStringln(output, "; istore\n" +
+				"pop ax\n" +
+				"mov word ptr[bp-2],ax");
 	}
 	
 }

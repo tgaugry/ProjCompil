@@ -1,14 +1,13 @@
 package Compil;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import Compil.Ecriture;
 
 public class YVM
 {	
 	public enum Op {ADD, SOUS, MUL, DIV, OU, ET, MOINS, NON, INF, INFEG, SUP, SUPEG, EG, DIF }
-	private OutputStream output;
+	protected OutputStream output;
 	
 	public YVM(String nomFic)
 	{
