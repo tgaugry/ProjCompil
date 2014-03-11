@@ -18,10 +18,16 @@ PARSER_BEGIN(Yaka)
 
 package Compil;
 
+import Compil.Ident.*;
+import Compil.Expression.*;
+import Compil.Declaration.*;
+
+
 public class Yaka {
 	public static Declaration declaration;
 	public static TabIdent tabIdent;
 	public static Expression expression;
+	public static TypeVar type;
 	//public static YVM yvm;
 
   public static void main(String args[]) { 
@@ -152,13 +158,11 @@ void bloc() : {}{
    suiteExpr() 
 }
 
-void declConst() : {}
-{
+void declConst() : {}{
   <CONST>  defConst() ( "," defConst())* ";"
 }
 
-void defConst() : {}
-{
+void defConst() : {}{
   <ident> "=" valConst() {declaration.declConst(YakaTokenManager.identLu, YakaTokenManager.entierLu);}
 }
 
@@ -170,28 +174,27 @@ void valConst() : {}{
 }
 
 
-void declVar() : {}
-{
+void declVar() : {} {
   <VAR> type()	
-  <ident>		
+  <ident> {declaration.declVar(YakaTokenManager.identLu, type); }		
   ("," 
-      <ident>  
+      <ident>  {declaration.declVar(YakaTokenManager.identLu, type);}
   )* ";"
 	
 }
 
-void type() :{}
-{
-   <ENTIER> 			
- | <BOOLEEN>	
+
+void type() :{} {
+   <ENTIER>  {type = TypeVar.INT;}			
+ | <BOOLEEN> {type = TypeVar.BOOL;}	
 }
 /*
  * Syntaxe des instructions.
  */
 void suiteExpr() : {}
 {	
-	expression()
-	(";" (expression())? )*
+	expression() { expression.evaluate();}
+	(";" (expression() { expression.evaluate();})? )*
 	//(expression()
 	//(";" (expression())? )*)?
 }
@@ -206,7 +209,7 @@ void expression() : {}
   simpleExpr() 
   (opRel() 
   simpleExpr() 
-  )?
+  )? 
 }
 
 
@@ -214,9 +217,9 @@ void expression() : {}
 void simpleExpr() : {}
 {
    terme() 
-   (opAdd() 
+   (opAdd()
    terme()	
-   )*
+   )* 
 } 
 void terme() : {}
 {
@@ -238,42 +241,40 @@ void primaire (): {}
  
 }
 
-void valeur () : {}
-{ 
-  <entier> 		
- | <ident> 		
- | <VRAI> 		
- | <FAUX> 		
+void valeur () : {} { 
+  <entier> 	{expression.addImmediate(TypeVar.INT);}	
+ | <ident> 	{expression.addIdent(YakaTokenManager.identLu);}	
+ | <VRAI> 	{expression.addImmediate(TypeVar.BOOL);}	
+ | <FAUX> 	{expression.addImmediate(TypeVar.BOOL);}	
 }
 
-void opRel() : {}
-{
-   "=" 		
- | "<>" 	
- | "<" 		
- | "<=" 	
- | ">" 		
- | ">=" 	
+void opRel() : {} {
+   "=" 		{expression.addOp(TypeOp.ARLO);}
+ | "<>" 	{expression.addOp(TypeOp.ARLO);}
+ | "<" 		{expression.addOp(TypeOp.ARLO);}
+ | "<=" 	{expression.addOp(TypeOp.ARLO);}
+ | ">" 		{expression.addOp(TypeOp.ARLO);}
+ | ">=" 	{expression.addOp(TypeOp.ARLO);}
 } 
 
 void opAdd() : {}
 {
-    "+"		
-  |  "-"  
-  | <OU> 	
+    "+"		{expression.addOp(TypeOp.ARITH2);}
+  |  "-"  	{expression.addOp(TypeOp.ARITH2);}
+  | <OU> 	{expression.addOp(TypeOp.LOGIQUE2);}
 }
 
 void opMul() : {}
 {
-  "*"		
-  | "/"		
-  | <ET>	
+  "*"		{expression.addOp(TypeOp.ARITH2);}
+  | "/"		{expression.addOp(TypeOp.ARITH2);}
+  | <ET>	{expression.addOp(TypeOp.LOGIQUE2);}
 } 
 
 void opNeg() : {}
 { 
-   "-" 		
- | <NON>	
+   "-" 		{expression.addOp(TypeOp.ARITH1);}
+ | <NON>	{expression.addOp(TypeOp.LOGIQUE1);}
 }
 
 
