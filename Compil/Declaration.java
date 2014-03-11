@@ -14,8 +14,8 @@ public class Declaration {
 		Yaka.tabIdent.rangeIdent (nom, id);
 	}
 	
-	public void declVar(String nom) {
-		IdVar id = new IdVar(TypeVar.BOOL);
+	public void declVar(String nom, TypeVar type) {
+		IdVar id = new IdVar(type);
 		Yaka.tabIdent.rangeIdent (nom, id);
 	}
 }
