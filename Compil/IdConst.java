@@ -18,7 +18,7 @@ public class IdConst extends Ident {
 	}
 
 	public String toString() {
-		String res = "iconst "+ valOuOffset +"\n";
+		String res = "iconst "+ valOuOffset;
 		return res;
 	}
 	

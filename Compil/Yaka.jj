@@ -28,7 +28,7 @@ public class Yaka {
 	public static TabIdent tabIdent;
 	public static Expression expression;
 	public static TypeVar type;
-	//public static YVM yvm;
+	public static YVM yvm;
 
   public static void main(String args[]) { 
     Yaka analyseur;
@@ -147,7 +147,7 @@ TOKEN  :
 /**************************************/
 void analyse() : {}
 {
-   <PROGRAMME> <ident>	
+   <PROGRAMME> <ident>	{yvm.debutProg();}
    bloc()
    <FPROGRAMME> 
 }

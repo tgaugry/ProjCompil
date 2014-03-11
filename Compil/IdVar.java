@@ -14,7 +14,7 @@ public class IdVar extends Ident {
 	}
 
 	public String toString() {
-		String res = "iload "+ valOuOffset +"\n";
+		String res = "iload "+ valOuOffset;
 		return res;
 	}
 }
