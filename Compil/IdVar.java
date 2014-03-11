@@ -12,4 +12,9 @@ public class IdVar extends Ident {
 	{
 		super(t, (lastOffset-=2));
 	}
+
+	public String toString() {
+		String res = "iload "+ valOuOffset +"\n";
+		return res;
+	}
 }

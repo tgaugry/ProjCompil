@@ -1,6 +1,7 @@
 package Compil;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class TabIdent
 {
@@ -24,5 +25,14 @@ public class TabIdent
 	public void rangeIdent(String clef, Ident id)
 	{
 		table.put(clef, id);
+	}
+	
+	public int compteVariables(){
+		int cpt=0;
+		for(Entry<String, Ident> entry : table.entrySet()) {
+			if(entry.getValue().estVar())
+				cpt++;
+		}
+		return cpt;
 	}
 }

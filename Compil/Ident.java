@@ -23,4 +23,6 @@ public abstract class Ident {
 	{
 		return type;
 	}
+	
+	public abstract String toString();
 }
