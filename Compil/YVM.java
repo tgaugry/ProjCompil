@@ -46,10 +46,10 @@ public class YVM
 			Ecriture.ecrireStringln(output, "idiv");
 			break;
 		case OU:
-			Ecriture.ecrireStringln(output, "iadd");
+			Ecriture.ecrireStringln(output, "ior");
 			break;
 		case ET:
-			Ecriture.ecrireStringln(output, "isub");
+			Ecriture.ecrireStringln(output, "iand");
 			break;
 		case MOINS:
 			Ecriture.ecrireStringln(output, "imul");
