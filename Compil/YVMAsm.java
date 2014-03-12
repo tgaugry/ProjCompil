@@ -5,7 +5,7 @@ public class YVMAsm extends YVM {
 	public YVMAsm(String nomFic) {
 		super(nomFic);
 	}
-	public void entete() {
+	public void debutProg() {
 		Ecriture.ecrireStringln(output, "; entete\n" +
 				".model SMALL\n" +
 				".586\n" +
@@ -26,26 +26,22 @@ public class YVMAsm extends YVM {
 				+ "exitcode\n"
 				+ "end debut\n");
 	}
-	public void iconst() {
-		Ecriture.ecrireString(output, "; iconst\n"
-				+ "push ");
-		// faudrait récup le nombre, j'ai pas la doc, LAWL
-		//Ecriture.ecrireInt(output, Yaka.tabIdent.compteVariables());
-		Ecriture.ecrireStringln(output, "\n");
+	
+	
+	public void lireConstOuVar(String nom) {
+		Ecriture.ecrireString(output, "; iconst\n");
+		Ident i = Yaka.tabIdent.chercherIdent(nom);
+		String texte = i.toYVMAsm();
+		Ecriture.ecrireStringln(output, texte);
 	}
-	public void istore(){
+	/*public void istore(String nom){
 		Ecriture.ecrireStringln(output, "; istore\n" +
 				"pop ax\n" +
 				"mov word ptr[bp-2],ax\n");
-	}
-	public void iload(){
-		Ecriture.ecrireString(output, "; iload\n" +
-				"push word ptr[bp");
-		//
-		Ecriture.ecrireStringln("]\n");
+	}*/
 	
-	}
-	public void iadd(){
+	
+	public void lireAdd(){
 		Ecriture.ecrireStringln(output, "; iadd\n" +
 				"pop bx\n" +
 				"pop ax\n" +
@@ -53,22 +49,21 @@ public class YVMAsm extends YVM {
 				"push ax\n");
 
 	}
-	public void isub() {
+	public void lireSous() {
 		Ecriture.ecrireStringln(output, "; isub\n"
 				+ "pop bx\n"
 				+ "pop ax\n"
 				+ "sub ax,bx\n"
 				+ "push ax\n");
 	}
-	public void imul(){
+	public void lireMul(){
 		Ecriture.ecrireStringln(output, "; imul\n"
 				+ "pop bx\n"
 				+ "pop ax\n"
 				+ "imul bx\n"
 				+ "push ax\n");
-
 	}
-	public void idiv(){
+	public void lireDiv(){
 		Ecriture.ecrireStringln(output, "; idiv\n" +
 				"pop bx\n" +
 				"pop ax\n" +
@@ -76,15 +71,48 @@ public class YVMAsm extends YVM {
 				"idiv bx\n" +
 				"push ax\n");
 	}
+	public void lireNeg(){
+		Ecriture.ecrireStringln(output, "; ineg\n"
+				+ "pop bx\n"
+				+ "mov ax, 0\n"
+				+ "sub ax,bx\n"
+				+ "push ax\n");
+	}
 
-	public void ior(){
+
+	public void lireNon(){
+		Ecriture.ecrireStringln(output, "; inot\n"
+				+ "pop ax\n"
+				+ "not ax\n"
+				+ "push ax\n");
+	}
+	public void lireOu(){
 		Ecriture.ecrireStringln(output, "; ior\n"
 				+ "pop bx\n"
 				+ "pop ax\n"
 				+ "or ax,bx\n"
 				+ "push ax\n");
 	}
-	public void iinfegal(){
+	public void lireEt(){
+		Ecriture.ecrireStringln(output, "; iand\n"
+				+ "pop bx\n"
+				+ "pop ax\n"
+				+ "and ax,bx\n"
+				+ "push ax\n");
+	}
+	
+	
+	public void lireInf(){
+		Ecriture.ecrireStringln(output, "; iinf\n"
+				+ "pop bx\n"
+				+ "pop ax\n"
+				+ "cmp ax,bx\n"
+				+ "jge $+6\n"
+				+ "push -1\n"
+				+ "jmp $+4\n"
+				+ "push 0\n");
+	}
+	public void lireInfEg(){
 		Ecriture.ecrireStringln(output, "; iinfegal\n"
 				+ "pop bx\n"
 				+ "pop ax\n"
@@ -94,6 +122,44 @@ public class YVMAsm extends YVM {
 				+ "jmp $+4\n"
 				+ "push 0\n");
 	}
-	
-	
+	public void lireSup(){
+		Ecriture.ecrireStringln(output, "; isup\n"
+				+ "pop bx\n"
+				+ "pop ax\n"
+				+ "cmp ax,bx\n"
+				+ "jle $+6\n"
+				+ "push -1\n"
+				+ "jmp $+4\n"
+				+ "push 0\n");
+	}
+	public void lireSupEg(){
+		Ecriture.ecrireStringln(output, "; isupegal\n"
+				+ "pop bx\n"
+				+ "pop ax\n"
+				+ "cmp ax,bx\n"
+				+ "jl $+6\n"
+				+ "push -1\n"
+				+ "jmp $+4\n"
+				+ "push 0\n");
+	}
+	public void lireEgal(){
+		Ecriture.ecrireStringln(output, "; iegal\n"
+				+ "pop bx\n"
+				+ "pop ax\n"
+				+ "cmp ax,bx\n"
+				+ "jne $+6\n"
+				+ "push -1\n"
+				+ "jmp $+4\n"
+				+ "push 0\n");
+	}
+	public void lireDiff(){
+		Ecriture.ecrireStringln(output, "; idiff\n"
+				+ "pop bx\n"
+				+ "pop ax\n"
+				+ "cmp ax,bx\n"
+				+ "je $+6\n"
+				+ "push -1\n"
+				+ "jmp $+4\n"
+				+ "push 0\n");
+	}
 }
