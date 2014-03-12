@@ -51,34 +51,34 @@ public class YVM
 			Ecriture.ecrireStringln(output, "idiv");
 			break;
 		case OU:
-			Ecriture.ecrireStringln(output, "iadd");
+			Ecriture.ecrireStringln(output, "ior");
 			break;
 		case ET:
-			Ecriture.ecrireStringln(output, "isub");
+			Ecriture.ecrireStringln(output, "iand");
 			break;
 		case MOINS:
-			Ecriture.ecrireStringln(output, "imul");
+			Ecriture.ecrireStringln(output, "ineg");
 			break;
 		case NON:
-			Ecriture.ecrireStringln(output, "idiv");
+			Ecriture.ecrireStringln(output, "inot");
 			break;
 		case INF:
-			Ecriture.ecrireStringln(output, "iadd");
+			Ecriture.ecrireStringln(output, "iinf");
 			break;
 		case INFEG:
-			Ecriture.ecrireStringln(output, "isub");
+			Ecriture.ecrireStringln(output, "iinfegal");
 			break;
 		case SUP:
-			Ecriture.ecrireStringln(output, "imul");
+			Ecriture.ecrireStringln(output, "isup");
 			break;
 		case SUPEG:
-			Ecriture.ecrireStringln(output, "idiv");
+			Ecriture.ecrireStringln(output, "isupegal");
 			break;
 		case EG:
-			Ecriture.ecrireStringln(output, "imul");
+			Ecriture.ecrireStringln(output, "iegal");
 			break;
 		case DIF:
-			Ecriture.ecrireStringln(output, "idiv");
+			Ecriture.ecrireStringln(output, "idiff");
 			break;
 		default:
 			System.out.println("Operation non reconnue :-(");
