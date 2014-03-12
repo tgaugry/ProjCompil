@@ -30,6 +30,11 @@ public class YVM
 		Ecriture.ecrireStringln(output, texte);
 	}
 	
+	public void lireImmediat(int i){
+		String texte = "iconst "+i;
+		Ecriture.ecrireStringln(output, texte);
+	}
+	
 	public void lireOperation(Op typeOp) throws IOException{
 		switch(typeOp)
 		{
