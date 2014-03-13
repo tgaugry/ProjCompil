@@ -5,6 +5,7 @@ import Compil.Ecriture;
 
 public class YVM
 {	
+	
 	protected OutputStream output;
 
 	public YVM(String nomFic)
@@ -26,12 +27,61 @@ public class YVM
 		String texte = i.toYVM();
 		Ecriture.ecrireStringln(output, texte);
 	}
+	
+	public void lireOp(Expression.Op op)
+	{
+		switch(op)
+		{
+		case SUP:
+			lireSup();
+			break;
+		case INF:
+			lireInf();
+			break;
+		case SUPEG:
+			lireSupEg();
+			break;
+		case INFEG:
+			lireInfEg();
+			break;
+		case EGAL:
+			lireEg();
+			break;
+		case DIFF:
+			lireDiff();
+			break;
+		case ADD:
+			lireAdd();
+			break;
+		case SOUS:
+			lireSous();
+			break;
+		case OU:
+			lireOu();
+			break;
+		case MUL:
+			lireMul();
+			break;
+		case DIV:
+			lireDiv();
+			break;
+		case ET:
+			lireEt();
+			break;
+		case NEG:
+			lireNeg();
+			break;
+		case NON:
+			lireNon();
+			break;									
+		}
+	}
 
 	public void lireImmediat(int i){
 		String texte = "iconst "+i;
 		Ecriture.ecrireStringln(output, texte);
 	}
-
+	
 	public void lireAdd(){
 		Ecriture.ecrireStringln(output, "iadd");
 	}

@@ -113,21 +113,23 @@ public class Yaka implements YakaConstants {
   }
 
   static final public void valConst() throws ParseException {
+                   String ident1 = YakaTokenManager.identLu;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case entier:
       jj_consume_token(entier);
-                  declaration.declConst(YakaTokenManager.identLu, YakaConstants.ENTIER, YakaTokenManager.entierLu);
+                  declaration.declConst(ident1, YakaConstants.ENTIER, YakaTokenManager.entierLu);
       break;
     case ident:
       jj_consume_token(ident);
+                  declaration.declConst(ident1, YakaTokenManager.identLu);
       break;
     case VRAI:
       jj_consume_token(VRAI);
-                  declaration.declConst(YakaTokenManager.identLu, YakaConstants.BOOLEEN, YakaConstants.VRAI);
+                  declaration.declConst(ident1, YakaConstants.BOOLEEN, YakaConstants.VRAI);
       break;
     case FAUX:
       jj_consume_token(FAUX);
-                  declaration.declConst(YakaTokenManager.identLu, YakaConstants.BOOLEEN, YakaConstants.FAUX);
+                  declaration.declConst(ident1, YakaConstants.BOOLEEN, YakaConstants.FAUX);
       break;
     default:
       jj_la1[3] = jj_gen;
@@ -180,7 +182,6 @@ public class Yaka implements YakaConstants {
  */
   static final public void suiteExpr() throws ParseException {
     expression();
-                       expression.evaluate();
     label_5:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -201,7 +202,6 @@ public class Yaka implements YakaConstants {
       case 43:
       case 51:
         expression();
-                             expression.evaluate();
         break;
       default:
         jj_la1[7] = jj_gen;
@@ -224,6 +224,7 @@ public class Yaka implements YakaConstants {
     case 49:
       opRel();
       simpleExpr();
+                 yvm.lireOp(expression.dernierOp()); expression.evaluate();
       break;
     default:
       jj_la1[8] = jj_gen;
@@ -247,6 +248,7 @@ public class Yaka implements YakaConstants {
       }
       opAdd();
       terme();
+             yvm.lireOp(expression.dernierOp()); expression.evaluate();
     }
   }
 
@@ -266,6 +268,7 @@ public class Yaka implements YakaConstants {
       }
       opMul();
       facteur();
+              yvm.lireOp(expression.dernierOp()); expression.evaluate();
     }
   }
 
@@ -282,6 +285,7 @@ public class Yaka implements YakaConstants {
     case 51:
       opNeg();
       primaire();
+                                yvm.lireOp(expression.dernierOp()); expression.evaluate();
       break;
     default:
       jj_la1[11] = jj_gen;
@@ -315,11 +319,11 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case entier:
       jj_consume_token(entier);
-                 expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);
+             expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);
       break;
     case ident:
       jj_consume_token(ident);
-                 b = true;
+                 expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);
       break;
     case VRAI:
       jj_consume_token(VRAI);
@@ -334,34 +338,33 @@ public class Yaka implements YakaConstants {
       jj_consume_token(-1);
       throw new ParseException();
     }
-  if(b){expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
   }
 
   static final public void opRel() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 42:
       jj_consume_token(42);
-                 expression.addOp(TypeOp.ARLO);
+                 expression.addOp(Op.EGAL);
       break;
     case 45:
       jj_consume_token(45);
-                 expression.addOp(TypeOp.ARLO);yvm.lireDiff();
+                 expression.addOp(Op.DIFF);
       break;
     case 46:
       jj_consume_token(46);
-                 expression.addOp(TypeOp.ARLO);yvm.lireInf();
+                 expression.addOp(Op.INFEG);
       break;
     case 47:
       jj_consume_token(47);
-                 expression.addOp(TypeOp.ARLO);yvm.lireInfEg();
+                 expression.addOp(Op.INFEG);
       break;
     case 48:
       jj_consume_token(48);
-                 expression.addOp(TypeOp.ARLO);yvm.lireSup();
+                 expression.addOp(Op.SUP);
       break;
     case 49:
       jj_consume_token(49);
-                 expression.addOp(TypeOp.ARLO);yvm.lireSupEg();
+                 expression.addOp(Op.SUPEG);
       break;
     default:
       jj_la1[14] = jj_gen;
@@ -374,15 +377,15 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 50:
       jj_consume_token(50);
-                 expression.addOp(TypeOp.ARITH2);yvm.lireAdd();
+                 expression.addOp(Op.ADD);
       break;
     case 51:
       jj_consume_token(51);
-                 expression.addOp(TypeOp.ARITH2);yvm.lireSous();
+                 expression.addOp(Op.SOUS);
       break;
     case OU:
       jj_consume_token(OU);
-                 expression.addOp(TypeOp.LOGIQUE2);yvm.lireOu();
+                 expression.addOp(Op.OU);
       break;
     default:
       jj_la1[15] = jj_gen;
@@ -395,15 +398,15 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 52:
       jj_consume_token(52);
-                 expression.addOp(TypeOp.ARITH2);yvm.lireMul();
+                 expression.addOp(Op.MUL);
       break;
     case 53:
       jj_consume_token(53);
-                 expression.addOp(TypeOp.ARITH2);yvm.lireDiv();
+                 expression.addOp(Op.DIV);
       break;
     case ET:
       jj_consume_token(ET);
-                 expression.addOp(TypeOp.LOGIQUE2);yvm.lireEt();
+                 expression.addOp(Op.ET);
       break;
     default:
       jj_la1[16] = jj_gen;
@@ -416,11 +419,11 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 51:
       jj_consume_token(51);
-                 expression.addOp(TypeOp.ARITH1);yvm.lireNeg();
+                 expression.addOp(Op.NEG);
       break;
     case NON:
       jj_consume_token(NON);
-                 expression.addOp(TypeOp.LOGIQUE1);yvm.lireNon();
+                 expression.addOp(Op.NON);
       break;
     default:
       jj_la1[17] = jj_gen;
