@@ -13,6 +13,13 @@ public class Expression {
 	private Stack<Op>  operateurs;
 	private int typeAffectation;
 	
+	
+	public static class KeyAlreadyThereException extends Exception {
+		public KeyAlreadyThereException(String clef){
+			super("L'identifiant " + clef + " est déclaré plusieurs fois");
+		}
+	}
+	
 	public Expression (){
 		operandes = new Stack<Integer>();
 		operateurs = new Stack<Op>();
