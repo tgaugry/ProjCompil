@@ -56,11 +56,22 @@ public class Yaka {
       tabIdent = new TabIdent();
       analyseur.analyse();
       System.out.println("analyse syntaxique reussie!");
-    } catch (ParseException e) {
-      String msg = e.getMessage();
-      msg = msg.substring(0,msg.indexOf("\n"));
-      System.out.println("Erreur de syntaxe : "+ msg);
     }
+    catch (ParseException e) {
+      	String msg = e.getMessage();
+     	msg = msg.substring(0,msg.indexOf("\n"));
+     	System.out.println("Erreur de syntaxe : "+ msg);
+    }
+    catch (TabIdent.NoSuchKeyException e) {
+		String msg = e.getMessage();
+     	msg = msg.substring(0,msg.indexOf("\n"));
+     	System.out.println(msg);
+    }
+    catch (TabIdent.KeyAlreadyThereException e) {
+		String msg = e.getMessage();
+     	msg = msg.substring(0,msg.indexOf("\n"));
+     	System.out.println(msg);
+    }      
   } 
 }
 
@@ -148,28 +159,28 @@ TOKEN  :
 /**************************************/
 /********debut de la grammaire ********/
 /**************************************/
-void analyse() : {}
+void analyse() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
    <PROGRAMME> <ident>	{yvm.debutProg();}
    bloc()
    <FPROGRAMME> {yvm.finProg();}
 }
 
-void bloc() : {}{
+void bloc() throws TabIdent.KeyAlreadyThereException : {}{
  (declConst())*
  (declVar())* {yvm.ouvrePrinc();}	
    suiteExpr() 
 }
 
-void declConst() : {}{
+void declConst() throws TabIdent.KeyAlreadyThereException: {}{
   <CONST>  defConst() ( "," defConst())* ";"
 }
 
-void defConst() : {}{
+void defConst() throws TabIdent.KeyAlreadyThereException: {}{
   <ident> "=" valConst()
 }
 
-void valConst() : {}{
+void valConst() throws TabIdent.KeyAlreadyThereException : {}{
   <entier> 	 {declaration.declConst(YakaTokenManager.identLu, YakaConstants.ENTIER, YakaTokenManager.entierLu);}
  | <ident>	 
  | <VRAI> 	 {declaration.declConst(YakaTokenManager.identLu, YakaConstants.BOOLEEN, YakaConstants.VRAI);}
@@ -177,7 +188,7 @@ void valConst() : {}{
 }
 
 
-void declVar() : {} {
+void declVar() throws TabIdent.KeyAlreadyThereException : {} {
   <VAR> type()	
   <ident> {declaration.declVar(YakaTokenManager.identLu, type); }		
   ("," 
@@ -244,7 +255,7 @@ void primaire (): {}
  
 }
 
-void valeur () : {Boolean b = false;} { 
+void valeur () throws TabIdent.NoSuchKeyException, TabIdent.KeyAlreadyThereException : {Boolean b = false;} { 
   (<entier> 	{expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}	
  | <ident> 	{b = true;} //Ce bloc est exécuté avant la sauvegarde de identLu, donc l'ajout de lident est exécuté plus bas
  | <VRAI> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.VRAI);}	

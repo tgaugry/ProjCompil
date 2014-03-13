@@ -2,6 +2,8 @@ package Compil;
 
 import java.util.Stack;
 
+import Compil.TabIdent.NoSuchKeyException;
+
 public class Expression {
 	public enum TypeOp {ARITH2, LOGIQUE2, ARITH1, LOGIQUE1, ARLO }
 	private Stack<Integer> operandes; //prend ses valeurs dans YakaConstants
@@ -20,7 +22,7 @@ public class Expression {
 		operateurs.push(t);
 	}
 	
-	public void addIdent(String identName) {
+	public void addIdent(String identName) throws NoSuchKeyException {
 		Ident i = Yaka.tabIdent.chercherIdent(identName);
 		operandes.push(i.getType());
 	}

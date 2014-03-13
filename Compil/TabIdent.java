@@ -3,18 +3,34 @@ package Compil;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-public class TabIdent
-{
+public class TabIdent {
+	
 	private HashMap<String,Ident> table;
+	
+	public static class NoSuchKeyException extends Exception {
+		public NoSuchKeyException(String clef){
+			super("L'identifiant "+ clef + " n'existe pas");
+		}
+	}
+	
+	public static class KeyAlreadyThereException extends Exception {
+		public KeyAlreadyThereException(String clef){
+			super("L'identifiant " + clef + " est déclaré plusieurs fois");
+		}
+	}
 	
 	public TabIdent()
 	{
 		table = new HashMap<String,Ident>();
 	}
 	
-	public Ident chercherIdent(String clef)
-	{
-		return table.get(clef);
+	public Ident chercherIdent(String clef) throws NoSuchKeyException
+	{	
+		Ident i = table.get(clef); 
+		if (i == null){
+			throw new NoSuchKeyException(clef);
+		}
+		return i;
 	}
 	
 	public boolean existeIdent(String clef)
@@ -22,8 +38,12 @@ public class TabIdent
 		return table.containsKey(clef);
 	}
 	
-	public void rangeIdent(String clef, Ident id)
+	public void rangeIdent(String clef, Ident id) throws KeyAlreadyThereException
 	{
+		Ident i = table.get(clef); 
+		if (i == null){
+			throw new KeyAlreadyThereException(clef);
+		}
 		table.put(clef, id);
 	}
 	
