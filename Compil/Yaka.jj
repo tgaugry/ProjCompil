@@ -37,7 +37,7 @@ public class Yaka {
       System.out.print(args[args.length-1] + ": ");
       try {
         input = new java.io.FileInputStream(args[args.length-1]+".yaka");
-        yvm = new YVMAsm(args[args.length-1]+".yvm");
+        yvm = new YVM(args[args.length-1]+".yvm");
       } catch (java.io.FileNotFoundException e) {
         System.out.println("Fichier introuvable.");
         return;
@@ -47,7 +47,7 @@ public class Yaka {
       System.out.print(args[args.length-1] + ": ");
       try {
         input = new java.io.FileInputStream(args[args.length-1]+".yaka");
-        if (args[0] == "asm")
+        if (args[0].equals("asm"))
         	yvm = new YVMAsm(args[args.length-1]+".asm");
         else
         	yvm = new YVM(args[args.length-1]+".yvm");
