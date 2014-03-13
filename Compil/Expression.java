@@ -15,8 +15,15 @@ public class Expression {
 	
 	
 	public static class IncorrectTypeException extends Exception {
-		public IncorrectTypeException(){
-			super("Type incorrect");
+		private static final long serialVersionUID = 1L;
+		public IncorrectTypeException(String s){
+			super("Type incorrect, "+ s +" était attendu");
+		}
+	}
+	public static class OperandeManquanteException extends Exception {
+		private static final long serialVersionUID = 1L;
+		public OperandeManquanteException(){
+			super("Operande Manquante");
 		}
 	}
 	
@@ -43,16 +50,17 @@ public class Expression {
 		typeAffectation = i.getType();
 		
 	}
-	public boolean evaluerAffectation() {
+	
+public boolean evaluerAffectation() {
 		return typeAffectation == operandes.pop();
 	}
 	
-	public boolean evaluate() {
+	public boolean evaluate() throws OperandeManquanteException, IncorrectTypeException {
 		Op operaeurSom;
 		int n1, n2;
 		if(operateurs.empty()) {
 			if (operandes.size() == 1) {return true;}
-			else {return false;}
+			else {throw new OperandeManquanteException();}
 		}
 		else {
 			operaeurSom = operateurs.pop();
@@ -64,8 +72,9 @@ public class Expression {
 						operandes.push(YakaConstants.ENTIER);
 						return evaluate();
 					}
+					else { throw new IncorrectTypeException("1 INT");}
 				}
-				break;
+				throw new OperandeManquanteException();
 			case ADD :case SOUS :case MUL :case DIV :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -74,8 +83,9 @@ public class Expression {
 						operandes.push(YakaConstants.ENTIER);
 						return evaluate();
 					}
+					else { throw new IncorrectTypeException("2 INT");}
 				}
-				break;
+				throw new OperandeManquanteException();
 			case NON :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
@@ -83,8 +93,9 @@ public class Expression {
 						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
+					else { throw new IncorrectTypeException("1 BOOL");}
 				}
-				break;
+				throw new OperandeManquanteException();
 			case OU :case ET :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -93,8 +104,9 @@ public class Expression {
 						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
+					else { throw new IncorrectTypeException("2 BOOL");}
 				}
-				break;
+				throw new OperandeManquanteException();
 			case INF :case SUP :case INFEG :case SUPEG :case DIFF :case EGAL :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -103,8 +115,9 @@ public class Expression {
 						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
+					else { throw new IncorrectTypeException(" 2 INT");}
 				}
-				break;
+				throw new OperandeManquanteException();
 			default:
 				break;
 			}
