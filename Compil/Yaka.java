@@ -39,17 +39,29 @@ public class Yaka implements YakaConstants {
       tabIdent = new TabIdent();
       analyseur.analyse();
       System.out.println("analyse syntaxique reussie!");
-    } catch (ParseException e) {
-      String msg = e.getMessage();
-      msg = msg.substring(0,msg.indexOf("\u005cn"));
-      System.out.println("Erreur de syntaxe : "+ msg);
     }
+    catch (ParseException e) {
+        String msg = e.getMessage();
+        msg = msg.substring(0,msg.indexOf("\u005cn"));
+        System.out.println("Erreur de syntaxe : "+ msg);
+    }
+    catch (TabIdent.NoSuchKeyException e) {
+                String msg = e.getMessage();
+        msg = msg.substring(0,msg.indexOf("\u005cn"));
+        System.out.println(msg);
+    }
+    catch (TabIdent.KeyAlreadyThereException e) {
+                String msg = e.getMessage();
+        msg = msg.substring(0,msg.indexOf("\u005cn"));
+        System.out.println(msg);
+    }
+
   }
 
 /**************************************/
 /********debut de la grammaire ********/
 /**************************************/
-  static final public void analyse() throws ParseException {
+  static final public void analyse() throws ParseException, TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException {
     jj_consume_token(PROGRAMME);
     jj_consume_token(ident);
                          yvm.debutProg();
@@ -58,7 +70,7 @@ public class Yaka implements YakaConstants {
                  yvm.finProg();
   }
 
-  static final public void bloc() throws ParseException {
+  static final public void bloc() throws ParseException, TabIdent.KeyAlreadyThereException {
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -87,7 +99,7 @@ public class Yaka implements YakaConstants {
     suiteExpr();
   }
 
-  static final public void declConst() throws ParseException {
+  static final public void declConst() throws ParseException, TabIdent.KeyAlreadyThereException {
     jj_consume_token(CONST);
     defConst();
     label_3:
@@ -106,13 +118,13 @@ public class Yaka implements YakaConstants {
     jj_consume_token(41);
   }
 
-  static final public void defConst() throws ParseException {
+  static final public void defConst() throws ParseException, TabIdent.KeyAlreadyThereException {
     jj_consume_token(ident);
     jj_consume_token(42);
     valConst();
   }
 
-  static final public void valConst() throws ParseException {
+  static final public void valConst() throws ParseException, TabIdent.KeyAlreadyThereException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case entier:
       jj_consume_token(entier);
@@ -136,7 +148,7 @@ public class Yaka implements YakaConstants {
     }
   }
 
-  static final public void declVar() throws ParseException {
+  static final public void declVar() throws ParseException, TabIdent.KeyAlreadyThereException {
     jj_consume_token(VAR);
     type();
     jj_consume_token(ident);
@@ -310,8 +322,8 @@ public class Yaka implements YakaConstants {
     }
   }
 
-  static final public void valeur() throws ParseException {
-                  Boolean b = false;
+  static final public void valeur() throws ParseException, TabIdent.NoSuchKeyException, TabIdent.KeyAlreadyThereException {
+                                                                                        Boolean b = false;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case entier:
       jj_consume_token(entier);
