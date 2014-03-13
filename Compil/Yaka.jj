@@ -250,7 +250,7 @@ void lecture() throws TabIdent.NoSuchKeyException: {}
 	")"
 }
 
-void ecriture() : {}
+void ecriture() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
     (<ECRIRE> "(" 
         (expression() {/*yvm.ecrireExpr() ;*/}
