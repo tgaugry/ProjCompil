@@ -233,9 +233,9 @@ void instruction() : {}
 
 void affectation() : {}
 {
-    <ident> {expression.stockeIdent(YakaTokenManager.identLu);} 
+    <ident> {/*expression.stockeIdent(YakaTokenManager.identLu);*/} 
     "=" 
-    expression() {expression.affectation(); }
+    expression() {/*expression.affectation();*/ }
 }
 
 /*
