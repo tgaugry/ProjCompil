@@ -51,8 +51,10 @@ public class Expression {
 
 	}
 
-	public boolean evaluerAffectation() {
-		return typeAffectation == operandes.pop();
+	public void evaluerAffectation() throws IncorrectTypeException{
+		if (typeAffectation != operandes.pop()) {
+			throw new IncorrectTypeException("1 " + ((typeAffectation == YakaConstants.BOOLEEN) ? "BOOL" : "INT"));
+		}
 	}
 
 	public void evaluate() throws OperandeManquanteException, IncorrectTypeException {
