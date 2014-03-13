@@ -10,8 +10,7 @@ public class Declaration {
 		Yaka.tabIdent.rangeIdent (nom, id);
 	}
 	
-	public void declConst(String nom, String nomBis)
-	{
+	public void declConst(String nom, String nomBis) throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException {
 		IdConst id = new IdConst(Yaka.tabIdent.chercherIdent(nomBis));
 		Yaka.tabIdent.rangeIdent (nom, id);
 	}

@@ -107,12 +107,10 @@ public class Expression {
 	
 	public Op dernierOp()
 	{
-		try
-		{
-		return operateurs.peek();
+		try {
+			return operateurs.peek();
 		}
-		catch(EmptyStackException e)
-		{
+		catch(EmptyStackException e) {
 			return Op.EGAL;
 		}
 	}

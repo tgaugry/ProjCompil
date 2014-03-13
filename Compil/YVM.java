@@ -165,7 +165,7 @@ public class YVM
 	/*public void ecrireExpr(){
 		int type = Yaka.expression.getLastPileType();
 		switch (type){
-			case YBOOLEEN :
+			case BOOLEEN :
 				ecrireBool();
 				break;
 			case ENTIER :
