@@ -92,4 +92,52 @@ public class YVM
 		Ecriture.ecrireStringln(output, "queue");
 		Ecriture.fermer(output);
 	}
+	
+	public void ecrireEnt() {
+		Ecriture.ecrireStringln(file, "ecrireEnt");
+	}
+	
+	public void ecrireBool() {
+		Ecriture.ecrireStringln(file, "ecrireBool");
+	}
+	
+	/**
+	 * Choisit d'appeler ecrireEnt ou ecrireBool suivant le type de l'expression (en haut de la pile)
+	 */
+	
+	public void ecrireExpr(){
+		int type = Yaka.expression.getLastPileType();
+		switch (type){
+			case BOOLEEN :
+				ecrireBool();
+				break;
+			case ENTIER :
+				ecrireEnt();
+				break;
+			case ERREUR :
+				System.out.println("Expression non valide. ");
+				break;
+			default :
+				System.out.println("Probleme de type d'expression. ");
+				break ;		
+		}
+	}
+	
+	public void ecrireChaine(String s) {
+		Ecriture.ecrireStringln(file, "ecrireChaine " + s);
+	}
+	
+	public void aLaLigne() {
+		Ecriture.ecrireStringln(file, "aLaLigne");
+	}
+
+	public void lireEnt(String id) {
+		Ident i = Yaka.tabIdent.chercheIdent(id) ;
+		if(i.estIdVar()){
+			Ecriture.ecrireStringln(file, "lireEnt " + i.getParam());
+		}
+		else{
+			System.out.println("Affectation d'une nouvelle valeur a une constante :(");
+		}
+	}
 }
