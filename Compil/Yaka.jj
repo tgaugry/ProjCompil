@@ -149,12 +149,12 @@ void analyse() : {}
 {
    <PROGRAMME> <ident>	{yvm.debutProg();}
    bloc()
-   <FPROGRAMME> 
+   <FPROGRAMME> {yvm.finProg();}
 }
 
 void bloc() : {}{
  (declConst())*
- (declVar())*		
+ (declVar())* {yvm.ouvrePrinc();}	
    suiteExpr() 
 }
 
@@ -242,39 +242,39 @@ void primaire (): {}
 }
 
 void valeur () : {} { 
-  <entier> 	{expression.addImmediate(TypeVar.INT);}	
- | <ident> 	{expression.addIdent(YakaTokenManager.identLu);}	
- | <VRAI> 	{expression.addImmediate(TypeVar.BOOL);}	
- | <FAUX> 	{expression.addImmediate(TypeVar.BOOL);}	
+  <entier> 	{expression.addImmediate(TypeVar.INT); yvm.lireImmediat(YakaTokenManager.entierlu);}	
+ | <ident> 	{expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}	
+ | <VRAI> 	{expression.addImmediate(TypeVar.BOOL); yvm.lireImmediat(YakaConstants.VRAI);}	
+ | <FAUX> 	{expression.addImmediate(TypeVar.BOOL); yvm.lireImmediat(YakaConstants.FAUX);}	
 }
 
 void opRel() : {} {
    "=" 		{expression.addOp(TypeOp.ARLO);}
- | "<>" 	{expression.addOp(TypeOp.ARLO);}
- | "<" 		{expression.addOp(TypeOp.ARLO);}
- | "<=" 	{expression.addOp(TypeOp.ARLO);}
- | ">" 		{expression.addOp(TypeOp.ARLO);}
- | ">=" 	{expression.addOp(TypeOp.ARLO);}
+ | "<>" 	{expression.addOp(TypeOp.ARLO);yvm.lireOperation(YVM.Op.DIF);}
+ | "<" 		{expression.addOp(TypeOp.ARLO);yvm.lireOperation(YVM.Op.INF);}
+ | "<=" 	{expression.addOp(TypeOp.ARLO);yvm.lireOperation(YVM.Op.INFEG);}
+ | ">" 		{expression.addOp(TypeOp.ARLO);yvm.lireOperation(YVM.Op.SUP);}
+ | ">=" 	{expression.addOp(TypeOp.ARLO);yvm.lireOperation(YVM.Op.SUPEG);}
 } 
 
 void opAdd() : {}
 {
-    "+"		{expression.addOp(TypeOp.ARITH2);}
-  |  "-"  	{expression.addOp(TypeOp.ARITH2);}
-  | <OU> 	{expression.addOp(TypeOp.LOGIQUE2);}
+    "+"		{expression.addOp(TypeOp.ARITH2);yvm.lireOperation(YVM.Op.ADD);}
+  |  "-"  	{expression.addOp(TypeOp.ARITH2);yvm.lireOperation(YVM.Op.SOUS);}
+  | <OU> 	{expression.addOp(TypeOp.LOGIQUE2);yvm.lireOperation(YVM.Op.OU);}
 }
 
 void opMul() : {}
 {
-  "*"		{expression.addOp(TypeOp.ARITH2);}
-  | "/"		{expression.addOp(TypeOp.ARITH2);}
-  | <ET>	{expression.addOp(TypeOp.LOGIQUE2);}
+  "*"		{expression.addOp(TypeOp.ARITH2);yvm.lireOperation(YVM.Op.MUL);}
+  | "/"		{expression.addOp(TypeOp.ARITH2);yvm.lireOperation(YVM.Op.DIV);}
+  | <ET>	{expression.addOp(TypeOp.LOGIQUE2);yvm.lireOperation(YVM.Op.ET);}
 } 
 
 void opNeg() : {}
 { 
-   "-" 		{expression.addOp(TypeOp.ARITH1);}
- | <NON>	{expression.addOp(TypeOp.LOGIQUE1);}
+   "-" 		{expression.addOp(TypeOp.ARITH1);yvm.lireOperation(YVM.Op.MOINS);}
+ | <NON>	{expression.addOp(TypeOp.LOGIQUE1);yvm.lireOperation(YVM.Op.NON);}
 }
 
 
