@@ -18,16 +18,15 @@ PARSER_BEGIN(Yaka)
 
 package Compil;
 
-import Compil.Ident.*;
+
 import Compil.Expression.*;
-import Compil.Declaration.*;
 
 
 public class Yaka {
 	public static Declaration declaration;
 	public static TabIdent tabIdent;
 	public static Expression expression;
-	public static TypeVar type;
+	public static int type; //prend ses valeurs dans YakaConstants
 	public static YVM yvm;
 
   public static void main(String args[]) { 
@@ -38,6 +37,7 @@ public class Yaka {
       System.out.print(args[args.length-1] + ": ");
       try {
         input = new java.io.FileInputStream(args[args.length-1]+".yaka");
+        yvm = new YVM(args[args.length-1]+".yvm");
       } catch (java.io.FileNotFoundException e) {
         System.out.println("Fichier introuvable.");
         return;
@@ -51,13 +51,28 @@ public class Yaka {
     }
     try {
       analyseur = new Yaka(input);
+      declaration = new Declaration();
+      expression = new Expression();
+      tabIdent = new TabIdent();
       analyseur.analyse();
       System.out.println("analyse syntaxique reussie!");
-    } catch (ParseException e) {
-      String msg = e.getMessage();
-      msg = msg.substring(0,msg.indexOf("\n"));
-      System.out.println("Erreur de syntaxe : "+msg);
     }
+    catch (ParseException e) {
+      	String msg = e.getMessage();
+     	msg = msg.substring(0,msg.indexOf("\n"));
+     	System.out.println("Erreur de syntaxe : "+ msg);
+    }
+    catch (TabIdent.NoSuchKeyException e) {
+		String msg = e.getMessage();
+     	msg = msg.substring(0,msg.indexOf("\n"));
+     	System.out.println(msg);
+    }
+    catch (TabIdent.KeyAlreadyThereException e) {
+		String msg = e.getMessage();
+     	msg = msg.substring(0,msg.indexOf("\n"));
+     	System.out.println(msg);
+    }
+      
   } 
 }
 
@@ -145,36 +160,36 @@ TOKEN  :
 /**************************************/
 /********debut de la grammaire ********/
 /**************************************/
-void analyse() : {}
+void analyse() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
    <PROGRAMME> <ident>	{yvm.debutProg();}
    bloc()
-   <FPROGRAMME> 
+   <FPROGRAMME> {yvm.finProg();}
 }
 
-void bloc() : {}{
+void bloc() throws TabIdent.KeyAlreadyThereException : {}{
  (declConst())*
- (declVar())*		
+ (declVar())* {yvm.ouvrePrinc();}	
    suiteExpr() 
 }
 
-void declConst() : {}{
+void declConst() throws TabIdent.KeyAlreadyThereException: {}{
   <CONST>  defConst() ( "," defConst())* ";"
 }
 
-void defConst() : {}{
-  <ident> "=" valConst() {declaration.declConst(YakaTokenManager.identLu, YakaTokenManager.entierLu);}
+void defConst() throws TabIdent.KeyAlreadyThereException: {}{
+  <ident> "=" valConst()
 }
 
-void valConst() : {}{
-  <entier> 		
- | <ident>		
- | <VRAI> 		
- | <FAUX> 		
+void valConst() throws TabIdent.KeyAlreadyThereException : {}{
+  <entier> 	 {declaration.declConst(YakaTokenManager.identLu, YakaConstants.ENTIER, YakaTokenManager.entierLu);}
+ | <ident>	 
+ | <VRAI> 	 {declaration.declConst(YakaTokenManager.identLu, YakaConstants.BOOLEEN, YakaConstants.VRAI);}
+ | <FAUX> 	 {declaration.declConst(YakaTokenManager.identLu, YakaConstants.BOOLEEN, YakaConstants.FAUX);}
 }
 
 
-void declVar() : {} {
+void declVar() throws TabIdent.KeyAlreadyThereException : {} {
   <VAR> type()	
   <ident> {declaration.declVar(YakaTokenManager.identLu, type); }		
   ("," 
@@ -185,8 +200,8 @@ void declVar() : {} {
 
 
 void type() :{} {
-   <ENTIER>  {type = TypeVar.INT;}			
- | <BOOLEEN> {type = TypeVar.BOOL;}	
+   <ENTIER>  {type = YakaConstants.ENTIER;}			
+ | <BOOLEEN> {type = YakaConstants.BOOLEEN;}	
 }
 /*
  * Syntaxe des instructions.
@@ -199,7 +214,50 @@ void suiteExpr() : {}
 	//(";" (expression())? )*)?
 }
 
+/*
+ *Affectations
+ */
 
+void suiteInstr() : {}
+{
+    instruction() 
+    (";" (instruction())? )*
+}
+
+void instruction() : {}
+{
+      affectation()
+    | lecture()
+    | ecriture()
+}
+
+void affectation() : {}
+{
+    <ident> {expression.stockeIdent(YakaTokenManager.identLu);} 
+    "=" 
+    expression() {expression.affectation(); }
+}
+
+/*
+ * Entrees/sorties
+ */
+ 
+void lecture() : {}
+{
+    <LIRE> 
+	"("
+	<ident> {yvm.lireEnt(YakaTokenManager.identLu) ;}
+	")"
+}
+
+void ecriture() : {}
+{
+    (<ECRIRE> "(" 
+        (expression() {yvm.ecrireExpr() ;}
+        | <chaine> {yvm.ecrireChaine(YakaTokenManager.chaineLue) ;})
+		")")
+    | <ALALIGNE> {yvm.aLaLigne() ;}
+}
 
 /*
  * Expression .
@@ -241,40 +299,41 @@ void primaire (): {}
  
 }
 
-void valeur () : {} { 
-  <entier> 	{expression.addImmediate(TypeVar.INT);}	
- | <ident> 	{expression.addIdent(YakaTokenManager.identLu);}	
- | <VRAI> 	{expression.addImmediate(TypeVar.BOOL);}	
- | <FAUX> 	{expression.addImmediate(TypeVar.BOOL);}	
+void valeur () throws TabIdent.NoSuchKeyException, TabIdent.KeyAlreadyThereException : {Boolean b = false;} { 
+  (<entier> 	{expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}	
+ | <ident> 	{b = true;} //Ce bloc est exécuté avant la sauvegarde de identLu, donc l'ajout de lident est exécuté plus bas
+ | <VRAI> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.VRAI);}	
+ | <FAUX> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.FAUX);})	
+ {if(b){expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}} //cas ou on lit un ident
 }
 
 void opRel() : {} {
    "=" 		{expression.addOp(TypeOp.ARLO);}
- | "<>" 	{expression.addOp(TypeOp.ARLO);}
- | "<" 		{expression.addOp(TypeOp.ARLO);}
- | "<=" 	{expression.addOp(TypeOp.ARLO);}
- | ">" 		{expression.addOp(TypeOp.ARLO);}
- | ">=" 	{expression.addOp(TypeOp.ARLO);}
+ | "<>" 	{expression.addOp(TypeOp.ARLO);yvm.lireDiff();}
+ | "<" 		{expression.addOp(TypeOp.ARLO);yvm.lireInf();}
+ | "<=" 	{expression.addOp(TypeOp.ARLO);yvm.lireInfEg();}
+ | ">" 		{expression.addOp(TypeOp.ARLO);yvm.lireSup();}
+ | ">=" 	{expression.addOp(TypeOp.ARLO);yvm.lireSupEg();}
 } 
 
 void opAdd() : {}
 {
-    "+"		{expression.addOp(TypeOp.ARITH2);}
-  |  "-"  	{expression.addOp(TypeOp.ARITH2);}
-  | <OU> 	{expression.addOp(TypeOp.LOGIQUE2);}
+    "+"		{expression.addOp(TypeOp.ARITH2);yvm.lireAdd();}
+  |  "-"  	{expression.addOp(TypeOp.ARITH2);yvm.lireSous();}
+  | <OU> 	{expression.addOp(TypeOp.LOGIQUE2);yvm.lireOu();}
 }
 
 void opMul() : {}
 {
-  "*"		{expression.addOp(TypeOp.ARITH2);}
-  | "/"		{expression.addOp(TypeOp.ARITH2);}
-  | <ET>	{expression.addOp(TypeOp.LOGIQUE2);}
+  "*"		{expression.addOp(TypeOp.ARITH2);yvm.lireMul();}
+  | "/"		{expression.addOp(TypeOp.ARITH2);yvm.lireDiv();}
+  | <ET>	{expression.addOp(TypeOp.LOGIQUE2);yvm.lireEt();}
 } 
 
 void opNeg() : {}
 { 
-   "-" 		{expression.addOp(TypeOp.ARITH1);}
- | <NON>	{expression.addOp(TypeOp.LOGIQUE1);}
+   "-" 		{expression.addOp(TypeOp.ARITH1);yvm.lireNeg();}
+ | <NON>	{expression.addOp(TypeOp.LOGIQUE1);yvm.lireNon();}
 }
 
 

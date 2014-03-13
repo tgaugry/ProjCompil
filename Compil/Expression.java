@@ -2,85 +2,85 @@ package Compil;
 
 import java.util.Stack;
 
-import Compil.Ident.TypeVar;
+import Compil.TabIdent.NoSuchKeyException;
 
 public class Expression {
 	public enum TypeOp {ARITH2, LOGIQUE2, ARITH1, LOGIQUE1, ARLO }
-	private Stack<TypeVar> operateurs;
-	private Stack<TypeOp>  operandes;
+	private Stack<Integer> operandes; //prend ses valeurs dans YakaConstants
+	private Stack<TypeOp>  operateurs;
 	
 	public Expression (){
-		operateurs = new Stack<TypeVar>();
-		operandes = new Stack<TypeOp>();
+		operandes = new Stack<Integer>();
+		operateurs = new Stack<TypeOp>();
 	}
 	
-	public void addImmediate(TypeVar t) {
-		operateurs.push(t);
-	}
-	
-	public void addOp(TypeOp t) {
+	public void addImmediate(int t) {
 		operandes.push(t);
 	}
 	
-	public void addIdent(String identName) {
+	public void addOp(TypeOp t) {
+		operateurs.push(t);
+	}
+	
+	public void addIdent(String identName) throws NoSuchKeyException {
 		Ident i = Yaka.tabIdent.chercherIdent(identName);
-		operateurs.push(i.getType());
+		operandes.push(i.getType());
 	}
 	
 	public boolean evaluate() {
 		TypeOp operande;
-		TypeVar n1, n2;
-		if(operandes.empty()) {
-			if (operateurs.size() == 1) {return true;}
+		int n1, n2;
+		if(operateurs.empty()) {
+			if (operandes.size() == 1) {return true;}
 			else {return false;}
 		}
 		else {
-			operande = operandes.pop();
+			operande = operateurs.pop();
 			switch (operande) {
 			case ARITH1 :
-				if (operateurs.size() >= 1) {
-					n1 = operateurs.pop();
-					if(n1 == TypeVar.INT){
-						operateurs.push(TypeVar.INT);
+				if (operandes.size() >= 1) {
+					n1 = operandes.pop();
+					if(n1 == YakaConstants.ENTIER){
+						operandes.push(YakaConstants.ENTIER);
 						return evaluate();
 					}
 				}
 				break;
 			case ARITH2 :
-				if (operateurs.size() >= 2) {
-					n1 = operateurs.pop();
-					n2 = operateurs.pop();
-					if(n1 == TypeVar.INT && n2 == TypeVar.INT){
-						operateurs.push(TypeVar.INT);
+				if (operandes.size() >= 2) {
+					n1 = operandes.pop();
+					n2 = operandes.pop();
+					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
+						operandes.push(YakaConstants.ENTIER);
 						return evaluate();
 					}
 				}
 				break;
 			case LOGIQUE1 :
-				if (operateurs.size() >= 1) {
-					n1 = operateurs.pop();
-					if(n1 == TypeVar.BOOL){
-						operateurs.push(TypeVar.BOOL);
+				if (operandes.size() >= 1) {
+					n1 = operandes.pop();
+					if(n1 == YakaConstants.BOOLEEN){
+						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
 				}
 				break;
 			case LOGIQUE2 :
-				if (operateurs.size() >= 2) {
-					n1 = operateurs.pop();
-					n2 = operateurs.pop();
-					if(n1 == TypeVar.BOOL && n2 == TypeVar.BOOL){
-						operateurs.push(TypeVar.BOOL);
+				if (operandes.size() >= 2) {
+					n1 = operandes.pop();
+					n2 = operandes.pop();
+					if(n1 == YakaConstants.BOOLEEN && n2 == YakaConstants.BOOLEEN){
+						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
 				}
 				break;
 			case ARLO :
-				if (operateurs.size() >= 2) {
-					n1 = operateurs.pop();
-					n2 = operateurs.pop();
-					if(n1 == TypeVar.INT && n2 == TypeVar.INT){
-						operateurs.push(TypeVar.BOOL);
+				if (operandes.size() >= 2) {
+					n1 = operandes.pop();
+					n2 = operandes.pop();
+					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
+						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
 				}
