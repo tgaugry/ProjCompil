@@ -15,8 +15,15 @@ public class Expression {
 	
 	
 	public static class IncorrectTypeException extends Exception {
-		public IncorrectTypeException(){
-			super("Type incorrect");
+		private static final long serialVersionUID = 1L;
+		public IncorrectTypeException(String s){
+			super("Type incorrect, "+ s +" était attendu");
+		}
+	}
+	public static class OperandeManquanteException extends Exception {
+		private static final long serialVersionUID = 1L;
+		public OperandeManquanteException(){
+			super("Operande Manquante");
 		}
 	}
 	
@@ -47,12 +54,12 @@ public class Expression {
 		return typeAffectation == operandes.pop();
 	}
 	
-	public boolean evaluate() {
+	public boolean evaluate() throws OperandeManquanteException, IncorrectTypeException {
 		Op operande;
 		int n1, n2;
 		if(operateurs.empty()) {
 			if (operandes.size() == 1) {return true;}
-			else {return false;}
+			else {throw new OperandeManquanteException();}
 		}
 		else {
 			operande = operateurs.pop();
@@ -64,6 +71,7 @@ public class Expression {
 						operandes.push(YakaConstants.ENTIER);
 						return evaluate();
 					}
+					else { throw new IncorrectTypeException("1 INT");}
 				}
 				break;
 			case ADD :case SOUS :case MUL :case DIV :
@@ -74,6 +82,7 @@ public class Expression {
 						operandes.push(YakaConstants.ENTIER);
 						return evaluate();
 					}
+					else { throw new IncorrectTypeException("2 INT");}
 				}
 				break;
 			case NON :
@@ -83,6 +92,7 @@ public class Expression {
 						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
+					else { throw new IncorrectTypeException("1 BOOL");}
 				}
 				break;
 			case OU :case ET :
@@ -93,6 +103,7 @@ public class Expression {
 						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
+					else { throw new IncorrectTypeException("2 BOOL");}
 				}
 				break;
 			case INF :case SUP :case INFEG :case SUPEG :case DIFF :case EGAL :
@@ -103,6 +114,7 @@ public class Expression {
 						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
+					else { throw new IncorrectTypeException(" 2 INT");}
 				}
 				break;
 			default:
