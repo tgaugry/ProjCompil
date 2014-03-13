@@ -4,19 +4,37 @@ import Compil.TabIdent.KeyAlreadyThereException;
 
 public class Declaration {
 
-	public void declConst(String nom, int type, int val) throws KeyAlreadyThereException
+	public void declConst(String nom, int type, int val)
 	{
-		IdConst id = new IdConst(type, val);
-		Yaka.tabIdent.rangeIdent (nom, id);
+		try {
+			IdConst id = new IdConst(type, val);
+			Yaka.tabIdent.rangeIdent (nom, id);
+		}
+		catch (Exception e){
+			System.out.println(e.getMessage());
+			Yaka.nbErreurs++;
+		}
 	}
 	
-	public void declConst(String nom, String nomBis) throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException {
-		IdConst id = new IdConst(Yaka.tabIdent.chercherIdent(nomBis));
-		Yaka.tabIdent.rangeIdent (nom, id);
+	public void declConst(String nom, String nomBis) {
+		try {
+			IdConst id = new IdConst(Yaka.tabIdent.chercherIdent(nomBis));
+			Yaka.tabIdent.rangeIdent (nom, id);
+		}
+		catch (Exception e){
+			System.out.println(e.getMessage());
+			Yaka.nbErreurs++;
+		}
 	}
 	
-	public void declVar(String nom, int type) throws KeyAlreadyThereException {
-		IdVar id = new IdVar(type);
-		Yaka.tabIdent.rangeIdent (nom, id);
+	public void declVar(String nom, int type) {
+		try {
+			IdVar id = new IdVar(type);
+			Yaka.tabIdent.rangeIdent (nom, id);
+		}
+		catch (Exception e){
+			System.out.println(e.getMessage());
+			Yaka.nbErreurs++;
+		}
 	}
 }

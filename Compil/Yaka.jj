@@ -28,8 +28,10 @@ public class Yaka {
 	public static Expression expression;
 	public static int type; //prend ses valeurs dans YakaConstants
 	public static YVM yvm;
+	public static int nbErreurs;
 	
   public static void main(String args[]) { 
+  	nbErreurs = 0;
     Yaka analyseur;
     java.io.InputStream input;
 	System.out.println(args);
@@ -71,13 +73,15 @@ public class Yaka {
       expression = new Expression();
       tabIdent = new TabIdent();
       analyseur.analyse();
-      System.out.println("analyse syntaxique reussie!");
     }
     catch (ParseException e) {
       	String msg = e.getMessage();
      	msg = msg.substring(0,msg.indexOf("\n"));
      	System.out.println("Erreur de syntaxe : "+ msg);
     }
+      if (nbErreurs == 0) {
+      	System.out.println("analyse syntaxique reussie!");
+      }
           
   } 
 }
@@ -189,18 +193,18 @@ void defConst() : {}{
 }
 
 void valConst() : {String ident1 = YakaTokenManager.identLu;}{
-  <entier> 	 {try {declaration.declConst(ident1, YakaConstants.ENTIER, YakaTokenManager.entierLu);}catch (Exception e) {System.out.println(e.getMessage());}}
- | <ident>	 {try {declaration.declConst(ident1, YakaTokenManager.identLu);}catch (Exception e) {System.out.println(e.getMessage());}}
- | <VRAI> 	 {try {declaration.declConst(ident1, YakaConstants.BOOLEEN, YVM.vrai);}catch (Exception e) {System.out.println(e.getMessage());}}
- | <FAUX> 	 {try {declaration.declConst(ident1, YakaConstants.BOOLEEN, YVM.faux);}catch (Exception e) {System.out.println(e.getMessage());}}
+  <entier> 	 {declaration.declConst(ident1, YakaConstants.ENTIER, YakaTokenManager.entierLu);}
+ | <ident>	 {declaration.declConst(ident1, YakaTokenManager.identLu);}
+ | <VRAI> 	 {declaration.declConst(ident1, YakaConstants.BOOLEEN, YVM.vrai);}
+ | <FAUX> 	 {declaration.declConst(ident1, YakaConstants.BOOLEEN, YVM.faux);}
 }
 
 
 void declVar() : {} {
   <VAR> type()	
-  <ident> { try {declaration.declVar(YakaTokenManager.identLu, type); }	catch (Exception e) {System.out.println(e.getMessage());}}	
+  <ident> { declaration.declVar(YakaTokenManager.identLu, type); }
   ("," 
-      <ident>  {try {declaration.declVar(YakaTokenManager.identLu, type);}catch (Exception e) {System.out.println(e.getMessage());}}
+      <ident>  {declaration.declVar(YakaTokenManager.identLu, type);}
   )* ";"
 	
 }
@@ -240,9 +244,9 @@ void instruction() : {}
 
 void affectation() : {}
 {
-    <ident> {String ident = YakaTokenManager.identLu; try {expression.stockeAffectation(ident);} catch (Exception e) {System.out.println(e.getMessage());}}
+    <ident> {String ident = YakaTokenManager.identLu;expression.stockeAffectation(ident);}
     "=" 
-    expression() { try {expression.evaluerAffectation();yvm.affecter(ident);}catch (Exception e) {System.out.println(e.getMessage());}}
+    expression() {expression.evaluerAffectation();yvm.affecter(ident);}
 }
 
 /*
@@ -253,17 +257,17 @@ void lecture() : {}
 {
     <LIRE> 
 	"("
-	<ident> { try {yvm.lireEnt(YakaTokenManager.identLu) ;}catch (Exception e) {System.out.println(e.getMessage());}}
+	<ident> { yvm.lireEnt(YakaTokenManager.identLu) ;}
 	")"
 }
 
 void ecriture() : {}
 {
     (<ECRIRE> "(" 
-        (expression() { try {yvm.ecrireExpr() ;}catch (Exception e) {System.out.println(e.getMessage());}}
-        | <chaine> {try {yvm.ecrireChaine(YakaTokenManager.chaineLue) ;}catch (Exception e) {System.out.println(e.getMessage());}})
+        (expression() { yvm.ecrireExpr() ;}
+        | <chaine> {yvm.ecrireChaine(YakaTokenManager.chaineLue) ;})
 		")")
-    | <ALALIGNE> {try {yvm.aLaLigne() ;}catch (Exception e) {System.out.println(e.getMessage());}}
+    | <ALALIGNE> {yvm.aLaLigne() ;}
 }
 
 /*
@@ -273,7 +277,7 @@ void expression(): {}
 {
   (simpleExpr() 
   (opRel() 
-  simpleExpr() { try { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();} catch (Exception e) {System.out.println(e.getMessage());}}
+  simpleExpr() { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
   )?) 
 }
 
@@ -283,20 +287,20 @@ void simpleExpr() : {}
 {
    terme() 
    (opAdd()
-   terme() { try {yvm.lireOp(expression.dernierOperateur()); expression.evaluate();} catch (Exception e) {System.out.println(e.getMessage());}}
+   terme() { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
    )* 
 } 
 void terme() : {}
 {
   facteur() 
   (opMul() 
-  facteur() { try { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}catch (Exception e) {System.out.println(e.getMessage());}}
+  facteur() { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
   )*
 }
 void facteur() : {}
 {  
 	primaire() 
-	|  opNeg() primaire() { try {yvm.lireOp(expression.dernierOperateur()); expression.evaluate();} catch (Exception e) {System.out.println(e.getMessage());}}
+	|  opNeg() primaire() {yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
 }
 
 void primaire (): {}
@@ -307,10 +311,10 @@ void primaire (): {}
 }
 
 void valeur (): {} { 
-   <entier> { try {expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);} catch (Exception e) {System.out.println(e.getMessage());}}	
- | <ident> 	{ try {expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}catch (Exception e) {System.out.println(e.getMessage());}}
- | <VRAI> 	{ try {expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.vrai);}	catch (Exception e) {System.out.println(e.getMessage());}}
- | <FAUX> 	{ try {expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.faux);}catch (Exception e) {System.out.println(e.getMessage());}}
+   <entier> { expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}
+ | <ident> 	{ expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
+ | <VRAI> 	{ expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.vrai);}
+ | <FAUX> 	{ expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.faux);}
 }
 
 void opRel() : {} {
