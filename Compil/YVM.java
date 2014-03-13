@@ -14,17 +14,17 @@ public class YVM
 		output=Ecriture.ouvrir(nomFic);		
 	}
 
-	public void debutProg() throws IOException{
+	public void debutProg(){
 		Ecriture.ecrireStringln(output, "entete");
 	}
 
-	public void ouvrePrinc() throws IOException{
+	public void ouvrePrinc(){
 		Ecriture.ecrireString(output, "ouvrePrinc ");
 		Ecriture.ecrireInt(output, Yaka.tabIdent.compteVariables());
 		Ecriture.ecrireStringln("");
 	}
 
-	public void lireConstOuVar(String nom) throws IOException{
+	public void lireConstOuVar(String nom){
 		Ident i = Yaka.tabIdent.chercherIdent(nom);
 		String texte = i.toString();
 		Ecriture.ecrireStringln(output, texte);
@@ -91,7 +91,7 @@ public class YVM
 		Ecriture.ecrireStringln(output, "idiff");
 	}
 
-	public void finProg() throws IOException{
+	public void finProg(){
 		Ecriture.ecrireStringln(output, "queue");
 		Ecriture.fermer(output);
 	}

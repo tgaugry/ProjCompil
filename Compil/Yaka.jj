@@ -242,7 +242,7 @@ void primaire (): {}
 }
 
 void valeur () : {} { 
-  <entier> 	{expression.addImmediate(TypeVar.INT); yvm.lireImmediat(YakaTokenManager.entierlu);}	
+  <entier> 	{expression.addImmediate(TypeVar.INT); yvm.lireImmediat(YakaTokenManager.entierLu);}	
  | <ident> 	{expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}	
  | <VRAI> 	{expression.addImmediate(TypeVar.BOOL); yvm.lireImmediat(YakaConstants.VRAI);}	
  | <FAUX> 	{expression.addImmediate(TypeVar.BOOL); yvm.lireImmediat(YakaConstants.FAUX);}	
@@ -250,31 +250,31 @@ void valeur () : {} {
 
 void opRel() : {} {
    "=" 		{expression.addOp(TypeOp.ARLO);}
- | "<>" 	{expression.addOp(TypeOp.ARLO);yvm.lireOperation(YVM.Op.DIF);}
- | "<" 		{expression.addOp(TypeOp.ARLO);yvm.lireOperation(YVM.Op.INF);}
- | "<=" 	{expression.addOp(TypeOp.ARLO);yvm.lireOperation(YVM.Op.INFEG);}
- | ">" 		{expression.addOp(TypeOp.ARLO);yvm.lireOperation(YVM.Op.SUP);}
- | ">=" 	{expression.addOp(TypeOp.ARLO);yvm.lireOperation(YVM.Op.SUPEG);}
+ | "<>" 	{expression.addOp(TypeOp.ARLO);yvm.lireDiff();}
+ | "<" 		{expression.addOp(TypeOp.ARLO);yvm.lireInf();}
+ | "<=" 	{expression.addOp(TypeOp.ARLO);yvm.lireInfEg();}
+ | ">" 		{expression.addOp(TypeOp.ARLO);yvm.lireSup();}
+ | ">=" 	{expression.addOp(TypeOp.ARLO);yvm.lireSupEg();}
 } 
 
 void opAdd() : {}
 {
-    "+"		{expression.addOp(TypeOp.ARITH2);yvm.lireOperation(YVM.Op.ADD);}
-  |  "-"  	{expression.addOp(TypeOp.ARITH2);yvm.lireOperation(YVM.Op.SOUS);}
-  | <OU> 	{expression.addOp(TypeOp.LOGIQUE2);yvm.lireOperation(YVM.Op.OU);}
+    "+"		{expression.addOp(TypeOp.ARITH2);yvm.lireAdd();}
+  |  "-"  	{expression.addOp(TypeOp.ARITH2);yvm.lireSous();}
+  | <OU> 	{expression.addOp(TypeOp.LOGIQUE2);yvm.lireOu();}
 }
 
 void opMul() : {}
 {
-  "*"		{expression.addOp(TypeOp.ARITH2);yvm.lireOperation(YVM.Op.MUL);}
-  | "/"		{expression.addOp(TypeOp.ARITH2);yvm.lireOperation(YVM.Op.DIV);}
-  | <ET>	{expression.addOp(TypeOp.LOGIQUE2);yvm.lireOperation(YVM.Op.ET);}
+  "*"		{expression.addOp(TypeOp.ARITH2);yvm.lireMul();}
+  | "/"		{expression.addOp(TypeOp.ARITH2);yvm.lireDiv();}
+  | <ET>	{expression.addOp(TypeOp.LOGIQUE2);yvm.lireEt();}
 } 
 
 void opNeg() : {}
 { 
-   "-" 		{expression.addOp(TypeOp.ARITH1);yvm.lireOperation(YVM.Op.MOINS);}
- | <NON>	{expression.addOp(TypeOp.LOGIQUE1);yvm.lireOperation(YVM.Op.NON);}
+   "-" 		{expression.addOp(TypeOp.ARITH1);yvm.lireNeg();}
+ | <NON>	{expression.addOp(TypeOp.LOGIQUE1);yvm.lireNon();}
 }
 
 
