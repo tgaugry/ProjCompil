@@ -19,7 +19,7 @@ public class TestCompil {
 		TabIdent ti = new TabIdent();
 
 		ti.rangeIdent("e", new IdConst(42));
-		ti.rangeIdent("v", new IdVar(Ident.TypeVar.BOOL));
+		ti.rangeIdent("v", new IdVar(YakaConstants.BOOLEEN));
 		ti.rangeIdent("b", new IdConst(false));
 		
 		assertTrue(ti.existeIdent("e"));
@@ -27,8 +27,21 @@ public class TestCompil {
 		
 		assertEquals(ti.chercherIdent("e").getValOuOffset(), 42);
 		assertEquals(ti.chercherIdent("v").getValOuOffset(), -2);
-		assertEquals(ti.chercherIdent("v").getType(), Ident.TypeVar.BOOL);
-		assertEquals(ti.chercherIdent("b").getType(), Ident.TypeVar.BOOL);
+		assertEquals(ti.chercherIdent("v").getType(), YakaConstants.BOOLEEN);
+		assertEquals(ti.chercherIdent("b").getType(), YakaConstants.BOOLEEN);
+	}
+	
+
+	@Test
+	public void testDeclaration() {
+		Yaka.tabIdent = new TabIdent();
+		Yaka.declaration = new Declaration();
+		Yaka.declaration.declConst("aa", 10);
+		Yaka.declaration.declConst("ba", true);
+		assertEquals(Yaka.tabIdent.chercherIdent("aa").getValOuOffset(), 10);
+		assertEquals(Yaka.tabIdent.chercherIdent("aa").getType(), YakaConstants.ENTIER);
+		assertEquals(Yaka.tabIdent.chercherIdent("ba").getValOuOffset(), YakaConstants.VRAI);
+		assertEquals(Yaka.tabIdent.chercherIdent("ba").getType(), YakaConstants.BOOLEEN);
 	}
 }
 

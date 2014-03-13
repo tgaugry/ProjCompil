@@ -1,6 +1,5 @@
 package Compil;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import Compil.Ecriture;
 

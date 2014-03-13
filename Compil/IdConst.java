@@ -9,12 +9,12 @@ public class IdConst extends Ident {
 	
 	public IdConst(int v)
 	{
-		super(Ident.TypeVar.INT, v);
+		super(YakaConstants.ENTIER, v);
 	}
 	
 	public IdConst(boolean b)
 	{
-		super(Ident.TypeVar.BOOL, b? 1 : 0);
+		super(YakaConstants.BOOLEEN, b? YakaConstants.VRAI : YakaConstants.FAUX);
 	}
 	public String toString(){
 		return "IdConst type :" + type +" val :" + valOuOffset;

@@ -2,12 +2,12 @@ package Compil;
 
 public abstract class Ident {
 	
-	protected TypeVar type;
+	protected int type; //prend des valeurs de YakaConstants
 	protected int valOuOffset;
 	
 	public enum TypeVar {BOOL, INT};
 	
-	public Ident(TypeVar t, int v)
+	public Ident(int t, int v)
 	{
 		type = t;
 		valOuOffset = v;
@@ -20,7 +20,7 @@ public abstract class Ident {
 		return valOuOffset;
 	}
 	
-	public TypeVar getType()
+	public int getType()
 	{
 		return type;
 	}
