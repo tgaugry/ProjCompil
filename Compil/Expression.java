@@ -2,19 +2,17 @@ package Compil;
 
 import java.util.Stack;
 
-import Compil.Ident.TypeVar;
-
 public class Expression {
 	public enum TypeOp {ARITH2, LOGIQUE2, ARITH1, LOGIQUE1, ARLO }
-	private Stack<TypeVar> operandes;
+	private Stack<Integer> operandes; //prend ses valeurs dans YakaConstants
 	private Stack<TypeOp>  operateurs;
 	
 	public Expression (){
-		operandes = new Stack<TypeVar>();
+		operandes = new Stack<Integer>();
 		operateurs = new Stack<TypeOp>();
 	}
 	
-	public void addImmediate(TypeVar t) {
+	public void addImmediate(int t) {
 		operandes.push(t);
 	}
 	
@@ -29,7 +27,7 @@ public class Expression {
 	
 	public boolean evaluate() {
 		TypeOp operande;
-		TypeVar n1, n2;
+		int n1, n2;
 		if(operateurs.empty()) {
 			if (operandes.size() == 1) {return true;}
 			else {return false;}
@@ -40,8 +38,8 @@ public class Expression {
 			case ARITH1 :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
-					if(n1 == TypeVar.INT){
-						operandes.push(TypeVar.INT);
+					if(n1 == YakaConstants.ENTIER){
+						operandes.push(YakaConstants.ENTIER);
 						return evaluate();
 					}
 				}
@@ -50,8 +48,8 @@ public class Expression {
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
-					if(n1 == TypeVar.INT && n2 == TypeVar.INT){
-						operandes.push(TypeVar.INT);
+					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
+						operandes.push(YakaConstants.ENTIER);
 						return evaluate();
 					}
 				}
@@ -59,8 +57,8 @@ public class Expression {
 			case LOGIQUE1 :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
-					if(n1 == TypeVar.BOOL){
-						operandes.push(TypeVar.BOOL);
+					if(n1 == YakaConstants.BOOLEEN){
+						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
 				}
@@ -69,8 +67,8 @@ public class Expression {
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
-					if(n1 == TypeVar.BOOL && n2 == TypeVar.BOOL){
-						operandes.push(TypeVar.BOOL);
+					if(n1 == YakaConstants.BOOLEEN && n2 == YakaConstants.BOOLEEN){
+						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
 				}
@@ -79,8 +77,8 @@ public class Expression {
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
-					if(n1 == TypeVar.INT && n2 == TypeVar.INT){
-						operandes.push(TypeVar.BOOL);
+					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
+						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
 				}

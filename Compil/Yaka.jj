@@ -18,16 +18,15 @@ PARSER_BEGIN(Yaka)
 
 package Compil;
 
-import Compil.Ident.*;
+
 import Compil.Expression.*;
-import Compil.Declaration.*;
 
 
 public class Yaka {
 	public static Declaration declaration;
 	public static TabIdent tabIdent;
 	public static Expression expression;
-	public static TypeVar type;
+	public static int type; //prend ses valeurs dans YakaConstants
 	public static YVM yvm;
 
   public static void main(String args[]) { 
@@ -189,8 +188,8 @@ void declVar() : {} {
 
 
 void type() :{} {
-   <ENTIER>  {type = TypeVar.INT;}			
- | <BOOLEEN> {type = TypeVar.BOOL;}	
+   <ENTIER>  {type = YakaConstants.ENTIER;}			
+ | <BOOLEEN> {type = YakaConstants.BOOLEEN;}	
 }
 /*
  * Syntaxe des instructions.
@@ -246,10 +245,10 @@ void primaire (): {}
 }
 
 void valeur () : {} { 
-  <entier> 	{expression.addImmediate(TypeVar.INT); yvm.lireImmediat(YakaTokenManager.entierLu);}	
+  <entier> 	{expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}	
  | <ident> 	{expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}	
- | <VRAI> 	{expression.addImmediate(TypeVar.BOOL); yvm.lireImmediat(YakaConstants.VRAI);}	
- | <FAUX> 	{expression.addImmediate(TypeVar.BOOL); yvm.lireImmediat(YakaConstants.FAUX);}	
+ | <VRAI> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.VRAI);}	
+ | <FAUX> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.FAUX);}	
 }
 
 void opRel() : {} {

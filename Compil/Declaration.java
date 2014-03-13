@@ -1,7 +1,5 @@
 package Compil;
 
-import Compil.Ident.TypeVar;
-
 public class Declaration {
 	
 	public void declConst(String nom, int val) {
@@ -14,7 +12,7 @@ public class Declaration {
 		Yaka.tabIdent.rangeIdent (nom, id);
 	}
 	
-	public void declVar(String nom, TypeVar type) {
+	public void declVar(String nom, int type) {
 		IdVar id = new IdVar(type);
 		Yaka.tabIdent.rangeIdent (nom, id);
 	}
