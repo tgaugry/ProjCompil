@@ -14,9 +14,9 @@ public class Expression {
 	private int typeAffectation;
 	
 	
-	public static class KeyAlreadyThereException extends Exception {
-		public KeyAlreadyThereException(String clef){
-			super("L'identifiant " + clef + " est déclaré plusieurs fois");
+	public static class IncorrectTypeException extends Exception {
+		public IncorrectTypeException(){
+			super("Type incorrect");
 		}
 	}
 	
