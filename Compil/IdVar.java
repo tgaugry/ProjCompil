@@ -25,4 +25,10 @@ public class IdVar extends Ident {
 	public String toYVMAsm() {
 		return "push word ptr[bp" + valOuOffset + "]";
 	}
+	
+	public static void resetOffsets()
+	{
+		lastOffset = 0;
+	}
+	
 }

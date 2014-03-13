@@ -11,7 +11,7 @@ public class TestCompil {
 	
 	@Before
 	public void before() {
-		
+		IdVar.resetOffsets();
 	}
 	
 	@Test
@@ -34,6 +34,7 @@ public class TestCompil {
 
 	@Test
 	public void testDeclaration() {
+		
 		Yaka.tabIdent = new TabIdent();
 		Yaka.declaration = new Declaration();
 		//Constantes
@@ -46,6 +47,7 @@ public class TestCompil {
 		//Variables
 		Yaka.declaration.declVar("c1", YakaConstants.ENTIER);
 		Yaka.declaration.declVar("b1", YakaConstants.BOOLEEN);
+		System.out.println(Yaka.tabIdent.chercherIdent("c1").getValOuOffset());
 		assertEquals(Yaka.tabIdent.chercherIdent("c1").getValOuOffset(), -2);
 		assertEquals(Yaka.tabIdent.chercherIdent("c1").getType(), YakaConstants.ENTIER);
 		assertEquals(Yaka.tabIdent.chercherIdent("b1").getValOuOffset(), -4);
