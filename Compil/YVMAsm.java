@@ -3,23 +3,28 @@ package Compil;
 import Compil.TabIdent.NoSuchKeyException;
 
 public class YVMAsm extends YVM {
+	private int nbChaines;
 	
 	public YVMAsm(String nomFic) {
 		super(nomFic);
+		nbChaines = 0;
 	}
 	
 	
 	public void debutProg() {
-		Ecriture.ecrireStringln(output, "; entete\n" +
-				".model SMALL\n" +
-				".586\n" +
-				".CODE\n" +
-				"debut:\n" +
-				"STARTUPCODE\n");
+		Ecriture.ecrireStringln(output, "extrn lirent:proc, ecrent:proc\n"
+				+ "extrn ecrbool:proc\n"
+				+ "extrn ecrch:proc, ligsuiv:proc\n"
+				+ "; entete\n"
+				+ ".model SMALL\n"
+				+ ".586\n"
+				+ ".CODE\n"
+				+ "debut:\n"
+				+ "STARTUPCODE\n");
 	}
 	public void ouvrePrinc() {
 		int nbVar = Yaka.tabIdent.compteVariables()*2;
-		Ecriture.ecrireString(output, "; ouvrePrinc");
+		Ecriture.ecrireString(output, "; ouvrePrinc ");
 		Ecriture.ecrireInt(output, nbVar);
 		Ecriture.ecrireString(output, "\nmov bp,sp\nsub sp,");
 		Ecriture.ecrireInt(output, nbVar);
@@ -28,27 +33,27 @@ public class YVMAsm extends YVM {
 	public void finProg(){
 		Ecriture.ecrireStringln(output, "; queue\n"
 				+ "nop\n"
-				+ "exitcode\n"
-				+ "end debut\n");
+				+ "EXITCODE\n"
+				+ "End debut\n");
 	}
 	
 	
 	public void lireConstOuVar(String nom) throws NoSuchKeyException {
-		Ecriture.ecrireString(output, "; iconst\n");
 		Ident i = Yaka.tabIdent.chercherIdent(nom);
 		String texte = i.toYVMAsm();
-		Ecriture.ecrireStringln(output, texte);
+		Ecriture.ecrireStringln(output, texte + "\n");
 	}
 	public void lireImmediat(int i){
-		Ecriture.ecrireStringln(output, "push "+i);
+		Ecriture.ecrireStringln(output, "; iconst " + i + "\npush word ptr " + i + "\n");
 	}
 	public void affecter(String nom) throws NoSuchKeyException{
 		Ident i = Yaka.tabIdent.chercherIdent(nom);
-		Ecriture.ecrireStringln(output, "; istore\n"
+		int offset = i.getValOuOffset();
+		Ecriture.ecrireStringln(output, "; istore " + offset + "\n"
 				+ "pop ax\n"
 				+ "mov word ptr[bp"
-				+ i.getValOuOffset()
-				+ "],ax\n");
+				+ offset
+				+ "], ax\n");
 	}
 	
 	
@@ -172,5 +177,42 @@ public class YVMAsm extends YVM {
 				+ "push -1\n"
 				+ "jmp $+4\n"
 				+ "push 0\n");
+	}
+	
+
+	public void ecrireEnt() {
+		Ecriture.ecrireStringln(output, "; ecrireEnt\n"
+				+ "call ecrent\n");
+	}
+	
+	public void ecrireBool() {
+		Ecriture.ecrireStringln(output, "; ecrireBool\n"
+				+ "call ecrbool\n");
+	}
+	public void ecrireChaine(String chaine) {
+		Ecriture.ecrireStringln(output, "; ecrireChaine "
+				+ chaine);
+		chaine = chaine.substring(0, chaine.length()-1);
+		chaine += "$\"";
+		Ecriture.ecrireStringln(output, ".DATA\n"
+				+ "mess" + nbChaines +  " DB " + chaine + "\n"
+				+ ".CODE\n"
+				+ "lea dx, mess" + nbChaines + "\n"
+				+ "push dx\n"
+				+ "call ecrch\n");
+		nbChaines++;
+	}
+	public void lireEnt(String id) throws NoSuchKeyException {
+		Ident i = Yaka.tabIdent.chercherIdent(id) ;
+		int ent = i.getValOuOffset();
+		Ecriture.ecrireStringln(output, "; lireEnt "
+				+ ent + "\n"
+				+ "lea dx, [bp" + ent + "]\n"
+				+ "push dx\n"
+				+ "call lirent\n");
+	}
+	public void aLaLigne() {
+		Ecriture.ecrireStringln(output, "; aLaLigne\n"
+				+ "call ligsuiv\n");
 	}
 }
