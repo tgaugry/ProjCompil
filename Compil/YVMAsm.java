@@ -215,14 +215,20 @@ public class YVMAsm extends YVM {
 				+ "call ecrch\n");
 		nbChaines++;
 	}
-	public void lireEnt(String id) throws NoSuchKeyException {
-		Ident i = Yaka.tabIdent.chercherIdent(id) ;
-		int ent = i.getValOuOffset();
-		Ecriture.ecrireStringln(output, "; lireEnt "
-				+ ent + "\n"
-				+ "lea dx, [bp" + ent + "]\n"
-				+ "push dx\n"
-				+ "call lirent\n");
+	public void lireEnt(String id) {
+		try {
+			Ident i = Yaka.tabIdent.chercherIdent(id) ;
+			int ent = i.getValOuOffset();
+			Ecriture.ecrireStringln(output, "; lireEnt "
+					+ ent + "\n"
+					+ "lea dx, [bp" + ent + "]\n"
+					+ "push dx\n"
+					+ "call lirent\n");
+		}
+		catch (Exception e){
+			System.out.println(e.getMessage());
+			Yaka.nbErreurs++;
+		}
 	}
 	public void aLaLigne() {
 		Ecriture.ecrireStringln(output, "; aLaLigne\n"

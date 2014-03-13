@@ -80,8 +80,9 @@ public class Yaka {
      	System.out.println("Erreur de syntaxe : "+ msg);
     }
       if (nbErreurs == 0) {
-      	System.out.println("analyse syntaxique reussie!");
+      	System.out.println("Analyse syntaxique reussie!");
       }
+      else System.out.println("Analyse terminée avec " + Yaka.nbErreurs + " erreurs. T_T");
           
   } 
 }
