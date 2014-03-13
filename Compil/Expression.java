@@ -112,7 +112,17 @@ public class Expression {
 		return false;	
 	}
 	
-	public Op dernierOp()
+	public Op dernierOperateur()
+	{
+		try {
+			return operateurs.peek();
+		}
+		catch(EmptyStackException e) {
+			return Op.EGAL;
+		}
+	}
+	
+	public Op dernierOperande()
 	{
 		try {
 			return operateurs.peek();
