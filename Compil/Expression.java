@@ -12,8 +12,8 @@ public class Expression {
 	private Stack<Integer> operandes; //prend ses valeurs dans YakaConstants
 	private Stack<Op>  operateurs;
 	private int typeAffectation;
-	
-	
+
+
 	public static class IncorrectTypeException extends Exception {
 		private static final long serialVersionUID = 1L;
 		public IncorrectTypeException(String s){
@@ -26,41 +26,40 @@ public class Expression {
 			super("Operande Manquante");
 		}
 	}
-	
+
 	public Expression (){
 		operandes = new Stack<Integer>();
 		operateurs = new Stack<Op>();
 	}
-	
+
 	public void addImmediate(int t) {
 		operandes.push(t);
 	}
-	
+
 	public void addOp(Op t) {
 		operateurs.push(t);
 	}
-	
+
 	public void addIdent(String nom) throws NoSuchKeyException {
 		Ident i = Yaka.tabIdent.chercherIdent(nom);
 		operandes.push(i.getType());
 	}
-	
+
 	public void stockeAffectation(String nom) throws NoSuchKeyException {
 		Ident i = Yaka.tabIdent.chercherIdent(nom);
 		typeAffectation = i.getType();
-		
+
 	}
-	
-public boolean evaluerAffectation() {
+
+	public boolean evaluerAffectation() {
 		return typeAffectation == operandes.pop();
 	}
-	
-	public boolean evaluate() throws OperandeManquanteException, IncorrectTypeException {
+
+	public void evaluate() throws OperandeManquanteException, IncorrectTypeException {
 		Op operaeurSom;
 		int n1, n2;
 		if(operateurs.empty()) {
-			if (operandes.size() == 1) {return true;}
-			else {throw new OperandeManquanteException();}
+			if (operandes.size() != 1) {throw new OperandeManquanteException();}
 		}
 		else {
 			operaeurSom = operateurs.pop();
@@ -70,7 +69,6 @@ public boolean evaluerAffectation() {
 					n1 = operandes.pop();
 					if(n1 == YakaConstants.ENTIER){
 						operandes.push(YakaConstants.ENTIER);
-						return evaluate();
 					}
 					else throw new IncorrectTypeException("1 INT");
 				}
@@ -81,7 +79,6 @@ public boolean evaluerAffectation() {
 					n2 = operandes.pop();
 					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
 						operandes.push(YakaConstants.ENTIER);
-						return evaluate();
 					}
 					else throw new IncorrectTypeException("2 INT");
 				}
@@ -91,7 +88,6 @@ public boolean evaluerAffectation() {
 					n1 = operandes.pop();
 					if(n1 == YakaConstants.BOOLEEN){
 						operandes.push(YakaConstants.BOOLEEN);
-						return evaluate();
 					}
 					else throw new IncorrectTypeException("1 BOOL");
 				}
@@ -102,7 +98,6 @@ public boolean evaluerAffectation() {
 					n2 = operandes.pop();
 					if(n1 == YakaConstants.BOOLEEN && n2 == YakaConstants.BOOLEEN){
 						operandes.push(YakaConstants.BOOLEEN);
-						return evaluate();
 					}
 					else throw new IncorrectTypeException("2 BOOL");
 				}
@@ -113,7 +108,6 @@ public boolean evaluerAffectation() {
 					n2 = operandes.pop();
 					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
 						operandes.push(YakaConstants.BOOLEEN);
-						return evaluate();
 					}
 					else  throw new IncorrectTypeException(" 2 INT");
 				}
@@ -122,9 +116,8 @@ public boolean evaluerAffectation() {
 				break;
 			}
 		}
-		return false;	
 	}
-	
+
 	public Op dernierOperateur()
 	{
 		try {
@@ -134,7 +127,7 @@ public boolean evaluerAffectation() {
 			return Op.EGAL;
 		}
 	}
-	
+
 	public int dernierOperande()
 	{
 		try {
