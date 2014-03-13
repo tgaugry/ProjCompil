@@ -17,9 +17,13 @@ public class IdConst extends Ident {
 		super(Ident.TypeVar.BOOL, b? 1 : 0);
 	}
 
-	public String toString() {
+	public String toYVM() {
 		String res = "iconst "+ valOuOffset;
 		return res;
+	}
+	
+	public String toYVMAsm() {
+		return "push " + valOuOffset;
 	}
 	
 }

@@ -13,8 +13,12 @@ public class IdVar extends Ident {
 		super(t, (lastOffset-=2));
 	}
 
-	public String toString() {
+	public String toYVM() {
 		String res = "iload "+ valOuOffset;
 		return res;
+	}
+	
+	public String toYVMAsm() {
+		return "push word ptr[bp" + valOuOffset + "]";
 	}
 }

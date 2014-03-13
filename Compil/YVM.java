@@ -35,7 +35,6 @@ public class YVM
 		Ecriture.ecrireStringln(output, texte);
 	}
 
-
 	public void lireAdd(){
 		Ecriture.ecrireStringln(output, "iadd");
 	}
@@ -91,8 +90,6 @@ public class YVM
 	public void lireDiff(){
 		Ecriture.ecrireStringln(output, "idiff");
 	}
-
-
 
 	public void finProg() throws IOException{
 		Ecriture.ecrireStringln(output, "queue");
