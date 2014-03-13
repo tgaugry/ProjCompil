@@ -176,7 +176,7 @@ void analyse() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyExcep
 void bloc() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException : {}{
  (declConst())*
  (declVar())* {yvm.ouvrePrinc();}	
-   suiteExpr() 
+   suiteInstr() 
 }
 
 void declConst() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}{
