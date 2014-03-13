@@ -4,6 +4,7 @@ public abstract class Ident {
 	
 	protected TypeVar type;
 	protected int valOuOffset;
+	
 	public enum TypeVar {BOOL, INT};
 	
 	public Ident(TypeVar t, int v)

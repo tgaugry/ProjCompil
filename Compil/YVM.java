@@ -6,12 +6,11 @@ import Compil.Ecriture;
 
 public class YVM
 {	
-	public enum Op {ADD, SOUS, MUL, DIV, OU, ET, MOINS, NON, INF, INFEG, SUP, SUPEG, EG, DIF }
 	protected OutputStream output;
 
 	public YVM(String nomFic)
 	{
-		output=Ecriture.ouvrir(nomFic);		
+		output=Ecriture.ouvrir(nomFic);
 	}
 
 	public void debutProg(){
