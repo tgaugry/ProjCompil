@@ -19,7 +19,7 @@ public class YVM
 	public void ouvrePrinc(){
 		Ecriture.ecrireString(output, "ouvrePrinc ");
 		Ecriture.ecrireInt(output, Yaka.tabIdent.compteVariables());
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireString("\n");
 	}
 
 	public void lireConstOuVar(String nom){

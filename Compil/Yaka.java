@@ -311,6 +311,7 @@ public class Yaka implements YakaConstants {
   }
 
   static final public void valeur() throws ParseException {
+                  Boolean b = false;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case entier:
       jj_consume_token(entier);
@@ -318,7 +319,7 @@ public class Yaka implements YakaConstants {
       break;
     case ident:
       jj_consume_token(ident);
-                 expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);
+                 b = true;
       break;
     case VRAI:
       jj_consume_token(VRAI);
@@ -327,6 +328,7 @@ public class Yaka implements YakaConstants {
     case FAUX:
       jj_consume_token(FAUX);
                  expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.FAUX);
+  if(b){expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
       break;
     default:
       jj_la1[13] = jj_gen;
