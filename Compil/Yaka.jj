@@ -233,7 +233,7 @@ void affectation() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyE
 {
     <ident> {String ident = YakaTokenManager.identLu;expression.stockeAffectation(ident);} 
     "=" 
-    expression() {expression.evaluerAffectation();yvm.affectation(ident)}
+    expression() {/*expression.evaluerAffectation();yvm.affectation(ident)*/}
 }
 
 /*
