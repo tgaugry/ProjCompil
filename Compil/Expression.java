@@ -50,7 +50,8 @@ public class Expression {
 		typeAffectation = i.getType();
 		
 	}
-	public boolean evaluerAffectation() {
+	
+public boolean evaluerAffectation() {
 		return typeAffectation == operandes.pop();
 	}
 	
@@ -73,7 +74,7 @@ public class Expression {
 					}
 					else { throw new IncorrectTypeException("1 INT");}
 				}
-				break;
+				throw new OperandeManquanteException();
 			case ADD :case SOUS :case MUL :case DIV :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -84,7 +85,7 @@ public class Expression {
 					}
 					else { throw new IncorrectTypeException("2 INT");}
 				}
-				break;
+				throw new OperandeManquanteException();
 			case NON :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
@@ -94,7 +95,7 @@ public class Expression {
 					}
 					else { throw new IncorrectTypeException("1 BOOL");}
 				}
-				break;
+				throw new OperandeManquanteException();
 			case OU :case ET :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -105,7 +106,7 @@ public class Expression {
 					}
 					else { throw new IncorrectTypeException("2 BOOL");}
 				}
-				break;
+				throw new OperandeManquanteException();
 			case INF :case SUP :case INFEG :case SUPEG :case DIFF :case EGAL :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -116,7 +117,7 @@ public class Expression {
 					}
 					else { throw new IncorrectTypeException(" 2 INT");}
 				}
-				break;
+				throw new OperandeManquanteException();
 			default:
 				break;
 			}
