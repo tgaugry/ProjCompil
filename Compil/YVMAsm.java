@@ -5,6 +5,8 @@ public class YVMAsm extends YVM {
 	public YVMAsm(String nomFic) {
 		super(nomFic);
 	}
+	
+	
 	public void debutProg() {
 		Ecriture.ecrireStringln(output, "; entete\n" +
 				".model SMALL\n" +
@@ -14,13 +16,14 @@ public class YVMAsm extends YVM {
 				"STARTUPCODE\n");
 	}
 	public void ouvrePrinc() {
+		int nbVar = Yaka.tabIdent.compteVariables();
 		Ecriture.ecrireString(output, "; ouvrePrinc");
-		Ecriture.ecrireInt(output, Yaka.tabIdent.compteVariables());
+		Ecriture.ecrireInt(output, nbVar);
 		Ecriture.ecrireString(output, "\nmov bp,sp\nsub sp,");
-		Ecriture.ecrireInt(output, Yaka.tabIdent.compteVariables());
+		Ecriture.ecrireInt(output, nbVar);
 		Ecriture.ecrireStringln(output, "\n");
 	}
-	public void queue(){
+	public void finProg(){
 		Ecriture.ecrireStringln(output, "; queue\n"
 				+ "nop\n"
 				+ "exitcode\n"
@@ -33,6 +36,9 @@ public class YVMAsm extends YVM {
 		Ident i = Yaka.tabIdent.chercherIdent(nom);
 		String texte = i.toYVMAsm();
 		Ecriture.ecrireStringln(output, texte);
+	}
+	public void lireImmediat(int i){
+		Ecriture.ecrireStringln(output, "push "+i);
 	}
 	/*public void istore(String nom){
 		Ecriture.ecrireStringln(output, "; istore\n" +
@@ -142,7 +148,7 @@ public class YVMAsm extends YVM {
 				+ "jmp $+4\n"
 				+ "push 0\n");
 	}
-	public void lireEgal(){
+	public void lireEg(){
 		Ecriture.ecrireStringln(output, "; iegal\n"
 				+ "pop bx\n"
 				+ "pop ax\n"
