@@ -206,8 +206,8 @@ void defConst() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyExce
 void valConst() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {String ident1 = YakaTokenManager.identLu;}{
   <entier> 	 {declaration.declConst(ident1, YakaConstants.ENTIER, YakaTokenManager.entierLu);}
  | <ident>	 {declaration.declConst(ident1, YakaTokenManager.identLu);}
- | <VRAI> 	 {declaration.declConst(ident1, YakaConstants.BOOLEEN, YakaConstants.VRAI);}
- | <FAUX> 	 {declaration.declConst(ident1, YakaConstants.BOOLEEN, YakaConstants.FAUX);}
+ | <VRAI> 	 {declaration.declConst(ident1, YakaConstants.BOOLEEN, YVM.vrai);}
+ | <FAUX> 	 {declaration.declConst(ident1, YakaConstants.BOOLEEN, YVM.faux);}
 }
 
 
@@ -294,7 +294,7 @@ void expression() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyEx
 
 
 
-void simpleExpr(/**/) throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
+void simpleExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
    terme() 
    (opAdd()
@@ -324,8 +324,8 @@ void primaire () throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyExc
 void valeur () throws TabIdent.NoSuchKeyException, TabIdent.KeyAlreadyThereException : {} { 
    <entier> {expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}	
  | <ident> 	{expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
- | <VRAI> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.VRAI);}	
- | <FAUX> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.FAUX);}
+ | <VRAI> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.vrai);}	
+ | <FAUX> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.faux);}
 }
 
 void opRel() : {} {

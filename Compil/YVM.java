@@ -7,6 +7,8 @@ import Compil.TabIdent.NoSuchKeyException;
 
 public class YVM
 {	
+	public static final int vrai = -1;
+	public static final int faux = 0;
 	
 	protected OutputStream output;
 
