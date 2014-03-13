@@ -245,10 +245,10 @@ void primaire (): {}
 }
 
 void valeur () : {Boolean b = false;} { 
-  <entier> 	{expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}	
+  (<entier> 	{expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}	
  | <ident> 	{b = true;} //Ce bloc est exécuté avant la sauvegarde de identLu, donc l'ajout de lident est exécuté plus bas
  | <VRAI> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.VRAI);}	
- | <FAUX> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.FAUX);}	
+ | <FAUX> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.FAUX);})	
  {if(b){expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}} //cas ou on lit un ident
 }
 

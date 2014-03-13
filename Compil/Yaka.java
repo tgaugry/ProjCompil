@@ -42,7 +42,7 @@ public class Yaka implements YakaConstants {
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0,msg.indexOf("\u005cn"));
-      System.out.println("Erreur de syntaxe : "+msg);
+      System.out.println("Erreur de syntaxe : "+ msg + "\u005cnPosition : " + e.getErrorOffset());
     }
   }
 
@@ -328,13 +328,13 @@ public class Yaka implements YakaConstants {
     case FAUX:
       jj_consume_token(FAUX);
                  expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.FAUX);
-  if(b){expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
       break;
     default:
       jj_la1[13] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
+  if(b){expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
   }
 
   static final public void opRel() throws ParseException {

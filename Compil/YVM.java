@@ -17,14 +17,13 @@ public class YVM
 	}
 
 	public void ouvrePrinc(){
-		Ecriture.ecrireString(output, "ouvrePrinc ");
-		Ecriture.ecrireInt(output, Yaka.tabIdent.compteVariables());
-		Ecriture.ecrireString("\n");
+		String texte = "ouvrePrinc "+Yaka.tabIdent.compteVariables()*2;
+		Ecriture.ecrireStringln(output, texte);
 	}
 
 	public void lireConstOuVar(String nom){
 		Ident i = Yaka.tabIdent.chercherIdent(nom);
-		String texte = i.toString();
+		String texte = i.toYVM();
 		Ecriture.ecrireStringln(output, texte);
 	}
 
