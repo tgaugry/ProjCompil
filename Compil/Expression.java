@@ -11,6 +11,14 @@ public class Expression {
 	//public enum TypeOp {ARITH2, LOGIQUE2, ARITH1, LOGIQUE1, ARLO }
 	private Stack<Integer> operandes; //prend ses valeurs dans YakaConstants
 	private Stack<Op>  operateurs;
+	private int typeAffectation;
+	
+	
+	public static class KeyAlreadyThereException extends Exception {
+		public KeyAlreadyThereException(String clef){
+			super("L'identifiant " + clef + " est déclaré plusieurs fois");
+		}
+	}
 	
 	public Expression (){
 		operandes = new Stack<Integer>();
@@ -25,9 +33,18 @@ public class Expression {
 		operateurs.push(t);
 	}
 	
-	public void addIdent(String identName) throws NoSuchKeyException {
-		Ident i = Yaka.tabIdent.chercherIdent(identName);
+	public void addIdent(String nom) throws NoSuchKeyException {
+		Ident i = Yaka.tabIdent.chercherIdent(nom);
 		operandes.push(i.getType());
+	}
+	
+	public void stockeAffectation(String nom) throws NoSuchKeyException {
+		Ident i = Yaka.tabIdent.chercherIdent(nom);
+		typeAffectation = i.getType();
+		
+	}
+	public boolean evaluerAffectation() {
+		return typeAffectation == operandes.pop();
 	}
 	
 	public boolean evaluate() {
@@ -97,12 +114,10 @@ public class Expression {
 	
 	public Op dernierOp()
 	{
-		try
-		{
-		return operateurs.peek();
+		try {
+			return operateurs.peek();
 		}
-		catch(EmptyStackException e)
-		{
+		catch(EmptyStackException e) {
 			return Op.EGAL;
 		}
 	}

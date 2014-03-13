@@ -8,12 +8,16 @@ public class TabIdent {
 	private HashMap<String,Ident> table;
 	
 	public static class NoSuchKeyException extends Exception {
+		private static final long serialVersionUID = 1L;
+
 		public NoSuchKeyException(String clef){
 			super("L'identifiant "+ clef + " n'existe pas");
 		}
 	}
 	
 	public static class KeyAlreadyThereException extends Exception {
+		private static final long serialVersionUID = 1L;
+
 		public KeyAlreadyThereException(String clef){
 			super("L'identifiant " + clef + " est déclaré plusieurs fois");
 		}
