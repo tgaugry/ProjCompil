@@ -293,7 +293,7 @@ void expression() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyEx
 }
 
 
-
+/**/
 void simpleExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
    terme() 
