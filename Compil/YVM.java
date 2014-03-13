@@ -1,7 +1,9 @@
 package Compil;
 
 import java.io.OutputStream;
+
 import Compil.Ecriture;
+import Compil.TabIdent.NoSuchKeyException;
 
 public class YVM
 {	
@@ -94,21 +96,21 @@ public class YVM
 	}
 	
 	public void ecrireEnt() {
-		Ecriture.ecrireStringln(file, "ecrireEnt");
+		Ecriture.ecrireStringln(output, "ecrireEnt");
 	}
 	
 	public void ecrireBool() {
-		Ecriture.ecrireStringln(file, "ecrireBool");
+		Ecriture.ecrireStringln(output, "ecrireBool");
 	}
 	
 	/**
 	 * Choisit d'appeler ecrireEnt ou ecrireBool suivant le type de l'expression (en haut de la pile)
 	 */
 	
-	public void ecrireExpr(){
+	/*public void ecrireExpr(){
 		int type = Yaka.expression.getLastPileType();
 		switch (type){
-			case BOOLEEN :
+			case YBOOLEEN :
 				ecrireBool();
 				break;
 			case ENTIER :
@@ -121,20 +123,20 @@ public class YVM
 				System.out.println("Probleme de type d'expression. ");
 				break ;		
 		}
-	}
+	}*/
 	
 	public void ecrireChaine(String s) {
-		Ecriture.ecrireStringln(file, "ecrireChaine " + s);
+		Ecriture.ecrireStringln(output, "ecrireChaine " + s);
 	}
 	
 	public void aLaLigne() {
-		Ecriture.ecrireStringln(file, "aLaLigne");
+		Ecriture.ecrireStringln(output, "aLaLigne");
 	}
 
-	public void lireEnt(String id) {
-		Ident i = Yaka.tabIdent.chercheIdent(id) ;
-		if(i.estIdVar()){
-			Ecriture.ecrireStringln(file, "lireEnt " + i.getParam());
+	public void lireEnt(String id) throws NoSuchKeyException {
+		Ident i = Yaka.tabIdent.chercherIdent(id) ;
+		if(i.estVar()){
+			Ecriture.ecrireStringln(output, "lireEnt " + i.getValOuOffset());
 		}
 		else{
 			System.out.println("Affectation d'une nouvelle valeur a une constante :(");
