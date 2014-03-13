@@ -27,8 +27,8 @@ public class Yaka {
 	public static TabIdent tabIdent;
 	public static Expression expression;
 	public static int type; //prend ses valeurs dans YakaConstants
-	public static YVMAsm yvm;
-
+	public static YVM yvm;
+	
   public static void main(String args[]) { 
     Yaka analyseur;
     java.io.InputStream input;
@@ -42,10 +42,26 @@ public class Yaka {
         System.out.println("Fichier introuvable.");
         return;
       }
-    } else if (args.length==0) {
+    }
+    else if (args.length==2) {
+      System.out.print(args[args.length-1] + ": ");
+      try {
+        input = new java.io.FileInputStream(args[args.length-1]+".yaka");
+        if (args[0] == "asm")
+        	yvm = new YVMAsm(args[args.length-1]+".asm");
+        else
+        	yvm = new YVM(args[args.length-1]+".yvm");
+      } catch (java.io.FileNotFoundException e) {
+        System.out.println("Fichier introuvable.");
+        return;
+      }
+    }
+    else if (args.length==0) {
       System.out.println("Lecture sur l'entree standard...");
       input = System.in;
-    } else {
+    } 
+    
+    else {
       System.out.println("Usage: java Gram [fichier]");
       return;
     }
