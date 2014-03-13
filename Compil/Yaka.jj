@@ -173,15 +173,15 @@ void bloc() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyExceptio
    suiteExpr() 
 }
 
-void declConst() throws TabIdent.KeyAlreadyThereException: {}{
+void declConst() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}{
   <CONST>  defConst() ( "," defConst())* ";"
 }
 
-void defConst() throws TabIdent.KeyAlreadyThereException: {}{
+void defConst() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}{
   <ident> "=" valConst()
 }
 
-void valConst() throws TabIdent.KeyAlreadyThereException : {String ident1 = YakaTokenManager.identLu;}{
+void valConst() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {String ident1 = YakaTokenManager.identLu;}{
   <entier> 	 {declaration.declConst(ident1, YakaConstants.ENTIER, YakaTokenManager.entierLu);}
  | <ident>	 {declaration.declConst(ident1, YakaTokenManager.identLu);}
  | <VRAI> 	 {declaration.declConst(ident1, YakaConstants.BOOLEEN, YakaConstants.VRAI);}
@@ -242,7 +242,7 @@ void affectation() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyE
  * Entrees/sorties
  */
  
-void lecture() : {}
+void lecture() throws TabIdent.NoSuchKeyException: {}
 {
     <LIRE> 
 	"("
