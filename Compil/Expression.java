@@ -72,9 +72,9 @@ public boolean evaluerAffectation() {
 						operandes.push(YakaConstants.ENTIER);
 						return evaluate();
 					}
-					else { throw new IncorrectTypeException("1 INT");}
+					else throw new IncorrectTypeException("1 INT");
 				}
-				throw new OperandeManquanteException();
+				else throw new OperandeManquanteException();
 			case ADD :case SOUS :case MUL :case DIV :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -83,9 +83,9 @@ public boolean evaluerAffectation() {
 						operandes.push(YakaConstants.ENTIER);
 						return evaluate();
 					}
-					else { throw new IncorrectTypeException("2 INT");}
+					else throw new IncorrectTypeException("2 INT");
 				}
-				throw new OperandeManquanteException();
+				else throw new OperandeManquanteException();
 			case NON :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
@@ -93,9 +93,9 @@ public boolean evaluerAffectation() {
 						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
-					else { throw new IncorrectTypeException("1 BOOL");}
+					else throw new IncorrectTypeException("1 BOOL");
 				}
-				throw new OperandeManquanteException();
+				else throw new OperandeManquanteException();
 			case OU :case ET :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -104,9 +104,9 @@ public boolean evaluerAffectation() {
 						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
-					else { throw new IncorrectTypeException("2 BOOL");}
+					else throw new IncorrectTypeException("2 BOOL");
 				}
-				throw new OperandeManquanteException();
+				else throw new OperandeManquanteException();
 			case INF :case SUP :case INFEG :case SUPEG :case DIFF :case EGAL :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -115,9 +115,9 @@ public boolean evaluerAffectation() {
 						operandes.push(YakaConstants.BOOLEEN);
 						return evaluate();
 					}
-					else { throw new IncorrectTypeException(" 2 INT");}
+					else  throw new IncorrectTypeException(" 2 INT");
 				}
-				throw new OperandeManquanteException();
+				else throw new OperandeManquanteException();
 			default:
 				break;
 			}
