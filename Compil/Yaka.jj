@@ -59,7 +59,7 @@ public class Yaka {
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0,msg.indexOf("\n"));
-      System.out.println("Erreur de syntaxe : "+msg);
+      System.out.println("Erreur de syntaxe : "+ msg + "\nPosition : " + e.getErrorOffset());
     }
   } 
 }
