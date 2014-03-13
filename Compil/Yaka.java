@@ -42,7 +42,7 @@ public class Yaka implements YakaConstants {
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0,msg.indexOf("\u005cn"));
-      System.out.println("Erreur de syntaxe : "+ msg + "\u005cnPosition : " + e.getErrorOffset());
+      System.out.println("Erreur de syntaxe : "+ msg);
     }
   }
 
