@@ -167,7 +167,7 @@ void analyse() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyExcep
    <FPROGRAMME> {yvm.finProg();}
 }
 
-void bloc() throws TabIdent.KeyAlreadyThereException : {}{
+void bloc() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}{
  (declConst())*
  (declVar())* {yvm.ouvrePrinc();}	
    suiteExpr() 
@@ -206,7 +206,7 @@ void type() :{} {
 /*
  * Syntaxe des instructions.
  */
-void suiteExpr() : {}
+void suiteExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}
 {	
 	expression() { expression.evaluate();}
 	(";" (expression() { expression.evaluate();})? )*
@@ -262,7 +262,7 @@ void ecriture() : {}
 /*
  * Expression .
  */
-void expression() : {}
+void expression() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
   simpleExpr() 
   (opRel() 
@@ -272,27 +272,27 @@ void expression() : {}
 
 
 
-void simpleExpr() : {}
+void simpleExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
    terme() 
    (opAdd()
    terme()	
    )* 
 } 
-void terme() : {}
+void terme() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
   facteur() 
   (opMul() 
   facteur()	
   )*
 }
-void facteur() : {}
+void facteur() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {  
 	primaire() 
 	|  opNeg() primaire() 
 }
 
-void primaire (): {}
+void primaire () throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
    valeur()
  | "(" expression() ")" 
