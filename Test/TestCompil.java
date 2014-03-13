@@ -16,7 +16,7 @@ public class TestCompil {
 	
 	@Test
 	public void testTabIdent() {
-		TabIdent ti = new TabIdent(12);
+		TabIdent ti = new TabIdent();
 
 		ti.rangeIdent("e", new IdConst(42));
 		ti.rangeIdent("v", new IdVar(Ident.TypeVar.BOOL));

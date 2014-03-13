@@ -7,9 +7,9 @@ public class TabIdent
 {
 	private HashMap<String,Ident> table;
 	
-	public TabIdent(int taille)
+	public TabIdent()
 	{
-		table = new HashMap<String,Ident>(taille);
+		table = new HashMap<String,Ident>();
 	}
 	
 	public Ident chercherIdent(String clef)
