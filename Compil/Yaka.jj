@@ -27,7 +27,7 @@ public class Yaka {
 	public static TabIdent tabIdent;
 	public static Expression expression;
 	public static int type; //prend ses valeurs dans YakaConstants
-	public static YVM yvm;
+	public static YVMAsm yvm;
 
   public static void main(String args[]) { 
     Yaka analyseur;
