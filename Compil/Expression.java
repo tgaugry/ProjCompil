@@ -48,15 +48,15 @@ public class Expression {
 	}
 	
 	public boolean evaluate() {
-		Op operande;
+		Op operaeurSom;
 		int n1, n2;
 		if(operateurs.empty()) {
 			if (operandes.size() == 1) {return true;}
 			else {return false;}
 		}
 		else {
-			operande = operateurs.pop();
-			switch (operande) {
+			operaeurSom = operateurs.pop();
+			switch (operaeurSom) {
 			case NEG :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
