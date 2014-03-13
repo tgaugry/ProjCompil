@@ -37,7 +37,7 @@ public class Yaka {
       System.out.print(args[args.length-1] + ": ");
       try {
         input = new java.io.FileInputStream(args[args.length-1]+".yaka");
-        yvm = new YVMAsm(args[args.length-1]+".yvm");
+        yvm = new YVM(args[args.length-1]+".yvm");
       } catch (java.io.FileNotFoundException e) {
         System.out.println("Fichier introuvable.");
         return;
@@ -47,7 +47,7 @@ public class Yaka {
       System.out.print(args[args.length-1] + ": ");
       try {
         input = new java.io.FileInputStream(args[args.length-1]+".yaka");
-        if (args[0] == "asm")
+        if (args[0].equals("asm"))
         	yvm = new YVMAsm(args[args.length-1]+".asm");
         else
         	yvm = new YVM(args[args.length-1]+".yvm");
@@ -86,6 +86,14 @@ public class Yaka {
 		String msg = e.getMessage();
      	System.out.println(msg);
     }
+    catch (Expression.OperandeManquanteException e) {
+		String msg = e.getMessage();
+     	System.out.println(msg);
+    }
+    catch (Expression.IncorrectTypeException e) {
+		String msg = e.getMessage();
+     	System.out.println(msg);
+    } 
       
   } 
 }
@@ -174,17 +182,17 @@ TOKEN  :
 /**************************************/
 /********debut de la grammaire ********/
 /**************************************/
-void analyse() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+void analyse() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
    <PROGRAMME> <ident>	{yvm.debutProg();}
    bloc()
    <FPROGRAMME> {yvm.finProg();}
 }
 
-void bloc() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}{
+void bloc() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException : {}{
  (declConst())*
  (declVar())* {yvm.ouvrePrinc();}	
-   suiteExpr() 
+   suiteInstr() 
 }
 
 void declConst() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}{
@@ -220,7 +228,7 @@ void type() :{} {
 /*
  * Syntaxe des instructions.
  */
-void suiteExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}
+void suiteExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException : {}
 {	
 	expression() 
 	(";" (expression() )? )*
@@ -232,31 +240,31 @@ void suiteExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyExc
  *Affectations
  */
 
-void suiteInstr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+void suiteInstr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
     instruction() 
     (";" (instruction())? )*
 }
 
-void instruction() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+void instruction() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
       affectation()
     | lecture()
     | ecriture()
 }
 
-void affectation() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}
+void affectation() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException : {}
 {
-    <ident> {expression.stockeAffectation(YakaTokenManager.identLu);} 
+    <ident> {String ident = YakaTokenManager.identLu;expression.stockeAffectation(ident);} 
     "=" 
-    expression() {expression.evaluerAffectation();}
+    expression() {expression.evaluerAffectation();yvm.affecter(ident);}
 }
 
 /*
  * Entrees/sorties
  */
  
-void lecture() throws TabIdent.NoSuchKeyException: {}
+void lecture() throws TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
     <LIRE> 
 	"("
@@ -264,7 +272,7 @@ void lecture() throws TabIdent.NoSuchKeyException: {}
 	")"
 }
 
-void ecriture() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+void ecriture() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
     (<ECRIRE> "(" 
         (expression() {yvm.ecrireExpr() ;}
@@ -276,7 +284,7 @@ void ecriture() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyExce
 /*
  * Expression .
  */
-void expression() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+void expression() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
   (simpleExpr() 
   (opRel() 
@@ -285,28 +293,28 @@ void expression() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyEx
 }
 
 
-/**/
-void simpleExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+
+void simpleExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
    terme() 
    (opAdd()
    terme() { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
    )* 
 } 
-void terme() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+void terme() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
   facteur() 
   (opMul() 
   facteur() { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
   )*
 }
-void facteur() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+void facteur() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {  
 	primaire() 
 	|  opNeg() primaire() { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
 }
 
-void primaire () throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+void primaire () throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException, OperandeManquanteException, IncorrectTypeException: {}
 {
    valeur()
  | "(" expression() ")" 
