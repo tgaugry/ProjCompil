@@ -122,13 +122,13 @@ public class Expression {
 		}
 	}
 	
-	public Op dernierOperande()
+	public int dernierOperande()
 	{
 		try {
-			return operateurs.peek();
+			return operandes.peek();
 		}
 		catch(EmptyStackException e) {
-			return Op.EGAL;
+			return YakaConstants.DEFAULT;
 		}
 	}
 }

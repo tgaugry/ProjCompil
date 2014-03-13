@@ -264,7 +264,7 @@ void expression() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyEx
 {
   (simpleExpr() 
   (opRel() 
-  simpleExpr() { yvm.lireOp(expression.dernierOp()); expression.evaluate();} 
+  simpleExpr() { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();} 
   )?) 
 }
 
@@ -274,20 +274,20 @@ void simpleExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyEx
 {
    terme() 
    (opAdd()
-   terme() { yvm.lireOp(expression.dernierOp()); expression.evaluate();}
+   terme() { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
    )* 
 } 
 void terme() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
   facteur() 
   (opMul() 
-  facteur() { yvm.lireOp(expression.dernierOp()); expression.evaluate();}
+  facteur() { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
   )*
 }
 void facteur() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {  
 	primaire() 
-	|  opNeg() primaire() { yvm.lireOp(expression.dernierOp()); expression.evaluate();}
+	|  opNeg() primaire() { yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
 }
 
 void primaire () throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
