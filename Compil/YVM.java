@@ -33,6 +33,11 @@ public class YVM
 		String texte = "iconst "+i;
 		Ecriture.ecrireStringln(output, texte);
 	}
+	
+	public void affecter(String nom){
+		Ident i = Yaka.tabIdent.chercherIdent(nom);
+		Ecriture.ecrireStringln(output, "istore " + i.getValOuOffset());
+	}
 
 	public void lireAdd(){
 		Ecriture.ecrireStringln(output, "iadd");
