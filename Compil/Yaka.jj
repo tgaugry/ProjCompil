@@ -297,7 +297,7 @@ void primaire () throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyExc
  
 }
 
-void valeur () throws TabIdent.NoSuchKeyException, TabIdent.KeyAlreadyThereException : { 
+void valeur () throws TabIdent.NoSuchKeyException, TabIdent.KeyAlreadyThereException : {} { 
    <entier> {expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}	
  | <ident> 	{expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
  | <VRAI> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.VRAI);}	
