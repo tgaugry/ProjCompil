@@ -23,7 +23,7 @@ public class YVM
 		Ecriture.ecrireStringln(output, texte);
 	}
 
-	public void lireConstOuVar(String nom){
+	public void lireConstOuVar(String nom) throws NoSuchKeyException{
 		Ident i = Yaka.tabIdent.chercherIdent(nom);
 		String texte = i.toYVM();
 		Ecriture.ecrireStringln(output, texte);
@@ -34,7 +34,7 @@ public class YVM
 		Ecriture.ecrireStringln(output, texte);
 	}
 	
-	public void affecter(String nom){
+	public void affecter(String nom) throws NoSuchKeyException{
 		Ident i = Yaka.tabIdent.chercherIdent(nom);
 		Ecriture.ecrireStringln(output, "istore " + i.getValOuOffset());
 	}

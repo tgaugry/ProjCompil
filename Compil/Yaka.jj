@@ -218,20 +218,20 @@ void suiteExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyExc
  *Affectations
  */
 
-void suiteInstr() : {}
+void suiteInstr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
     instruction() 
     (";" (instruction())? )*
 }
 
-void instruction() : {}
+void instruction() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
       affectation()
     | lecture()
     | ecriture()
 }
 
-void affectation() : {}
+void affectation() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}
 {
     <ident> {/*expression.stockeIdent(YakaTokenManager.identLu);*/} 
     "=" 
