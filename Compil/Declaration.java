@@ -2,13 +2,9 @@ package Compil;
 
 public class Declaration {
 	
-	public void declConst(String nom, int val) {
-		IdConst id = new IdConst(val);
-		Yaka.tabIdent.rangeIdent (nom, id);
-	}
-	
-	public void declConst(String nom, boolean val) {
-		IdConst id = new IdConst(val);
+	public void declConst(String nom, int type, int val)
+	{
+		IdConst id = new IdConst(type, val);
 		Yaka.tabIdent.rangeIdent (nom, id);
 	}
 	

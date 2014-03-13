@@ -5,7 +5,7 @@ public abstract class Ident {
 	protected int type; //prend des valeurs de YakaConstants
 	protected int valOuOffset;
 	
-	public enum TypeVar {BOOL, INT};
+	//public enum TypeVar {BOOL, INT};
 	
 	public Ident(int t, int v)
 	{

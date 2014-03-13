@@ -166,14 +166,14 @@ void declConst() : {}{
 }
 
 void defConst() : {}{
-  <ident> "=" valConst() {declaration.declConst(YakaTokenManager.identLu, YakaTokenManager.entierLu);}
+  <ident> "=" valConst()
 }
 
 void valConst() : {}{
-  <entier> 		
- | <ident>		
- | <VRAI> 		
- | <FAUX> 		
+  <entier> 	 {declaration.declConst(YakaTokenManager.identLu, YakaConstants.ENTIER, YakaTokenManager.entierLu);}
+ | <ident>	 
+ | <VRAI> 	 {declaration.declConst(YakaTokenManager.identLu, YakaConstants.BOOLEEN, YakaConstants.VRAI);}
+ | <FAUX> 	 {declaration.declConst(YakaTokenManager.identLu, YakaConstants.BOOLEEN, YakaConstants.FAUX);}
 }
 
 
