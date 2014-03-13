@@ -45,7 +45,7 @@ public class TabIdent {
 	public void rangeIdent(String clef, Ident id) throws KeyAlreadyThereException
 	{
 		Ident i = table.get(clef); 
-		if (i == null){
+		if (i != null){
 			throw new KeyAlreadyThereException(clef);
 		}
 		table.put(clef, id);
