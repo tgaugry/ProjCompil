@@ -233,9 +233,9 @@ void instruction() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyE
 
 void affectation() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}
 {
-    <ident> {/*expression.stockeIdent(YakaTokenManager.identLu);*/} 
+    <ident> {expression.stockeAffectation(YakaTokenManager.identLu);} 
     "=" 
-    expression() {/*expression.affectation();*/ }
+    expression() {expression.evaluerAffectation();}
 }
 
 /*
