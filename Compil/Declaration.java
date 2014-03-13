@@ -1,8 +1,10 @@
 package Compil;
 
+import Compil.TabIdent.KeyAlreadyThereException;
+
 public class Declaration {
 
-	public void declConst(String nom, int type, int val)
+	public void declConst(String nom, int type, int val) throws KeyAlreadyThereException
 	{
 		IdConst id = new IdConst(type, val);
 		Yaka.tabIdent.rangeIdent (nom, id);
@@ -14,7 +16,7 @@ public class Declaration {
 		Yaka.tabIdent.rangeIdent (nom, id);
 	}
 	
-	public void declVar(String nom, int type) {
+	public void declVar(String nom, int type) throws KeyAlreadyThereException {
 		IdVar id = new IdVar(type);
 		Yaka.tabIdent.rangeIdent (nom, id);
 	}

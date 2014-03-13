@@ -56,11 +56,23 @@ public class Yaka {
       tabIdent = new TabIdent();
       analyseur.analyse();
       System.out.println("analyse syntaxique reussie!");
-    } catch (ParseException e) {
-      String msg = e.getMessage();
-      msg = msg.substring(0,msg.indexOf("\n"));
-      System.out.println("Erreur de syntaxe : "+ msg);
     }
+    catch (ParseException e) {
+      	String msg = e.getMessage();
+     	msg = msg.substring(0,msg.indexOf("\n"));
+     	System.out.println("Erreur de syntaxe : "+ msg);
+    }
+    catch (TabIdent.NoSuchKeyException e) {
+		String msg = e.getMessage();
+     	msg = msg.substring(0,msg.indexOf("\n"));
+     	System.out.println(msg);
+    }
+    catch (TabIdent.KeyAlreadyThereException e) {
+		String msg = e.getMessage();
+     	msg = msg.substring(0,msg.indexOf("\n"));
+     	System.out.println(msg);
+    }
+      
   } 
 }
 
@@ -148,28 +160,28 @@ TOKEN  :
 /**************************************/
 /********debut de la grammaire ********/
 /**************************************/
-void analyse() : {}
+void analyse() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
    <PROGRAMME> <ident>	{yvm.debutProg();}
    bloc()
    <FPROGRAMME> {yvm.finProg();}
 }
 
-void bloc() : {}{
+void bloc() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}{
  (declConst())*
  (declVar())* {yvm.ouvrePrinc();}	
    suiteExpr() 
 }
 
-void declConst() : {}{
+void declConst() throws TabIdent.KeyAlreadyThereException: {}{
   <CONST>  defConst() ( "," defConst())* ";"
 }
 
-void defConst() : {}{
+void defConst() throws TabIdent.KeyAlreadyThereException: {}{
   <ident> "=" valConst()
 }
 
-void valConst() : {String ident1 = YakaTokenManager.identLu;}{
+void valConst() throws TabIdent.KeyAlreadyThereException : {String ident1 = YakaTokenManager.identLu;}{
   <entier> 	 {declaration.declConst(ident1, YakaConstants.ENTIER, YakaTokenManager.entierLu);}
  | <ident>	 {declaration.declConst(ident1, YakaTokenManager.identLu);}
  | <VRAI> 	 {declaration.declConst(ident1, YakaConstants.BOOLEEN, YakaConstants.VRAI);}
@@ -177,7 +189,7 @@ void valConst() : {String ident1 = YakaTokenManager.identLu;}{
 }
 
 
-void declVar() : {} {
+void declVar() throws TabIdent.KeyAlreadyThereException : {} {
   <VAR> type()	
   <ident> {declaration.declVar(YakaTokenManager.identLu, type); }		
   ("," 
@@ -194,7 +206,7 @@ void type() :{} {
 /*
  * Syntaxe des instructions.
  */
-void suiteExpr() : {}
+void suiteExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}
 {	
 	expression() 
 	(";" (expression() )? )*
@@ -202,12 +214,55 @@ void suiteExpr() : {}
 	//(";" (expression())? )*)?
 }
 
+/*
+ *Affectations
+ */
 
+void suiteInstr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+{
+    instruction() 
+    (";" (instruction())? )*
+}
+
+void instruction() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
+{
+      affectation()
+    | lecture()
+    | ecriture()
+}
+
+void affectation() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException : {}
+{
+    <ident> {/*expression.stockeIdent(YakaTokenManager.identLu);*/} 
+    "=" 
+    expression() {/*expression.affectation();*/ }
+}
+
+/*
+ * Entrees/sorties
+ */
+ 
+void lecture() : {}
+{
+    <LIRE> 
+	"("
+	<ident> {yvm.lireEnt(YakaTokenManager.identLu) ;}
+	")"
+}
+
+void ecriture() : {}
+{
+    (<ECRIRE> "(" 
+        (expression() {yvm.ecrireExpr() ;}
+        | <chaine> {yvm.ecrireChaine(YakaTokenManager.chaineLue) ;})
+		")")
+    | <ALALIGNE> {yvm.aLaLigne() ;}
+}
 
 /*
  * Expression .
  */
-void expression() : {}
+void expression() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
   (simpleExpr() 
   (opRel() 
@@ -217,34 +272,34 @@ void expression() : {}
 
 
 
-void simpleExpr() : {}
+void simpleExpr() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
    terme() 
    (opAdd()
    terme() { yvm.lireOp(expression.dernierOp()); expression.evaluate();}
    )* 
 } 
-void terme() : {}
+void terme() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
   facteur() 
   (opMul() 
   facteur() { yvm.lireOp(expression.dernierOp()); expression.evaluate();}
   )*
 }
-void facteur() : {}
+void facteur() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {  
 	primaire() 
 	|  opNeg() primaire() { yvm.lireOp(expression.dernierOp()); expression.evaluate();}
 }
 
-void primaire (): {}
+void primaire () throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
    valeur()
  | "(" expression() ")" 
  
 }
 
-void valeur () : {Boolean b = false;} { 
+void valeur () throws TabIdent.NoSuchKeyException, TabIdent.KeyAlreadyThereException : {Boolean b = false;} { 
    <entier> {expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}	
  | <ident> 	{expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
  | <VRAI> 	{expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YakaConstants.VRAI);}	

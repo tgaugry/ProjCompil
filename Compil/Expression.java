@@ -3,6 +3,8 @@ package Compil;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import Compil.TabIdent.NoSuchKeyException;
+
 public class Expression {
 
 	public enum Op {SUP, INF, SUPEG, INFEG, EGAL, DIFF, ADD, SOUS, OU, MUL, DIV, ET, NEG, NON};
@@ -23,7 +25,7 @@ public class Expression {
 		operateurs.push(t);
 	}
 	
-	public void addIdent(String identName) {
+	public void addIdent(String identName) throws NoSuchKeyException {
 		Ident i = Yaka.tabIdent.chercherIdent(identName);
 		operandes.push(i.getType());
 	}
