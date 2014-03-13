@@ -75,6 +75,7 @@ public class Expression {
 					else throw new IncorrectTypeException("1 INT");
 				}
 				else throw new OperandeManquanteException();
+				break;
 			case ADD :case SOUS :case MUL :case DIV :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -85,6 +86,7 @@ public class Expression {
 					else throw new IncorrectTypeException("2 INT");
 				}
 				else throw new OperandeManquanteException();
+				break;
 			case NON :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
@@ -94,6 +96,7 @@ public class Expression {
 					else throw new IncorrectTypeException("1 BOOL");
 				}
 				else throw new OperandeManquanteException();
+				break;
 			case OU :case ET :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -104,6 +107,7 @@ public class Expression {
 					else throw new IncorrectTypeException("2 BOOL");
 				}
 				else throw new OperandeManquanteException();
+				break;
 			case INF :case SUP :case INFEG :case SUPEG :case DIFF :case EGAL :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
@@ -114,6 +118,7 @@ public class Expression {
 					else  throw new IncorrectTypeException(" 2 INT");
 				}
 				else throw new OperandeManquanteException();
+				break;
 			default:
 				break;
 			}
