@@ -64,12 +64,10 @@ public class Yaka {
     }
     catch (TabIdent.NoSuchKeyException e) {
 		String msg = e.getMessage();
-     	msg = msg.substring(0,msg.indexOf("\n"));
      	System.out.println(msg);
     }
     catch (TabIdent.KeyAlreadyThereException e) {
 		String msg = e.getMessage();
-     	msg = msg.substring(0,msg.indexOf("\n"));
      	System.out.println(msg);
     }
       
