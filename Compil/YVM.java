@@ -162,23 +162,23 @@ public class YVM
 	 * Choisit d'appeler ecrireEnt ou ecrireBool suivant le type de l'expression (en haut de la pile)
 	 */
 	
-	/*public void ecrireExpr(){
-		int type = Yaka.expression.getLastPileType();
+	public void ecrireExpr(){
+		int type = Yaka.expression.dernierOperande();
 		switch (type){
-			case BOOLEEN :
+			case YakaConstants.BOOLEEN :
 				ecrireBool();
 				break;
-			case ENTIER :
+			case YakaConstants.ENTIER :
 				ecrireEnt();
 				break;
-			case ERREUR :
-				System.out.println("Expression non valide. ");
+			case YakaConstants.DEFAULT :
+				System.out.println("Expression non valide.");
 				break;
 			default :
 				System.out.println("Probleme de type d'expression. ");
 				break ;		
 		}
-	}*/
+	}
 	
 	public void ecrireChaine(String s) {
 		Ecriture.ecrireStringln(output, "ecrireChaine " + s);

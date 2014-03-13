@@ -251,7 +251,7 @@ void lecture() throws TabIdent.NoSuchKeyException: {}
 void ecriture() throws TabIdent.KeyAlreadyThereException, TabIdent.NoSuchKeyException: {}
 {
     (<ECRIRE> "(" 
-        (expression() {/*yvm.ecrireExpr() ;*/}
+        (expression() {yvm.ecrireExpr() ;}
         | <chaine> {yvm.ecrireChaine(YakaTokenManager.chaineLue) ;})
 		")")
     | <ALALIGNE> {yvm.aLaLigne() ;}
