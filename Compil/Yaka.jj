@@ -202,7 +202,50 @@ void suiteExpr() : {}
 	//(";" (expression())? )*)?
 }
 
+/*
+ *Affectations
+ */
 
+void suiteInstr() : {}
+{
+    instruction() 
+    (";" (instruction())? )*
+}
+
+void instruction() : {}
+{
+      affectation()
+    | lecture()
+    | ecriture()
+}
+
+void affectation() : {}
+{
+    <ident> {expression.stockeIdent(YakaTokenManager.identLu);} 
+    "=" 
+    expression() {expression.affectation(); }
+}
+
+/*
+ * Entrees/sorties
+ */
+ 
+void lecture() : {}
+{
+    <LIRE> 
+	"("
+	<ident> {yvm.lireEnt(YakaTokenManager.identLu) ;}
+	")"
+}
+
+void ecriture() : {}
+{
+    (<ECRIRE> "(" 
+        (expression() {yvm.ecrireExpr() ;}
+        | <chaine> {yvm.ecrireChaine(YakaTokenManager.chaineLue) ;})
+		")")
+    | <ALALIGNE> {yvm.aLaLigne() ;}
+}
 
 /*
  * Expression .
