@@ -1,7 +1,7 @@
 PROGRAMME max
 CONST
 aa=10,
-ba=vrai,
+ba=VRAI,
 cc=aa;
 VAR ENTIER c1,c2;
 VAR BOOLEEN b1,b2;
