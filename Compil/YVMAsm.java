@@ -40,11 +40,14 @@ public class YVMAsm extends YVM {
 	public void lireImmediat(int i){
 		Ecriture.ecrireStringln(output, "push "+i);
 	}
-	/*public void istore(String nom){
-		Ecriture.ecrireStringln(output, "; istore\n" +
-				"pop ax\n" +
-				"mov word ptr[bp-2],ax\n");
-	}*/
+	public void affecter(String nom){
+		Ident i = Yaka.tabIdent.chercherIdent(nom);
+		Ecriture.ecrireStringln(output, "; istore\n"
+				+ "pop ax\n"
+				+ "mov word ptr[bp"
+				+ i.getValOuOffset()
+				+ "],ax\n");
+	}
 	
 	
 	public void lireAdd(){

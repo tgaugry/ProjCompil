@@ -1,6 +1,7 @@
 package Compil;
 
 import java.io.OutputStream;
+
 import Compil.Ecriture;
 
 public class YVM
@@ -30,6 +31,11 @@ public class YVM
 	public void lireImmediat(int i){
 		String texte = "iconst "+i;
 		Ecriture.ecrireStringln(output, texte);
+	}
+	
+	public void affecter(String nom){
+		Ident i = Yaka.tabIdent.chercherIdent(nom);
+		Ecriture.ecrireStringln(output, "istore " + i.getValOuOffset());
 	}
 
 	public void lireAdd(){
