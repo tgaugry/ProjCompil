@@ -16,6 +16,9 @@ public class IdConst extends Ident {
 	{
 		super(Ident.TypeVar.BOOL, b? 1 : 0);
 	}
+	public String toString(){
+		return "IdConst type :" + type +" val :" + valOuOffset;
+	}
 
 	public String toYVM() {
 		String res = "iconst "+ valOuOffset;

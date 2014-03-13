@@ -24,6 +24,8 @@ public abstract class Ident {
 		return type;
 	}
 	
+	public abstract String toString();
+	
 	public abstract String toYVM();
 	public abstract String toYVMAsm();
 }
