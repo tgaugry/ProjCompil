@@ -12,6 +12,10 @@ public class IdConst extends Ident {
 		super(type, val);
 	}
 	
+	public IdConst(Ident i) {
+		super(i.getType(), i.getValOuOffset());
+	}
+
 	public String toString(){
 		return "IdConst type :" + type +" val :" + valOuOffset;
 	}

@@ -1,24 +1,27 @@
 package Compil;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 import Compil.TabIdent.NoSuchKeyException;
 
 public class Expression {
-	public enum TypeOp {ARITH2, LOGIQUE2, ARITH1, LOGIQUE1, ARLO }
+
+	public enum Op {SUP, INF, SUPEG, INFEG, EGAL, DIFF, ADD, SOUS, OU, MUL, DIV, ET, NEG, NON};
+	//public enum TypeOp {ARITH2, LOGIQUE2, ARITH1, LOGIQUE1, ARLO }
 	private Stack<Integer> operandes; //prend ses valeurs dans YakaConstants
-	private Stack<TypeOp>  operateurs;
+	private Stack<Op>  operateurs;
 	
 	public Expression (){
 		operandes = new Stack<Integer>();
-		operateurs = new Stack<TypeOp>();
+		operateurs = new Stack<Op>();
 	}
 	
 	public void addImmediate(int t) {
 		operandes.push(t);
 	}
 	
-	public void addOp(TypeOp t) {
+	public void addOp(Op t) {
 		operateurs.push(t);
 	}
 	
@@ -28,7 +31,7 @@ public class Expression {
 	}
 	
 	public boolean evaluate() {
-		TypeOp operande;
+		Op operande;
 		int n1, n2;
 		if(operateurs.empty()) {
 			if (operandes.size() == 1) {return true;}
@@ -37,7 +40,7 @@ public class Expression {
 		else {
 			operande = operateurs.pop();
 			switch (operande) {
-			case ARITH1 :
+			case NEG :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
 					if(n1 == YakaConstants.ENTIER){
@@ -46,7 +49,7 @@ public class Expression {
 					}
 				}
 				break;
-			case ARITH2 :
+			case ADD :case SOUS :case MUL :case DIV :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
@@ -56,7 +59,7 @@ public class Expression {
 					}
 				}
 				break;
-			case LOGIQUE1 :
+			case NON :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
 					if(n1 == YakaConstants.BOOLEEN){
@@ -65,7 +68,7 @@ public class Expression {
 					}
 				}
 				break;
-			case LOGIQUE2 :
+			case OU :case ET :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
@@ -75,7 +78,7 @@ public class Expression {
 					}
 				}
 				break;
-			case ARLO :
+			case INF :case SUP :case INFEG :case SUPEG :case DIFF :case EGAL :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
@@ -85,8 +88,22 @@ public class Expression {
 					}
 				}
 				break;
+			default:
+				break;
 			}
 		}
 		return false;	
+	}
+	
+	public Op dernierOp()
+	{
+		try
+		{
+		return operateurs.peek();
+		}
+		catch(EmptyStackException e)
+		{
+			return Op.EGAL;
+		}
 	}
 }
