@@ -15,7 +15,7 @@ public class TestCompil {
 	}
 	
 	@Test
-	public void testTabIdent() {
+	public void testTabIdent() throws Exception {
 		TabIdent ti = new TabIdent();
 
 		ti.rangeIdent("e", new IdConst(YakaConstants.ENTIER, 42));
@@ -33,7 +33,7 @@ public class TestCompil {
 	
 
 	@Test
-	public void testDeclaration() {
+	public void testDeclaration() throws Exception {
 		
 		Yaka.tabIdent = new TabIdent();
 		Yaka.declaration = new Declaration();
