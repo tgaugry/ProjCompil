@@ -32,7 +32,7 @@ public class Yaka {
   public static void main(String args[]) { 
     Yaka analyseur;
     java.io.InputStream input;
-
+	System.out.println(args);
     if (args.length==1) {
       System.out.print(args[args.length-1] + ": ");
       try {

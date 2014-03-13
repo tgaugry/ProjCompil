@@ -18,7 +18,7 @@ public class YVMAsm extends YVM {
 				"STARTUPCODE\n");
 	}
 	public void ouvrePrinc() {
-		int nbVar = Yaka.tabIdent.compteVariables();
+		int nbVar = Yaka.tabIdent.compteVariables()*2;
 		Ecriture.ecrireString(output, "; ouvrePrinc");
 		Ecriture.ecrireInt(output, nbVar);
 		Ecriture.ecrireString(output, "\nmov bp,sp\nsub sp,");
