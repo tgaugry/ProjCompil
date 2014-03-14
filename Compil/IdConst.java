@@ -26,7 +26,7 @@ public class IdConst extends Ident {
 	}
 	
 	public String toYVMAsm() {
-		return "push " + valOuOffset;
+		return "; iconst " + valOuOffset + "\npush word ptr " + valOuOffset;
 	}
 	
 }
