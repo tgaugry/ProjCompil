@@ -1,3 +1,6 @@
+extrn lirent:proc, ecrent:proc
+extrn ecrbool:proc
+extrn ecrch:proc, ligsuiv:proc
 ; entete
 .model SMALL
 .586
@@ -5,22 +8,29 @@
 debut:
 STARTUPCODE
 
-; ouvrePrinc6
+; ouvrePrinc 6
 mov bp,sp
 sub sp,6
 
-push 2
-; istore
-pop ax
-mov word ptr[bp-2],ax
+; iconst 2
+push word ptr 2
 
-push -1
-; istore
+; istore -2
 pop ax
-mov word ptr[bp-6],ax
+mov word ptr[bp-2], ax
 
-push 2
+; iconst -1
+push word ptr -1
+
+; istore -6
+pop ax
+mov word ptr[bp-6], ax
+
+; iconst 2
+push word ptr 2
+
 ; iconst
+; iload -2
 push word ptr[bp-2]
 ; imul
 pop bx
@@ -29,6 +39,7 @@ imul bx
 push ax
 
 ; iconst
+; iload -6
 push word ptr[bp-6]
 ; iadd
 pop bx
@@ -36,19 +47,21 @@ pop ax
 add ax,bx
 push ax
 
-push 3
+; iconst 3
+push word ptr 3
+
 ; iadd
 pop bx
 pop ax
 add ax,bx
 push ax
 
-; istore
+; istore -4
 pop ax
-mov word ptr[bp-4],ax
+mov word ptr[bp-4], ax
 
 ; queue
 nop
-exitcode
-end debut
+EXITCODE
+End debut
 

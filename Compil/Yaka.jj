@@ -64,7 +64,7 @@ public class Yaka {
     } 
     
     else {
-      System.out.println("Usage: java Gram [fichier]");
+      System.out.println("Usage: java Gram [asm] [fichier]");
       return;
     }
     try {
