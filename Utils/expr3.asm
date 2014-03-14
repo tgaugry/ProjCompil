@@ -60,12 +60,12 @@ call lirent
 ; aLaLigne
 call ligsuiv
 
+; iconst
 ; iload -6
 push word ptr[bp-6]
-
+; iconst
 ; iload -8
 push word ptr[bp-8]
-
 ; iconst 2
 push word ptr 2
 
@@ -98,15 +98,15 @@ call ecrent
 ; aLaLigne
 call ligsuiv
 
+; iconst
 ; iload -2
 push word ptr[bp-2]
-
 ; iconst 3
 push word ptr 3
 
+; iconst
 ; iload -2
 push word ptr[bp-2]
-
 ; imul
 pop bx
 pop ax
@@ -119,9 +119,9 @@ pop ax
 add ax,bx
 push ax
 
+; iconst
 ; iconst 10
 push word ptr 10
-
 ; isub
 pop bx
 pop ax

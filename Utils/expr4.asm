@@ -28,9 +28,9 @@ call lirent
 ; aLaLigne
 call ligsuiv
 
+; iconst
 ; iload -2
 push word ptr[bp-2]
-
 ; ecrireEnt
 call ecrent
 
@@ -40,9 +40,9 @@ call ligsuiv
 ; iconst 2
 push word ptr 2
 
+; iconst
 ; iload -2
 push word ptr[bp-2]
-
 ; imul
 pop bx
 pop ax

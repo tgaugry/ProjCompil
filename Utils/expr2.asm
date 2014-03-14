@@ -44,12 +44,12 @@ call lirent
 ; aLaLigne
 call ligsuiv
 
+; iconst
 ; iconst 10
 push word ptr 10
-
+; iconst
 ; iconst 10
 push word ptr 10
-
 ; iconst 2
 push word ptr 2
 
@@ -82,15 +82,15 @@ call ecrent
 ; aLaLigne
 call ligsuiv
 
+; iconst
 ; iload -2
 push word ptr[bp-2]
-
 ; iconst 3
 push word ptr 3
 
+; iconst
 ; iload -2
 push word ptr[bp-2]
-
 ; imul
 pop bx
 pop ax
@@ -103,9 +103,9 @@ pop ax
 add ax,bx
 push ax
 
+; iconst
 ; iconst 10
 push word ptr 10
-
 ; isub
 pop bx
 pop ax
@@ -118,9 +118,9 @@ call ecrent
 ; aLaLigne
 call ligsuiv
 
+; iconst
 ; iconst -1
 push word ptr -1
-
 ; iconst -1
 push word ptr -1
 
@@ -136,12 +136,12 @@ call ecrbool
 ; aLaLigne
 call ligsuiv
 
+; iconst
 ; iload -2
 push word ptr[bp-2]
-
+; iconst
 ; iload -4
 push word ptr[bp-4]
-
 ; iconst 4
 push word ptr 4
 

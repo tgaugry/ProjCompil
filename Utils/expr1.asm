@@ -12,9 +12,9 @@ STARTUPCODE
 mov bp,sp
 sub sp,10
 
+; iconst
 ; iconst 2
 push word ptr 2
-
 ; iconst 2
 push word ptr 2
 
@@ -37,18 +37,18 @@ push ax
 pop ax
 mov word ptr[bp-10], ax
 
+; iconst
 ; iload -10
 push word ptr[bp-10]
-
 ; ecrireEnt
 call ecrent
 
 ; aLaLigne
 call ligsuiv
 
+; iconst
 ; iconst 2
 push word ptr 2
-
 ; iconst 2
 push word ptr 2
 
@@ -64,9 +64,9 @@ pop ax
 add ax,bx
 push ax
 
+; iconst
 ; iconst 2
 push word ptr 2
-
 ; iadd
 pop bx
 pop ax

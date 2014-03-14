@@ -27,9 +27,9 @@ lea dx, mess0
 push dx
 call ecrch
 
+; iconst
 ; iload -2
 push word ptr[bp-2]
-
 ; ecrireEnt
 call ecrent
 
@@ -53,9 +53,9 @@ mov ax, 0
 sub ax,bx
 push ax
 
+; iconst
 ; iload -2
 push word ptr[bp-2]
-
 ; imul
 pop bx
 pop ax

@@ -17,13 +17,13 @@ public class Expression {
 	public static class IncorrectTypeException extends Exception {
 		private static final long serialVersionUID = 1L;
 		public IncorrectTypeException(String s){
-			super("Type incorrect, "+ s +" était attendu");
+			super("Type incorrect, "+ s +" était attendu" + Yaka.afficherLigne());
 		}
 	}
 	public static class OperandeManquanteException extends Exception {
 		private static final long serialVersionUID = 1L;
 		public OperandeManquanteException(){
-			super("Operande Manquante");
+			super("Operande Manquante"  + Yaka.afficherLigne());
 		}
 	}
 
