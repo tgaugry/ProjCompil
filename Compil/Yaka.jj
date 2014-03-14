@@ -30,6 +30,10 @@ public class Yaka {
 	public static YVM yvm;
 	public static int nbErreurs;
 	
+	public static String afficherLigne() {
+		return " a la ligne " + Yaka.token.beginLine + ", colonne " + Yaka.token.beginColumn;
+	}
+	
   public static void main(String args[]) { 
   	nbErreurs = 0;
     Yaka analyseur;
