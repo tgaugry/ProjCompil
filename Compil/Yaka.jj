@@ -26,6 +26,7 @@ public class Yaka {
 	public static Declaration declaration;
 	public static TabIdent tabIdent;
 	public static Expression expression;
+	public static Iteration iteration;
 	public static int type; //prend ses valeurs dans YakaConstants
 	public static YVM yvm;
 	public static int nbErreurs;
@@ -252,9 +253,9 @@ void instruction() : {}
  */
 void iteration() : {} 
 {
-	<TANTQUE> expression() {debutTantQue();}
+	<TANTQUE> expression() {iteration.debutTantQue();}
 	<FAIRE> suiteInstr()
-	<FAIT> {finTantQue();}
+	<FAIT> {iteration.finTantQue();}
 }
 
 /*
@@ -264,7 +265,7 @@ void iteration() : {}
 void conditionnelle() : {} 
 {
 	<SI>
-	<ALORS
+	<ALORS>
 	(
 		<SINON>
 	)?
