@@ -30,7 +30,7 @@ public class Yaka {
 	public static int type; //prend ses valeurs dans YakaConstants
 	public static YVM yvm;
 	public static int nbErreurs;
-	public static Conditionelle conditionelle;
+	public static Conditionnelle conditionnelle;
 	
 	public static String afficherLigne() {
 		return " a la ligne " + Yaka.token.beginLine + ", colonne " + Yaka.token.beginColumn;
@@ -78,7 +78,7 @@ public class Yaka {
       declaration = new Declaration();
       expression = new Expression();
       tabIdent = new TabIdent();
-      conditionelle = new Conditionelle();
+      conditionnelle = new Conditionnelle();
       analyseur.analyse();
     }
     catch (ParseException e) {
@@ -264,7 +264,7 @@ void iteration() : {}
 
 void conditionnelle() : {} 
 {
-	<SI> expression() {conditionelle.verifieTypeExpr();}
+	<SI> expression() {conditionnelle.verifieTypeExpr();}
 	<ALORS> (expression()";")*
 	(<SINON> (expression()";")*)?
 	<FSI>
