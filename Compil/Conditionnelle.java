@@ -1,10 +1,20 @@
 package Compil;
 
 public class Conditionnelle {
-	public static int nbConditionnelles;
+	public int nbConditionnelles;
 	
 	public Conditionnelle(){
 		nbConditionnelles = 0;
+	}
+	
+	public int incNbConditionnelles()
+	{
+		return ++nbConditionnelles;
+	}
+	
+	public int getNbConditionnelles()
+	{
+		return nbConditionnelles;
 	}
 	
 	private static class IncorrectConditionException extends Exception {

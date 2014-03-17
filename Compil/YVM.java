@@ -238,9 +238,16 @@ public class YVM
 	 * Fonctions de conditionelles 
 	 */
 
-	public void lireAlors(){}
+	public void lireAlors(){
+		Ecriture.ecrireStringln(output, "iffaux SINON" + Yaka.conditionnelle.incNbConditionnelles());
+	}
 	
-	public void lireSinon(){}
+	public void lireSinon(){
+		Ecriture.ecrireStringln(output, "goto FSI" + Yaka.conditionnelle.getNbConditionnelles());
+		Ecriture.ecrireStringln(output, "SINON" + Yaka.conditionnelle.getNbConditionnelles()+" :");
+	}
 	
-	public void lireFSi(){}
+	public void lireFSi(){
+		Ecriture.ecrireStringln(output, "FSI" + Yaka.conditionnelle.getNbConditionnelles()+" :");
+	}
 }
