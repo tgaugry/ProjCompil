@@ -5,13 +5,13 @@ import java.util.Stack;
 public class Iteration {
 
 	private static int nbIter;
-	private Stack<Integer>  niveau;
+	private static Stack<Integer>  niveau;
 	
 	public int getnbIter() {
 		return nbIter;
 	}
 	
-	public int getEtiquette() {
+	public static int getEtiquette() {
 		return niveau.peek(); 
 	}
 	
