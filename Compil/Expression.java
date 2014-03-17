@@ -8,7 +8,6 @@ import Compil.TabIdent.NoSuchKeyException;
 public class Expression {
 
 	public enum Op {SUP, INF, SUPEG, INFEG, EGAL, DIFF, ADD, SOUS, OU, MUL, DIV, ET, NEG, NON};
-	//public enum TypeOp {ARITH2, LOGIQUE2, ARITH1, LOGIQUE1, ARLO }
 	private Stack<Integer> operandes; //prend ses valeurs dans YakaConstants
 	private Stack<Op>  operateurs;
 	private int typeAffectation;
