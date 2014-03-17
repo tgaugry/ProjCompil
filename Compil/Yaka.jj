@@ -252,7 +252,9 @@ void instruction() : {}
  */
 void iteration() : {} 
 {
-
+	<TANTQUE> expression() {debutTantQue();}
+	<FAIRE> suiteInstr()
+	<FAIT> {finTantQue();}
 }
 
 /*
