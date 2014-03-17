@@ -218,8 +218,11 @@ public class YVM
 		}
 	}
 	
-	/*
+	public tantQue() {
+		Ecriture.ecrireString(output, ":FAIRE");
+		Ecriture.ecrireInt();
+	}
+	}	/*
 	 * Fonctions de conditionelles 
 	 */
-	 
 }
