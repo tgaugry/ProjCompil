@@ -222,8 +222,8 @@ public class YVM
 		Ecriture.ecrireString(output, "FAIRE");
 		Ecriture.ecrireInt(output, Iteration.getEtiquette());
 		Ecriture.ecrireStringln(output, ":");
-		
 	}
+	
 	public void ftantQue() {
 		Ecriture.ecrireString(output, "goto FAIRE");
 		Ecriture.ecrireInt(output, Iteration.getEtiquette());
