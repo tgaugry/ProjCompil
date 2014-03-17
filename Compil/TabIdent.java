@@ -11,7 +11,7 @@ public class TabIdent {
 		private static final long serialVersionUID = 1L;
 
 		public NoSuchKeyException(String clef){
-			super("L'identifiant "+ clef + " n'existe pas");
+			super("L'identifiant "+ clef + " n'existe pas" + Yaka.afficherLigne());
 		}
 	}
 	
@@ -19,7 +19,7 @@ public class TabIdent {
 		private static final long serialVersionUID = 1L;
 
 		public KeyAlreadyThereException(String clef){
-			super("L'identifiant " + clef + " est déclaré plusieurs fois");
+			super("L'identifiant " + clef + " est déclaré plusieurs fois" + Yaka.afficherLigne());
 		}
 	}
 	

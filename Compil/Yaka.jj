@@ -30,6 +30,10 @@ public class Yaka {
 	public static YVM yvm;
 	public static int nbErreurs;
 	
+	public static String afficherLigne() {
+		return " a la ligne " + Yaka.token.beginLine + ", colonne " + Yaka.token.beginColumn;
+	}
+	
   public static void main(String args[]) { 
   	nbErreurs = 0;
     Yaka analyseur;
@@ -64,7 +68,7 @@ public class Yaka {
     } 
     
     else {
-      System.out.println("Usage: java Gram [fichier]");
+      System.out.println("Usage: java Gram [asm] [fichier]");
       return;
     }
     try {
@@ -226,9 +230,7 @@ void suiteExpr() : {}
 	//(";" (expression())? )*)?
 }
 
-/*
- *Affectations
- */
+
 
 void suiteInstr() : {}
 {
@@ -241,7 +243,30 @@ void instruction() : {}
       affectation()
     | lecture()
     | ecriture()
+    | iteration()
+    | conditionnelle()
 }
+
+/*
+ *Iteration
+ */
+void iteration() : {} 
+{
+
+}
+
+/*
+ * Conditionnelle
+ */
+
+void conditionnelle() : {} 
+{
+
+}
+
+/*
+ *Affectations
+ */
 
 void affectation() : {}
 {

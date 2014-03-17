@@ -40,10 +40,9 @@ public class YVMAsm extends YVM {
 	
 	public void lireConstOuVar(String nom) {
 		try {
-			Ecriture.ecrireString(output, "; iconst\n");
 			Ident i = Yaka.tabIdent.chercherIdent(nom);
 			String texte = i.toYVMAsm();
-			Ecriture.ecrireStringln(output, texte);
+			Ecriture.ecrireStringln(output, texte + "\n");
 		}
 		catch (Exception e){
 			System.out.println(e.getMessage());
