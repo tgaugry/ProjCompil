@@ -265,10 +265,10 @@ void iteration() : {}
 
 void conditionnelle() : {} 
 {
-	<SI> expression() {conditionnelle.verifieTypeExpr();}
-	<ALORS> (expression()";")*
+	<SI> expression() {conditionnelle.verifieTypeExpr(); yvm.lireAlors();}
+	<ALORS> (expression()";")* {yvm.lireSinon();}
 	(<SINON> (expression()";")*)?
-	<FSI>
+	<FSI> {yvm.lireFSi();}
 }
 
 /*

@@ -214,6 +214,10 @@ public class YVMAsm extends YVM {
 				+ "call ecrch\n");
 		nbChaines++;
 	}
+	public void aLaLigne() {
+		Ecriture.ecrireStringln(output, "; aLaLigne\n"
+				+ "call ligsuiv\n");
+	}
 	public void lireEnt(String id) {
 		try {
 			Ident i = Yaka.tabIdent.chercherIdent(id) ;
@@ -229,8 +233,24 @@ public class YVMAsm extends YVM {
 			Yaka.nbErreurs++;
 		}
 	}
-	public void aLaLigne() {
-		Ecriture.ecrireStringln(output, "; aLaLigne\n"
-				+ "call ligsuiv\n");
+	
+	public void dtantQue() {
+		Ecriture.ecrireString(output, "FAIRE");
+		Ecriture.ecrireInt(output, Iteration.getEtiquette());
+		Ecriture.ecrireStringln(output, ":");
+	}
+	public void ftantQue() {
+		int etiquette = Iteration.getEtiquette();
+		Ecriture.ecrireString(output, "; goto FAIRE");
+		Ecriture.ecrireInt(output, etiquette);
+		Ecriture.ecrireStringln(output, "");
+		
+		Ecriture.ecrireString(output, "jmp FAIRE");
+		Ecriture.ecrireInt(output, etiquette);
+		Ecriture.ecrireStringln(output, "\n");
+		
+		Ecriture.ecrireString(output, "FAIT");
+		Ecriture.ecrireInt(output, etiquette);
+		Ecriture.ecrireStringln(output, ":");
 	}
 }

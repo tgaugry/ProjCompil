@@ -233,7 +233,14 @@ public class YVM
 		Ecriture.ecrireInt(output, Iteration.getEtiquette());
 		Ecriture.ecrireStringln(output, ":");
 	}
+	
 	/*
 	 * Fonctions de conditionelles 
 	 */
+
+	public void lireAlors(){}
+	
+	public void lireSinon(){}
+	
+	public void lireFSi(){}
 }
