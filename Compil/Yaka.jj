@@ -253,10 +253,10 @@ void instruction() : {}
  */
 void iteration() : {} 
 {
-	<TANTQUE> {iteration.debutTantQue();}
+	<TANTQUE> {iteration.debutTantQue(); yvm.dtantQue();}
 	 expression() 
 	<FAIRE> suiteInstr()
-	<FAIT> {iteration.finTantQue();}
+	<FAIT> { yvm.ftantQue(); iteration.finTantQue();}
 }
 
 /*
