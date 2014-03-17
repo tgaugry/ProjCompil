@@ -233,4 +233,14 @@ public class YVMAsm extends YVM {
 		Ecriture.ecrireStringln(output, "; aLaLigne\n"
 				+ "call ligsuiv\n");
 	}
+	
+	/*
+	 * Fonctions de conditionelles 
+	 */
+
+	public void lireAlors(){}
+	
+	public void lireSinon(){}
+	
+	public void lireFSi(){}
 }
