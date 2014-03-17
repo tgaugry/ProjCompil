@@ -7,10 +7,6 @@ public class Iteration {
 	private static int nbIter;
 	private static Stack<Integer>  niveau;
 	
-	public int getnbIter() {
-		return nbIter;
-	}
-	
 	public static int getEtiquette() {
 		return niveau.peek(); 
 	}
