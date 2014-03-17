@@ -245,6 +245,19 @@ void instruction() : {}
       affectation()
     | lecture()
     | ecriture()
+    | iteration()
+    | conditionnelle()
+}
+
+
+void iteration() : {} 
+{
+
+}
+
+void conditionnelle() : {} 
+{
+
 }
 
 void affectation() : {}
