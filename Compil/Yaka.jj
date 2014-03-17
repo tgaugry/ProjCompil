@@ -230,9 +230,7 @@ void suiteExpr() : {}
 	//(";" (expression())? )*)?
 }
 
-/*
- *Affectations
- */
+
 
 void suiteInstr() : {}
 {
@@ -249,16 +247,26 @@ void instruction() : {}
     | conditionnelle()
 }
 
-
+/*
+ *Iteration
+ */
 void iteration() : {} 
 {
 
 }
 
+/*
+ * Conditionnelle
+ */
+
 void conditionnelle() : {} 
 {
 
 }
+
+/*
+ *Affectations
+ */
 
 void affectation() : {}
 {
