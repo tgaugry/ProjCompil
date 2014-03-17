@@ -218,9 +218,9 @@ public class YVM
 		}
 	}
 	
-	public tantQue() {
+	public void tantQue() {
 		Ecriture.ecrireString(output, ":FAIRE");
-		Ecriture.ecrireInt();
+		//Ecriture.ecrireInt();
 	}
 	/*
 	 * Fonctions de conditionelles 
