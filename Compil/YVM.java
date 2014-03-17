@@ -218,9 +218,20 @@ public class YVM
 		}
 	}
 	
-	public void tantQue() {
-		Ecriture.ecrireString(output, ":FAIRE");
-		//Ecriture.ecrireInt();
+	public void dtantQue() {
+		Ecriture.ecrireString(output, "FAIRE");
+		Ecriture.ecrireInt(output, Iteration.getEtiquette());
+		Ecriture.ecrireStringln(output, ":");
+		
+	}
+	public void ftantQue() {
+		Ecriture.ecrireString(output, "goto FAIRE");
+		Ecriture.ecrireInt(output, Iteration.getEtiquette());
+		Ecriture.ecrireStringln(output, "\n");
+		
+		Ecriture.ecrireString(output, "FAIT");
+		Ecriture.ecrireInt(output, Iteration.getEtiquette());
+		Ecriture.ecrireStringln(output, ":");
 	}
 	
 	/*
