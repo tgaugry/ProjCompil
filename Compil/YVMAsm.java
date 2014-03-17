@@ -263,7 +263,7 @@ public class YVMAsm extends YVM {
 		Ecriture.ecrireStringln(output, "; iffaux "+etiquette);
 		Ecriture.ecrireStringln(output, "pop ax");
 		Ecriture.ecrireStringln(output, "cmp ax, 0");
-		Ecriture.ecrireStringln(output, "je "+etiquette);
+		Ecriture.ecrireStringln(output, "je "+etiquette+"\n");
 		
 	}
 	
@@ -271,12 +271,12 @@ public class YVMAsm extends YVM {
 		String etiquetteSinon = "SINON"+Yaka.conditionnelle.getNbConditionnelles();
 		String etiquetteFsi = "FSI"+Yaka.conditionnelle.getNbConditionnelles();
 		Ecriture.ecrireStringln(output, "; goto "+etiquetteFsi);
-		Ecriture.ecrireStringln(output, "jmp "+etiquetteFsi);
+		Ecriture.ecrireStringln(output, "jmp "+etiquetteFsi+"\n");
 		Ecriture.ecrireStringln(output, etiquetteSinon+":");
 	}
 	
 	public void lireFSi(){
-		String etiquetteFsi = "FSI"+Yaka.conditionnelle.getNbConditionnelles()+":";
-		Ecriture.ecrireStringln(output, etiquetteFsi+":");
+		String etiquetteFsi = "FSI"+Yaka.conditionnelle.getNbConditionnelles();
+		Ecriture.ecrireStringln(output, etiquetteFsi+":\n");
 	}
 }

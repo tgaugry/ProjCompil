@@ -28,7 +28,7 @@ public class Conditionnelle {
 	{
 		try
 		{
-			if(Yaka.expression.dernierOperande() == YakaConstants.BOOLEEN)
+			if(Yaka.expression.dernierOperande() != YakaConstants.BOOLEEN)
 			{
 				throw new IncorrectConditionException();
 			}

@@ -265,8 +265,8 @@ void iteration() : {}
 void conditionnelle() : {} 
 {
 	<SI> expression() {conditionnelle.verifieTypeExpr(); yvm.lireAlors();}
-	<ALORS> (expression()";")* {yvm.lireSinon();}
-	(<SINON> (expression()";")*)?
+	<ALORS> (instruction()";")* {yvm.lireSinon();}
+	(<SINON> (instruction()";")*)?
 	<FSI> {yvm.lireFSi();}
 }
 
