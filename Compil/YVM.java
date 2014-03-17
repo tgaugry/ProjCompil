@@ -217,4 +217,10 @@ public class YVM
 			Yaka.nbErreurs++;
 		}
 	}
+	
+	public tantQue() {
+		Ecriture.ecrireString(output, ":FAIRE");
+		Ecriture.ecrireInt();
+	}
+	}
 }
