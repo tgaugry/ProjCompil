@@ -258,9 +258,25 @@ public class YVMAsm extends YVM {
 	 * Fonctions de conditionelles 
 	 */
 
-	public void lireAlors(){}
+	public void lireAlors(){
+		String etiquette = "SINON"+Yaka.conditionnelle.incNbConditionnelles();
+		Ecriture.ecrireStringln(output, "; iffaux "+etiquette);
+		Ecriture.ecrireStringln(output, "pop ax");
+		Ecriture.ecrireStringln(output, "cmp ax, 0");
+		Ecriture.ecrireStringln(output, "je "+etiquette);
+		
+	}
 	
-	public void lireSinon(){}
+	public void lireSinon(){
+		String etiquetteSinon = "SINON"+Yaka.conditionnelle.getNbConditionnelles();
+		String etiquetteFsi = "FSI"+Yaka.conditionnelle.getNbConditionnelles();
+		Ecriture.ecrireStringln(output, "; goto "+etiquetteFsi);
+		Ecriture.ecrireStringln(output, "jmp "+etiquetteFsi);
+		Ecriture.ecrireStringln(output, etiquetteSinon+":");
+	}
 	
-	public void lireFSi(){}
+	public void lireFSi(){
+		String etiquetteFsi = "FSI"+Yaka.conditionnelle.getNbConditionnelles()+":";
+		Ecriture.ecrireStringln(output, etiquetteFsi+":");
+	}
 }
