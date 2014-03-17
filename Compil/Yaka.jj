@@ -261,7 +261,12 @@ void iteration() : {}
 
 void conditionnelle() : {} 
 {
-
+	<SI>
+	<ALORS
+	(
+		<SINON>
+	)?
+	<FSI>
 }
 
 /*
