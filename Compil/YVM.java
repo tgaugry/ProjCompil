@@ -217,4 +217,9 @@ public class YVM
 			Yaka.nbErreurs++;
 		}
 	}
+	
+	/*
+	 * Fonctions de conditionelles 
+	 */
+	 
 }
