@@ -222,7 +222,7 @@ public class YVM
 		Ecriture.ecrireString(output, ":FAIRE");
 		Ecriture.ecrireInt();
 	}
-	}	/*
+	/*
 	 * Fonctions de conditionelles 
 	 */
 }
