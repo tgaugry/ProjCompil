@@ -219,7 +219,7 @@ public class YVM
 	}
 	
 	public void dtantQue() {
-		Ecriture.ecrireString(output, "FAIRE");
+		Ecriture.ecrireString(output, "\nFAIRE");
 		Ecriture.ecrireInt(output, Iteration.getEtiquette());
 		Ecriture.ecrireStringln(output, ":");
 	}
@@ -232,6 +232,9 @@ public class YVM
 		Ecriture.ecrireString(output, "FAIT");
 		Ecriture.ecrireInt(output, Iteration.getEtiquette());
 		Ecriture.ecrireStringln(output, ":");
+	}
+	public void condtantQue() {
+		Ecriture.ecrireStringln(output, "iffaux FAIT" + Iteration.getEtiquette());
 	}
 	
 	/*

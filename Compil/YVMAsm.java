@@ -241,7 +241,7 @@ public class YVMAsm extends YVM {
 	}
 	public void ftantQue() {
 		int etiquette = Iteration.getEtiquette();
-		Ecriture.ecrireString(output, "; goto FAIRE");
+		Ecriture.ecrireString(output, "\n; goto FAIRE");
 		Ecriture.ecrireInt(output, etiquette);
 		Ecriture.ecrireStringln(output, "");
 		
@@ -252,6 +252,12 @@ public class YVMAsm extends YVM {
 		Ecriture.ecrireString(output, "FAIT");
 		Ecriture.ecrireInt(output, etiquette);
 		Ecriture.ecrireStringln(output, ":");
+	}
+	public void condtantQue() {
+		Ecriture.ecrireStringln(output, "; iffaux FAIT" + Iteration.getEtiquette());
+		Ecriture.ecrireStringln(output, "pop ax");
+		Ecriture.ecrireStringln(output, "cmp ax, 0");
+		Ecriture.ecrireStringln(output, "je FAIT" + Iteration.getEtiquette() + "\n");
 	}
 	
 	/*
