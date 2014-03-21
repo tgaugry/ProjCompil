@@ -285,4 +285,23 @@ public class YVMAsm extends YVM {
 		String etiquetteFsi = "FSI"+Yaka.conditionnelle.finitCond();
 		Ecriture.ecrireStringln(output, etiquetteFsi+":\n");
 	}
+	
+	/*
+	 * Fonctions de ... Fonctions 
+	 */
+	public void ouvreBloc(int tailleParam) {
+	
+	}
+	public void fermeBloc(int tailleParam) {
+		
+	}
+	public void ireturn(int offset) {
+		
+	}
+	public void reserveRetour(){
+		
+	}
+	public void call(String nom){
+		
+	}
 }
