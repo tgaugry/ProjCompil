@@ -258,18 +258,20 @@ public class YVM
 	 * Fonctions de ... Fonctions 
 	 */
 	public void ouvreBloc(int tailleParam) {
+		Ecriture.ecrireStringln(output, "ouvbloc "+tailleParam);
 	
 	}
 	public void fermeBloc(int tailleParam) {
-		
+		Ecriture.ecrireStringln(output, "fermebloc "+tailleParam);
 	}
 	public void ireturn(int offset) {
-		
+		Ecriture.ecrireStringln(output, "ireturn "+offset);
 	}
 	public void reserveRetour(){
+		Ecriture.ecrireStringln(output, "reserveRetour");
 		
 	}
 	public void call(String nom){
-		
+		Ecriture.ecrireStringln(output, "call "+nom);
 	}
 }

@@ -290,18 +290,28 @@ public class YVMAsm extends YVM {
 	 * Fonctions de ... Fonctions 
 	 */
 	public void ouvreBloc(int tailleParam) {
+		Ecriture.ecrireStringln(output, ";ouvbloc "+tailleParam);
+		Ecriture.ecrireStringln(output, "enter "+tailleParam+",0\n");
 	
 	}
 	public void fermeBloc(int tailleParam) {
-		
+		Ecriture.ecrireStringln(output, ";fermebloc "+tailleParam);
+		Ecriture.ecrireStringln(output, "leave");
+		Ecriture.ecrireStringln(output, "ret "+tailleParam+"\n");
 	}
 	public void ireturn(int offset) {
-		
+		Ecriture.ecrireStringln(output, ";ireturn "+offset);
+		Ecriture.ecrireStringln(output, "pop ax");
+		Ecriture.ecrireStringln(output, "mov [bp+"+offset+"], ax\n");
 	}
 	public void reserveRetour(){
+		Ecriture.ecrireStringln(output, "reserveRetour");
+		Ecriture.ecrireStringln(output, "sub sp, 2\n");
 		
 	}
 	public void call(String nom){
+		Ecriture.ecrireStringln(output, ";call "+nom);
+		Ecriture.ecrireStringln(output, "call "+nom);
 		
 	}
 }
