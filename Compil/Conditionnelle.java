@@ -1,20 +1,33 @@
 package Compil;
 
+import java.util.Stack;
+
 public class Conditionnelle {
-	public int nbConditionnelles;
+	public int nbDebCond;
+	public Stack<Integer> conds;
 	
 	public Conditionnelle(){
-		nbConditionnelles = 0;
+		nbDebCond = 0;
+		conds = new Stack<Integer>();
+	}
+
+	//ajoute une condition a la pile et renvoie son ID
+	public int nouvelleCond()
+	{
+		conds.add(++nbDebCond);
+		return nbDebCond;
 	}
 	
-	public int incNbConditionnelles()
+	//renvoie l'ID de la condition courante
+	public int getCondCourante()
 	{
-		return ++nbConditionnelles;
+		return conds.peek();
 	}
 	
-	public int getNbConditionnelles()
+	//Depile la condition courante et renvoie son ID
+	public int finitCond()
 	{
-		return nbConditionnelles;
+		return conds.pop();
 	}
 	
 	private static class IncorrectConditionException extends Exception {

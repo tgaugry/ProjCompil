@@ -259,7 +259,7 @@ public class YVMAsm extends YVM {
 	 */
 
 	public void lireAlors(){
-		String etiquette = "SINON"+Yaka.conditionnelle.incNbConditionnelles();
+		String etiquette = "SINON"+Yaka.conditionnelle.nouvelleCond();
 		Ecriture.ecrireStringln(output, "; iffaux "+etiquette);
 		Ecriture.ecrireStringln(output, "pop ax");
 		Ecriture.ecrireStringln(output, "cmp ax, 0");
@@ -268,15 +268,15 @@ public class YVMAsm extends YVM {
 	}
 	
 	public void lireSinon(){
-		String etiquetteSinon = "SINON"+Yaka.conditionnelle.getNbConditionnelles();
-		String etiquetteFsi = "FSI"+Yaka.conditionnelle.getNbConditionnelles();
+		String etiquetteSinon = "SINON"+Yaka.conditionnelle.getCondCourante();
+		String etiquetteFsi = "FSI"+Yaka.conditionnelle.getCondCourante();
 		Ecriture.ecrireStringln(output, "; goto "+etiquetteFsi);
 		Ecriture.ecrireStringln(output, "jmp "+etiquetteFsi+"\n");
 		Ecriture.ecrireStringln(output, etiquetteSinon+":");
 	}
 	
 	public void lireFSi(){
-		String etiquetteFsi = "FSI"+Yaka.conditionnelle.getNbConditionnelles();
+		String etiquetteFsi = "FSI"+Yaka.conditionnelle.finitCond();
 		Ecriture.ecrireStringln(output, etiquetteFsi+":\n");
 	}
 }
