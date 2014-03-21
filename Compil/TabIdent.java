@@ -5,7 +5,9 @@ import java.util.Map.Entry;
 
 public class TabIdent {
 	
-	private HashMap<String,Ident> table;
+	private HashMap<String,Ident> globaux;
+	private HashMap<String,Ident> locaux;
+	
 	
 	public static class NoSuchKeyException extends Exception {
 		private static final long serialVersionUID = 1L;
@@ -25,12 +27,13 @@ public class TabIdent {
 	
 	public TabIdent()
 	{
-		table = new HashMap<String,Ident>();
+		globaux = new HashMap<String,Ident>();
+		locaux = new HashMap<String,Ident>();
 	}
 	
 	public Ident chercherIdent(String clef) throws NoSuchKeyException
 	{	
-		Ident i = table.get(clef); 
+		Ident i = locaux.get(clef); 
 		if (i == null){
 			throw new NoSuchKeyException(clef);
 		}
@@ -39,21 +42,21 @@ public class TabIdent {
 	
 	public boolean existeIdent(String clef)
 	{
-		return table.containsKey(clef);
+		return locaux.containsKey(clef);
 	}
 	
 	public void rangeIdent(String clef, Ident id) throws KeyAlreadyThereException
 	{
-		Ident i = table.get(clef); 
+		Ident i = locaux.get(clef); 
 		if (i != null){
 			throw new KeyAlreadyThereException(clef);
 		}
-		table.put(clef, id);
+		locaux.put(clef, id);
 	}
 	
 	public int compteVariables(){
 		int cpt=0;
-		for(Entry<String, Ident> entry : table.entrySet()) {
+		for(Entry<String, Ident> entry : locaux.entrySet()) {
 			if(entry.getValue().estVar())
 				cpt++;
 		}
