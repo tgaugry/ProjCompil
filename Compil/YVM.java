@@ -242,15 +242,15 @@ public class YVM
 	 */
 
 	public void lireAlors(){
-		Ecriture.ecrireStringln(output, "iffaux SINON" + Yaka.conditionnelle.incNbConditionnelles());
+		Ecriture.ecrireStringln(output, "iffaux SINON" + Yaka.conditionnelle.nouvelleCond());
 	}
 	
 	public void lireSinon(){
-		Ecriture.ecrireStringln(output, "goto FSI" + Yaka.conditionnelle.getNbConditionnelles());
-		Ecriture.ecrireStringln(output, "SINON" + Yaka.conditionnelle.getNbConditionnelles()+" :");
+		Ecriture.ecrireStringln(output, "goto FSI" + Yaka.conditionnelle.getCondCourante());
+		Ecriture.ecrireStringln(output, "SINON" + Yaka.conditionnelle.getCondCourante()+" :");
 	}
 	
 	public void lireFSi(){
-		Ecriture.ecrireStringln(output, "FSI" + Yaka.conditionnelle.getNbConditionnelles()+" :");
+		Ecriture.ecrireStringln(output, "FSI" + Yaka.conditionnelle.finitCond()+" :");
 	}
 }
