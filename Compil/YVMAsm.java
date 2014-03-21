@@ -241,7 +241,7 @@ public class YVMAsm extends YVM {
 	}
 	public void ftantQue() {
 		int etiquette = Iteration.getEtiquette();
-		Ecriture.ecrireString(output, "\n; goto FAIRE");
+		Ecriture.ecrireString(output, "; goto FAIRE");
 		Ecriture.ecrireInt(output, etiquette);
 		Ecriture.ecrireStringln(output, "");
 		
