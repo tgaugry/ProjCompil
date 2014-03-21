@@ -17,7 +17,7 @@ public class YVMAsm extends YVM {
 				+ "extrn ecrch:proc, ligsuiv:proc\n"
 				+ "; entete\n"
 				+ ".model SMALL\n"
-				+ ".586\n"
+				+ ".586\n\n"
 				+ ".CODE\n"
 				+ "debut:\n"
 				+ "STARTUPCODE\n");
