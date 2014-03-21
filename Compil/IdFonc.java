@@ -1,9 +1,18 @@
 package Compil;
 
+import java.util.Stack;
+
 public class IdFonc extends Ident {
 	
-	public IdFonc(int t, int v){
-		super (t,v);
+	private int typeRetour;
+	private Stack<Integer> typeParam;
+	// rajouter les fun dans yaka.jj !!!
+	
+	public IdFonc(int offset, int t){
+		super (YakaConstants.FONCTION, offset);
+		typeRetour = t;
+		typeParam = new Stack<Integer>();
+		
 	}
 
 	@Override
