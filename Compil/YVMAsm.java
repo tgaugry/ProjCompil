@@ -17,7 +17,7 @@ public class YVMAsm extends YVM {
 				+ "extrn ecrch:proc, ligsuiv:proc\n"
 				+ "; entete\n"
 				+ ".model SMALL\n"
-				+ ".586\n"
+				+ ".586\n\n"
 				+ ".CODE\n"
 				+ "debut:\n"
 				+ "STARTUPCODE\n");
@@ -241,7 +241,7 @@ public class YVMAsm extends YVM {
 	}
 	public void ftantQue() {
 		int etiquette = Iteration.getEtiquette();
-		Ecriture.ecrireString(output, "\n; goto FAIRE");
+		Ecriture.ecrireString(output, "; goto FAIRE");
 		Ecriture.ecrireInt(output, etiquette);
 		Ecriture.ecrireStringln(output, "");
 		
@@ -284,5 +284,24 @@ public class YVMAsm extends YVM {
 	public void lireFSi(){
 		String etiquetteFsi = "FSI"+Yaka.conditionnelle.finitCond();
 		Ecriture.ecrireStringln(output, etiquetteFsi+":\n");
+	}
+	
+	/*
+	 * Fonctions de ... Fonctions 
+	 */
+	public void ouvreBloc(int tailleParam) {
+	
+	}
+	public void fermeBloc(int tailleParam) {
+		
+	}
+	public void ireturn(int offset) {
+		
+	}
+	public void reserveRetour(){
+		
+	}
+	public void call(String nom){
+		
 	}
 }

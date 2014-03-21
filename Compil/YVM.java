@@ -253,4 +253,23 @@ public class YVM
 	public void lireFSi(){
 		Ecriture.ecrireStringln(output, "FSI" + Yaka.conditionnelle.finitCond()+" :");
 	}
+	
+	/*
+	 * Fonctions de ... Fonctions 
+	 */
+	public void ouvreBloc(int tailleParam) {
+	
+	}
+	public void fermeBloc(int tailleParam) {
+		
+	}
+	public void ireturn(int offset) {
+		
+	}
+	public void reserveRetour(){
+		
+	}
+	public void call(String nom){
+		
+	}
 }
