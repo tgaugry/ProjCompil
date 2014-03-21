@@ -183,8 +183,39 @@ TOKEN  :
 void analyse() : {}
 {
    <PROGRAMME> <ident>	{yvm.debutProg();}
-   bloc()
+   (declFonction())*
+   <PRINCIPAL> bloc() <FPRINCIPAL>
    <FPROGRAMME> {yvm.finProg();}
+}
+
+/*
+ *Les fonctions
+ */
+void declFonction() : {}
+{
+	type() <FONCTION> <ident> paramForms()
+	bloc()
+	<FFONCTION>
+}
+
+void paramForms() : {}
+{
+	"("(paramForm() (","paramForm())*)?")"
+}
+
+void paramForm() : {}
+{
+	type() <ident>
+}
+
+void retourne() : {}
+{
+	<RETOURNE> expression()
+}
+
+void argumentsFonction() : {}
+{
+	"("(expression() (","expression())*)?")"
 }
 
 void bloc() : {}{
@@ -247,6 +278,7 @@ void instruction() : {}
     | ecriture()
     | iteration()
     | conditionnelle()
+    | retourne()
 }
 
 /*
@@ -337,16 +369,17 @@ void facteur() : {}
 	|  opNeg() primaire() {yvm.lireOp(expression.dernierOperateur()); expression.evaluate();}
 }
 
-void primaire (): {}
+void primaire() : {}
 {
    valeur()
  | "(" expression() ")" 
  
 }
 
-void valeur (): {} { 
+void valeur() : {} { 
    <entier> { expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}
- | <ident> 	{ expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
+ | ( <ident> 	{ expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
+ 	(argumentsFonction())? )
  | <VRAI> 	{ expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.vrai);}
  | <FAUX> 	{ expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.faux);}
 }
