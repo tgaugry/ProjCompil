@@ -259,7 +259,6 @@ public class YVM
 	 */
 	public void ouvreBloc(int tailleParam) {
 		Ecriture.ecrireStringln(output, "ouvbloc "+tailleParam);
-	
 	}
 	public void fermeBloc(int tailleParam) {
 		Ecriture.ecrireStringln(output, "fermebloc "+tailleParam);
