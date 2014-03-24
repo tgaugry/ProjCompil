@@ -3,14 +3,27 @@ package Compil;
 public class IdVar extends IdVal {
 	public static int lastOffset;
 	
+	
+	/*public IdVar(int t, int offset)
+	{
+		super(t, offset);
+	}
+	
+	public IdVar IdVarParam(int t) {
+		return new IdVar(t, lastOffset+=2);
+	}
+	
+	public IdVar IdVarLocal(int t) {
+		return new IdVar(t, lastOffset-=2);
+	}*/
+	public IdVar(int t)
+	{
+		super(t, lastOffset-=2);
+	}
+	
 	public boolean estVar()
 	{
 		return true;
-	}
-	
-	public IdVar(int t)
-	{
-		super(t, (lastOffset-=2));
 	}
 
 	public String toString(){
