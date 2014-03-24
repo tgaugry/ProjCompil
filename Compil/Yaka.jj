@@ -31,7 +31,8 @@ public class Yaka {
 	public static YVM yvm;
 	public static int nbErreurs;
 	public static Conditionnelle conditionnelle;
-	public static Fonction fonction;	public static String nomFonc;
+	public static Fonction fonction;
+	public static String nomFonc;
 	
 	public static String afficherLigne() {
 		return " a la ligne " + Yaka.token.beginLine + ", colonne " + Yaka.token.beginColumn;
