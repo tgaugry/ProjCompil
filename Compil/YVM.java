@@ -21,6 +21,9 @@ public class YVM
 		Ecriture.ecrireStringln(output, "entete");
 	}
 
+	/*
+	 * Ne sert plus dans la partie 3 : Fonctions
+	 */
 	public void ouvrePrinc(){
 		String texte = "ouvrePrinc "+Yaka.tabIdent.compteVariables()*2;
 		Ecriture.ecrireStringln(output, texte);
@@ -257,21 +260,20 @@ public class YVM
 	/*
 	 * Fonctions de ... Fonctions 
 	 */
-	public void ouvreBloc(int tailleParam) {
+	public void lireDebutFonc(int tailleParam) {
 		Ecriture.ecrireStringln(output, "ouvbloc "+tailleParam);
-	
 	}
-	public void fermeBloc(int tailleParam) {
+	public void lireFinFonc(int tailleParam) {
 		Ecriture.ecrireStringln(output, "fermebloc "+tailleParam);
 	}
-	public void ireturn(int offset) {
+	public void lireRetourne(int offset) {
 		Ecriture.ecrireStringln(output, "ireturn "+offset);
 	}
-	public void reserveRetour(){
+	public void lireAppelDebut(){
+		if...
 		Ecriture.ecrireStringln(output, "reserveRetour");
-		
 	}
-	public void call(String nom){
+	public void lireAppelFin(String nom){
 		Ecriture.ecrireStringln(output, "call "+nom);
 	}
 }
