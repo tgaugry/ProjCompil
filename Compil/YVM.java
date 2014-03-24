@@ -94,7 +94,7 @@ public class YVM
 	
 	public void affecter(String nom) {
 		try {
-			Ident i = Yaka.tabIdent.chercherIdent(nom);
+			IdVal i = Yaka.tabIdent.chercherIdent(nom);
 			Ecriture.ecrireStringln(output, "istore " + i.getValOuOffset());
 		}
 		catch (Exception e){
@@ -204,7 +204,7 @@ public class YVM
 
 	public void lireEnt(String id) {
 		try {
-			Ident i = Yaka.tabIdent.chercherIdent(id) ;
+			IdVal i = Yaka.tabIdent.chercherIdent(id) ;
 			if(i.estVar()){
 				Ecriture.ecrireStringln(output, "lireEnt " + i.getValOuOffset());
 			}
