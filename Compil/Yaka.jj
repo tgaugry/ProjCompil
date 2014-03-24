@@ -31,7 +31,7 @@ public class Yaka {
 	public static YVM yvm;
 	public static int nbErreurs;
 	public static Conditionnelle conditionnelle;
-	public static Fonction fonction;
+	public static Fonction fonction;	public static String nomFonc;
 	
 	public static String afficherLigne() {
 		return " a la ligne " + Yaka.token.beginLine + ", colonne " + Yaka.token.beginColumn;
@@ -195,7 +195,7 @@ void analyse() : {}
  */
 void declFonction() : {}
 {
-	type() <FONCTION> <ident> {tabIdent.rangeIdent(YakaTokenManager.identLu, new IdFonc(type));}
+	type() <FONCTION> <ident> {nomFonc = YakaTokenManager.identLu; tabIdent.rangeIdent(nomFonc, new IdFonc(type));}
 	 paramForms()
 	bloc()
 	<FFONCTION>
@@ -208,7 +208,7 @@ void paramForms() : {}
 
 void paramForm() : {}
 {
-	type() <ident> {/*tabIdent.ajouteParam();*/}
+	type() <ident> {tabIdent.ajouteParam(nomFonc, type);}
 }
 
 void retourne() : {}
