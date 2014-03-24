@@ -1,6 +1,6 @@
 package Compil;
 
-public class IdVar extends Ident {
+public class IdVar extends IdVal {
 	public static int lastOffset;
 	
 	public boolean estVar()

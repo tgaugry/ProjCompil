@@ -1,6 +1,6 @@
 package Compil;
 
-public class IdConst extends Ident {
+public class IdConst extends IdVal {
 	
 	public boolean estVar()
 	{
@@ -12,7 +12,7 @@ public class IdConst extends Ident {
 		super(type, val);
 	}
 	
-	public IdConst(Ident i) {
+	public IdConst(IdVal i) {
 		super(i.getType(), i.getValOuOffset());
 	}
 

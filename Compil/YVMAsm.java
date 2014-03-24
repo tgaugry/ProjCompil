@@ -54,7 +54,7 @@ public class YVMAsm extends YVM {
 	}
 	public void affecter(String nom) {
 		try {
-			Ident i = Yaka.tabIdent.chercherIdent(nom);
+			IdVal i = Yaka.tabIdent.chercherIdent(nom);
 		int offset = i.getValOuOffset();
 		Ecriture.ecrireStringln(output, "; istore " + offset + "\n"
 					+ "pop ax\n"
@@ -220,7 +220,7 @@ public class YVMAsm extends YVM {
 	}
 	public void lireEnt(String id) {
 		try {
-			Ident i = Yaka.tabIdent.chercherIdent(id) ;
+			IdVal i = Yaka.tabIdent.chercherIdent(id) ;
 			int ent = i.getValOuOffset();
 			Ecriture.ecrireStringln(output, "; lireEnt "
 					+ ent + "\n"

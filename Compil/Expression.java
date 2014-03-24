@@ -41,7 +41,7 @@ public class Expression {
 
 	public void addIdent(String nom){
 		try {
-			Ident i = Yaka.tabIdent.chercherIdent(nom);
+			IdVal i = Yaka.tabIdent.chercherIdent(nom);
 			operandes.push(i.getType());
 		}
 		catch (Exception e){
@@ -52,7 +52,7 @@ public class Expression {
 
 	public void stockeAffectation(String nom) {
 		try {
-			Ident i = Yaka.tabIdent.chercherIdent(nom);
+			IdVal i = Yaka.tabIdent.chercherIdent(nom);
 			typeAffectation = i.getType();
 		}
 		catch (Exception e){

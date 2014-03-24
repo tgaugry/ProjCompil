@@ -5,8 +5,8 @@ import java.util.Map.Entry;
 
 public class TabIdent {
 	
-	private HashMap<String,Ident> globaux;
-	private HashMap<String,Ident> locaux;
+	private HashMap<String,IdFonc> globaux;
+	private HashMap<String,IdVal> locaux;
 	
 	
 	public static class NoSuchKeyException extends Exception {
@@ -27,13 +27,13 @@ public class TabIdent {
 	
 	public TabIdent()
 	{
-		globaux = new HashMap<String,Ident>();
-		locaux = new HashMap<String,Ident>();
+		globaux = new HashMap<String,IdFonc>();
+		locaux = new HashMap<String,IdVal>();
 	}
 	
-	public Ident chercherIdent(String clef) throws NoSuchKeyException
+	public IdVal chercherIdent(String clef) throws NoSuchKeyException
 	{	
-		Ident i = locaux.get(clef); 
+		IdVal i = locaux.get(clef); 
 		if (i == null){
 			throw new NoSuchKeyException(clef);
 		}
@@ -45,7 +45,7 @@ public class TabIdent {
 		return locaux.containsKey(clef);
 	}
 	
-	public void rangeIdent(String clef, Ident id) throws KeyAlreadyThereException
+	public void rangeIdent(String clef, IdVal id) throws KeyAlreadyThereException
 	{
 		Ident i = locaux.get(clef); 
 		if (i != null){
@@ -54,12 +54,22 @@ public class TabIdent {
 		locaux.put(clef, id);
 	}
 	
+	public void rangeIdent(String clef, IdFonc id) throws KeyAlreadyThereException
+	{
+		Ident i = globaux.get(clef); 
+		if (i != null){
+			throw new KeyAlreadyThereException(clef);
+		}
+		globaux.put(clef, id);
+	}
+	
 	public int compteVariables(){
 		int cpt=0;
-		for(Entry<String, Ident> entry : locaux.entrySet()) {
+		for(Entry<String, IdVal> entry : locaux.entrySet()) {
 			if(entry.getValue().estVar())
 				cpt++;
 		}
 		return cpt;
 	}
+	
 }
