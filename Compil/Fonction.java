@@ -5,22 +5,22 @@ import java.util.Stack;
 import Compil.TabIdent.NoSuchKeyException;
 
 public class Fonction {
-	public Stack<IdFonc> foncts;
+	public Stack<String> foncts;
 	public Stack<Integer> typesParam; // prends ses valeurs dans YakaConstants
 
 	public Fonction(){
-		foncts = new Stack<IdFonc>();
+		foncts = new Stack<String>();
 		typesParam = new Stack<Integer>();
 	}
 
 	public void empilerFonct(String name) throws NoSuchKeyException
 	{
-		foncts.push(Yaka.tabIdent.chercherFonc(name));
+		foncts.push(name);
 	}
 	
-	public void depilerFonct()
+	public String depilerFonct()
 	{
-		foncts.pop();
+		return foncts.pop();
 	}
 	
 	public void empilerParam(int type)
@@ -32,10 +32,48 @@ public class Fonction {
 	{
 		typesParam.pop();
 	}
+
+	private static class ParamIncorrectException extends Exception {
+		private static final long serialVersionUID = 1L;
+		public ParamIncorrectException(){
+			super("Parametre incorrect" + Yaka.afficherLigne());
+		}
+	}
+
+	private static class ParamManquantException extends Exception {
+		private static final long serialVersionUID = 1L;
+		public ParamManquantException(){
+			super("Parametre manquant" + Yaka.afficherLigne());
+		}
+	}
+
+	private static class ParamEnTropException extends Exception {
+		private static final long serialVersionUID = 1L;
+		public ParamEnTropException(){
+			super("Trop de parametres" + Yaka.afficherLigne());
+		}
+	}
 	
 	public void verifieParams()
 	{
-		
+		try
+		{
+			Stack<Integer> paramAttendus = Yaka.tabIdent.chercherFonc(foncts.peek()).getParam();
+			while(!typesParam.empty() && !paramAttendus.empty())
+			{
+				if(typesParam.pop() != paramAttendus.pop())
+					throw new ParamIncorrectException();
+			}
+			if(!typesParam.empty())
+				throw new ParamEnTropException();
+			if(!paramAttendus.empty())
+				throw new ParamManquantException();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			Yaka.nbErreurs++;
+		}
 	}
 }
 /*
