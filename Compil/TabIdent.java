@@ -81,8 +81,13 @@ public class TabIdent {
 		return cpt;
 	}
 	
-	public void ajouteParam(String nom, int type) throws NoSuchKeyException {
-		chercherFonc(nom).ajouteParam(type);
+	public void ajouteParam(String nom, int type) {
+		try {
+			chercherFonc(nom).ajouteParam(type);
+		} catch (NoSuchKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
