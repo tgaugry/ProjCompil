@@ -209,7 +209,7 @@ void paramForms() : {}
 
 void paramForm() : {}
 {
-	type() <ident> {tabIdent.ajouteParam(nomFonc, type); tabIdent.rangeIdent(IdVarParam(type));}
+	type() <ident> {tabIdent.ajouteParam(nomFonc, type); tabIdent.rangeIdent(YakaTokenManager.identLu, IdVar.newIdVarParam(type));}
 }
 
 void retourne() : {}
