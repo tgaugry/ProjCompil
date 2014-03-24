@@ -29,7 +29,7 @@ public class Declaration {
 	
 	public void declVar(String nom, int type) {
 		try {
-			IdVar id = new IdVar(type);
+			IdVar id = IdVar.newIdVarLocal(type);
 			Yaka.tabIdent.rangeIdent (nom, id);
 		}
 		catch (Exception e){

@@ -4,21 +4,17 @@ public class IdVar extends IdVal {
 	public static int lastOffset;
 	
 	
-	/*public IdVar(int t, int offset)
+	public IdVar(int t, int offset)
 	{
 		super(t, offset);
 	}
 	
-	public IdVar IdVarParam(int t) {
+	public static IdVar newIdVarParam(int t) {
 		return new IdVar(t, lastOffset+=2);
 	}
 	
-	public IdVar IdVarLocal(int t) {
+	public static IdVar newIdVarLocal(int t) {
 		return new IdVar(t, lastOffset-=2);
-	}*/
-	public IdVar(int t)
-	{
-		super(t, lastOffset-=2);
 	}
 	
 	public boolean estVar()

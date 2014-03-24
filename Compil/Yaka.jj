@@ -209,7 +209,7 @@ void paramForms() : {}
 
 void paramForm() : {}
 {
-	type() <ident> {tabIdent.ajouteParam(nomFonc, type); tabIdent.rangeIdent(new IdVar()}
+	type() <ident> {tabIdent.ajouteParam(nomFonc, type); tabIdent.rangeIdent(IdVarParam(type));}
 }
 
 void retourne() : {}
