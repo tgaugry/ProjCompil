@@ -19,7 +19,7 @@ public class TestCompil {
 		TabIdent ti = new TabIdent();
 
 		ti.rangeIdent("e", new IdConst(YakaConstants.ENTIER, 42));
-		ti.rangeIdent("v", new IdVar(YakaConstants.BOOLEEN));
+		ti.rangeIdent("v", IdVar.newIdVarLocal(YakaConstants.BOOLEEN));
 		ti.rangeIdent("b", new IdConst(YakaConstants.BOOLEEN, YakaConstants.FAUX));
 		
 		assertTrue(ti.existeIdent("e"));
