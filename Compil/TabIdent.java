@@ -40,25 +40,34 @@ public class TabIdent {
 		return i;
 	}
 	
+	public IdFonc chercherFonc(String clef) throws NoSuchKeyException
+	{	
+		IdFonc i = globaux.get(clef); 
+		if (i == null){
+			throw new NoSuchKeyException(clef);
+		}
+		return i;
+	}
+	
 	public boolean existeIdent(String clef)
 	{
 		return locaux.containsKey(clef);
 	}
 	
-	public void rangeIdent(String clef, IdVal id) throws KeyAlreadyThereException
+	public void rangeIdent(String clef, IdVal id)// throws KeyAlreadyThereException
 	{
 		Ident i = locaux.get(clef); 
 		if (i != null){
-			throw new KeyAlreadyThereException(clef);
+			//throw new KeyAlreadyThereException(clef);
 		}
 		locaux.put(clef, id);
 	}
 	
-	public void rangeIdent(String clef, IdFonc id) throws KeyAlreadyThereException
+	public void rangeIdent(String clef, IdFonc id)// throws KeyAlreadyThereException
 	{
 		Ident i = globaux.get(clef); 
 		if (i != null){
-			throw new KeyAlreadyThereException(clef);
+			//throw new KeyAlreadyThereException(clef);
 		}
 		globaux.put(clef, id);
 	}
@@ -70,6 +79,10 @@ public class TabIdent {
 				cpt++;
 		}
 		return cpt;
+	}
+	
+	public void ajouteParam(String nom, int type) throws NoSuchKeyException {
+		chercherFonc(nom).ajouteParam(type);
 	}
 	
 }
