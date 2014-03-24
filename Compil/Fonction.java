@@ -35,9 +35,32 @@ public class Fonction {
 
 	private static class ParamIncorrectException extends Exception {
 		private static final long serialVersionUID = 1L;
-		public ParamIncorrectException(){
-			super("Parametre incorrect" + Yaka.afficherLigne());
+		//public ParamIncorrectException(){
+		//	super("Parametre incorrect" + Yaka.afficherLigne());
+		//}
+		//public ParamIncorrectException(int type){
+		//	super("Parametre incorrect : "+typeToString(type)+" attendu" + Yaka.afficherLigne());
+		//}
+		public ParamIncorrectException(int typeLu, int typeAtt){
+			super("Parametre incorrect : "+typeToString(typeLu)+" lu, "+typeToString(typeAtt)+" attendu" + Yaka.afficherLigne());
 		}
+	}
+	
+	private static String typeToString(int type)
+	{
+			String t ="";
+			switch(type)
+			{
+				case YakaConstants.ENTIER:
+					t = "entier";
+					break;
+				case YakaConstants.BOOLEEN:
+					t = "booleen";
+					break;
+				default:
+					break;
+			}
+		return t;
 	}
 
 	private static class ParamManquantException extends Exception {
@@ -56,13 +79,15 @@ public class Fonction {
 	
 	public void verifieParams()
 	{
+		int temp1;
+		int temp2;
 		try
 		{
 			Stack<Integer> paramAttendus = Yaka.tabIdent.chercherFonc(foncts.peek()).getParam();
 			while(!typesParam.empty() && !paramAttendus.empty())
 			{
-				if(typesParam.pop() != paramAttendus.pop())
-					throw new ParamIncorrectException();
+				if((temp1 = typesParam.pop()) != (temp2 = paramAttendus.pop()))
+					throw new ParamIncorrectException(temp1, temp2);
 			}
 			if(!typesParam.empty())
 				throw new ParamEnTropException();
@@ -76,58 +101,3 @@ public class Fonction {
 		}
 	}
 }
-/*
-package Compil;
-
-import java.util.Stack;
-
-public class Conditionnelle {
-	public int nbDebCond;
-	
-	public Conditionnelle(){
-		nbDebCond = 0;
-		conds = new Stack<Integer>();
-	}
-
-	//ajoute une condition a la pile et renvoie son ID
-	public int nouvelleCond()
-	{
-		conds.add(++nbDebCond);
-		return nbDebCond;
-	}
-	
-	//renvoie l'ID de la condition courante
-	public int getCondCourante()
-	{
-		return conds.peek();
-	}
-	
-	//Depile la condition courante et renvoie son ID
-	public int finitCond()
-	{
-		return conds.pop();
-	}
-	
-	private static class IncorrectConditionException extends Exception {
-		private static final long serialVersionUID = 1L;
-		public IncorrectConditionException(){
-			super("Condition non booléenne" + Yaka.afficherLigne());
-		}
-	}
-	
-	public void verifieTypeExpr()
-	{
-		try
-		{
-			if(Yaka.expression.dernierOperande() != YakaConstants.BOOLEEN)
-			{
-				throw new IncorrectConditionException();
-			}
-		}
-		catch(IncorrectConditionException e)
-		{
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
-		}
-	}
-}*/
