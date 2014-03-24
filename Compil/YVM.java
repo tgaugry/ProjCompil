@@ -260,7 +260,9 @@ public class YVM
 	/*
 	 * Fonctions de ... Fonctions 
 	 */
-	public void lireDebutFonc(int tailleParam) {
+	public void lireDebutFonc(int tailleParam, String nom) {
+		String nom = Yaka.fonction.depilerFonct();
+		Ecriture.ecrireStringln(output, nom+":");
 		Ecriture.ecrireStringln(output, "ouvbloc "+tailleParam);
 	}
 	public void lireFinFonc(int tailleParam) {
@@ -273,6 +275,7 @@ public class YVM
 		Ecriture.ecrireStringln(output, "reserveRetour");
 	}
 	public void lireAppelFin(String nom){
+		String nom = Yaka.fonction.depilerFonct();
 		Ecriture.ecrireStringln(output, "call "+nom);
 	}
 }
