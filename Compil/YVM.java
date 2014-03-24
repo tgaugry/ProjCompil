@@ -270,7 +270,6 @@ public class YVM
 		Ecriture.ecrireStringln(output, "ireturn "+offset);
 	}
 	public void lireAppelDebut(){
-		if...
 		Ecriture.ecrireStringln(output, "reserveRetour");
 	}
 	public void lireAppelFin(String nom){
