@@ -193,7 +193,8 @@ void analyse() : {}
  */
 void declFonction() : {}
 {
-	type() <FONCTION> <ident> paramForms()
+	type() <FONCTION> <ident> {tabIdent.rangeIdent(YakaTokenManager.identLu, new IdFonc(type));}
+	 paramForms()
 	bloc()
 	<FFONCTION>
 }
@@ -205,7 +206,7 @@ void paramForms() : {}
 
 void paramForm() : {}
 {
-	type() <ident>
+	type() <ident> {/*tabIdent.ajouteParam();*/}
 }
 
 void retourne() : {}
