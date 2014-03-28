@@ -91,9 +91,7 @@ public class Yaka {
       analyseur.analyse();
     }
     catch (ParseException e) {
-      	String msg = e.getMessage();
-     	msg = msg.substring(0,msg.indexOf("\n"));
-     	System.out.println("Erreur de syntaxe : "+ msg);
+     	afficherErreur("Erreur de syntaxe : "+ e.getMessage());
     }
       if (nbErreurs == 0) {
       	System.out.println("Analyse syntaxique reussie!");
