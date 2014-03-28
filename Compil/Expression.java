@@ -3,28 +3,12 @@ package Compil;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-import Compil.TabIdent.NoSuchKeyException;
-
 public class Expression {
 
 	public enum Op {SUP, INF, SUPEG, INFEG, EGAL, DIFF, ADD, SOUS, OU, MUL, DIV, ET, NEG, NON};
 	private Stack<Integer> operandes; //prend ses valeurs dans YakaConstants
 	private Stack<Op>  operateurs;
 	private int typeAffectation;
-
-
-	public static class IncorrectTypeException extends Exception {
-		private static final long serialVersionUID = 1L;
-		public IncorrectTypeException(String s){
-			super("Type incorrect, "+ s +" était attendu" + Yaka.afficherLigne());
-		}
-	}
-	public static class OperandeManquanteException extends Exception {
-		private static final long serialVersionUID = 1L;
-		public OperandeManquanteException(){
-			super("Operande Manquante"  + Yaka.afficherLigne());
-		}
-	}
 
 	public Expression (){
 		operandes = new Stack<Integer>();
@@ -40,111 +24,108 @@ public class Expression {
 	}
 
 	public void addIdent(String nom){
-		try {
 			IdVal i = Yaka.tabIdent.chercherIdent(nom);
 			operandes.push(i.getType());
-		}
-		catch (Exception e){
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
-		}
 	}
 
 	public void stockeAffectation(String nom) {
-		try {
-			IdVal i = Yaka.tabIdent.chercherIdent(nom);
-			typeAffectation = i.getType();
-		}
-		catch (Exception e){
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
-		}
-
+		IdVal i = Yaka.tabIdent.chercherIdent(nom);
+		typeAffectation = i.getType();
 	}
 
 	public void evaluerAffectation() {
-		try {
-			if (typeAffectation != operandes.pop()) {
-				throw new IncorrectTypeException("1 " + ((typeAffectation == YakaConstants.BOOLEEN) ? "BOOL" : "INT"));
-			}
-		}
-		catch (Exception e){
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
+		if (typeAffectation != operandes.pop()) {
+			Yaka.afficherErreur("Type incorrect, 1 " + ((typeAffectation == YakaConstants.BOOLEEN) ? "BOOL" : "INT") +" était attendu");
 		}
 	}
 
 	public void evaluate() {
 		Op operaeurSom;
 		int n1, n2;
-		try {
-			if(operateurs.empty()) {
-				if (operandes.size() != 1) {throw new OperandeManquanteException();}
-			}
-			else {
-				operaeurSom = operateurs.pop();
-				switch (operaeurSom) {
-				case NEG :
-					if (operandes.size() >= 1) {
-						n1 = operandes.pop();
-						if(n1 == YakaConstants.ENTIER){
-							operandes.push(YakaConstants.ENTIER);
-						}
-						else throw new IncorrectTypeException("1 INT");
-					}
-					else throw new OperandeManquanteException();
-					break;
-				case ADD :case SOUS :case MUL :case DIV :
-					if (operandes.size() >= 2) {
-						n1 = operandes.pop();
-						n2 = operandes.pop();
-						if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
-							operandes.push(YakaConstants.ENTIER);
-						}
-						else throw new IncorrectTypeException("2 INT");
-					}
-					else throw new OperandeManquanteException();
-					break;
-				case NON :
-					if (operandes.size() >= 1) {
-						n1 = operandes.pop();
-						if(n1 == YakaConstants.BOOLEEN){
-							operandes.push(YakaConstants.BOOLEEN);
-						}
-						else throw new IncorrectTypeException("1 BOOL");
-					}
-					else throw new OperandeManquanteException();
-					break;
-				case OU :case ET :
-					if (operandes.size() >= 2) {
-						n1 = operandes.pop();
-						n2 = operandes.pop();
-						if(n1 == YakaConstants.BOOLEEN && n2 == YakaConstants.BOOLEEN){
-							operandes.push(YakaConstants.BOOLEEN);
-						}
-						else throw new IncorrectTypeException("2 BOOL");
-					}
-					else throw new OperandeManquanteException();
-					break;
-				case INF :case SUP :case INFEG :case SUPEG :case DIFF :case EGAL :
-					if (operandes.size() >= 2) {
-						n1 = operandes.pop();
-						n2 = operandes.pop();
-						if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
-							operandes.push(YakaConstants.BOOLEEN);
-						}
-						else  throw new IncorrectTypeException(" 2 INT");
-					}
-					else throw new OperandeManquanteException();
-					break;
-				default:
-					break;
-				}
+		if(operateurs.empty()) {
+			if (operandes.size() != 1) {
+				Yaka.afficherErreur("Operande Manquante");
 			}
 		}
-		catch (Exception e){
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
+		else {
+			operaeurSom = operateurs.pop();
+			switch (operaeurSom) {
+			case NEG :
+				if (operandes.size() >= 1) {
+					n1 = operandes.pop();
+					if(n1 == YakaConstants.ENTIER){
+						operandes.push(YakaConstants.ENTIER);
+					}
+					else {
+						Yaka.afficherErreur("Type incorrect, 1 INT était attendu");
+					}
+				}
+				else {
+					Yaka.afficherErreur("Operande Manquante");
+				}
+				break;
+			case ADD :case SOUS :case MUL :case DIV :
+				if (operandes.size() >= 2) {
+					n1 = operandes.pop();
+					n2 = operandes.pop();
+					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
+						operandes.push(YakaConstants.ENTIER);
+					}
+					else {
+						Yaka.afficherErreur("Type incorrect, 2 INT étaient attendus");
+					}
+				}
+				else {
+					Yaka.afficherErreur("Operande Manquante");
+				}
+				break;
+			case NON :
+				if (operandes.size() >= 1) {
+					n1 = operandes.pop();
+					if(n1 == YakaConstants.BOOLEEN){
+						operandes.push(YakaConstants.BOOLEEN);
+					}
+					else {
+						Yaka.afficherErreur("Type incorrect, 1 BOOL était attendu");
+					}
+				}
+				else {
+					Yaka.afficherErreur("Operande Manquante");
+				}
+				break;
+			case OU :case ET :
+				if (operandes.size() >= 2) {
+					n1 = operandes.pop();
+					n2 = operandes.pop();
+					if(n1 == YakaConstants.BOOLEEN && n2 == YakaConstants.BOOLEEN){
+						operandes.push(YakaConstants.BOOLEEN);
+					}
+					else {
+						Yaka.afficherErreur("Type incorrect, 2 BOOL étaient attendus");
+					}
+				}
+				else {
+					Yaka.afficherErreur("Operande Manquante");
+				}
+				break;
+			case INF :case SUP :case INFEG :case SUPEG :case DIFF :case EGAL :
+				if (operandes.size() >= 2) {
+					n1 = operandes.pop();
+					n2 = operandes.pop();
+					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
+						operandes.push(YakaConstants.BOOLEEN);
+					}
+					else  {
+						Yaka.afficherErreur("Type incorrect, 2 INT étaient attendus");
+					}
+				}
+				else {
+					Yaka.afficherErreur("Operande Manquante");
+				}
+				break;
+			default:
+				break;
+			}
 		}
 	}
 

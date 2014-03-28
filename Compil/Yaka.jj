@@ -38,6 +38,11 @@ public class Yaka {
 		return " a la ligne " + Yaka.token.beginLine + ", colonne " + Yaka.token.beginColumn;
 	}
 	
+	public static void afficherErreur(String s) {
+		System.out.println(s + afficherLigne());
+		Yaka.nbErreurs++;
+	}
+	
   public static void main(String args[]) { 
   	nbErreurs = 0;
     Yaka analyseur;

@@ -2,8 +2,6 @@ package Compil;
 
 import java.util.Stack;
 
-import Compil.TabIdent.NoSuchKeyException;
-
 public class Fonction {
 	public Stack<String> foncts;
 	public Stack<Integer> typesParam; // prends ses valeurs dans YakaConstants
@@ -13,7 +11,7 @@ public class Fonction {
 		typesParam = new Stack<Integer>();
 	}
 
-	public void empilerFonct(String name) throws NoSuchKeyException
+	public void empilerFonct(String name)
 	{
 		foncts.push(name);
 	}
@@ -33,19 +31,6 @@ public class Fonction {
 		typesParam.pop();
 	}
 
-	private static class ParamIncorrectException extends Exception {
-		private static final long serialVersionUID = 1L;
-		//public ParamIncorrectException(){
-		//	super("Parametre incorrect" + Yaka.afficherLigne());
-		//}
-		//public ParamIncorrectException(int type){
-		//	super("Parametre incorrect : "+typeToString(type)+" attendu" + Yaka.afficherLigne());
-		//}
-		public ParamIncorrectException(int typeLu, int typeAtt){
-			super("Parametre incorrect : "+typeToString(typeLu)+" lu, "+typeToString(typeAtt)+" attendu" + Yaka.afficherLigne());
-		}
-	}
-	
 	private static String typeToString(int type)
 	{
 			String t ="";
@@ -63,41 +48,22 @@ public class Fonction {
 		return t;
 	}
 
-	private static class ParamManquantException extends Exception {
-		private static final long serialVersionUID = 1L;
-		public ParamManquantException(){
-			super("Parametre manquant" + Yaka.afficherLigne());
-		}
-	}
-
-	private static class ParamEnTropException extends Exception {
-		private static final long serialVersionUID = 1L;
-		public ParamEnTropException(){
-			super("Trop de parametres" + Yaka.afficherLigne());
-		}
-	}
-	
 	public void verifieParams()
 	{
 		int temp1;
 		int temp2;
-		try
+		Stack<Integer> paramAttendus = Yaka.tabIdent.chercherFonc(foncts.peek()).getParam();
+		while(!typesParam.empty() && !paramAttendus.empty())
 		{
-			Stack<Integer> paramAttendus = Yaka.tabIdent.chercherFonc(foncts.peek()).getParam();
-			while(!typesParam.empty() && !paramAttendus.empty())
-			{
-				if((temp1 = typesParam.pop()) != (temp2 = paramAttendus.pop()))
-					throw new ParamIncorrectException(temp1, temp2);
+			if((temp1 = typesParam.pop()) != (temp2 = paramAttendus.pop())) {
+				Yaka.afficherErreur("Parametre incorrect : "+typeToString(temp1)+" lu, "+typeToString(temp2)+" attendu");
 			}
-			if(!typesParam.empty())
-				throw new ParamEnTropException();
-			if(!paramAttendus.empty())
-				throw new ParamManquantException();
 		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
+		if(!typesParam.empty()) {
+			Yaka.afficherErreur("Trop de parametres");
+		}
+		if(!paramAttendus.empty()) {
+			Yaka.afficherErreur("Parametre manquant");
 		}
 	}
 }

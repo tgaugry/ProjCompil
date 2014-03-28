@@ -3,7 +3,6 @@ package Compil;
 import java.io.OutputStream;
 
 import Compil.Ecriture;
-import Compil.TabIdent.NoSuchKeyException;
 
 public class YVM
 {	
@@ -30,15 +29,9 @@ public class YVM
 	}
 
 	public void lireConstOuVar(String nom) {
-		try {
-			Ident i = Yaka.tabIdent.chercherIdent(nom);
-			String texte = i.toYVM();
-			Ecriture.ecrireStringln(output, texte);
-		}
-		catch (Exception e){
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
-		}
+		Ident i = Yaka.tabIdent.chercherIdent(nom);
+		String texte = i.toYVM();
+		Ecriture.ecrireStringln(output, texte);
 	}
 	
 	public void lireOp(Expression.Op op)
@@ -96,14 +89,8 @@ public class YVM
 	}
 	
 	public void affecter(String nom) {
-		try {
-			IdVal i = Yaka.tabIdent.chercherIdent(nom);
-			Ecriture.ecrireStringln(output, "istore " + i.getValOuOffset());
-		}
-		catch (Exception e){
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
-		}
+		IdVal i = Yaka.tabIdent.chercherIdent(nom);
+		Ecriture.ecrireStringln(output, "istore " + i.getValOuOffset());
 	}
 
 	public void lireAdd(){
@@ -206,18 +193,12 @@ public class YVM
 	}
 
 	public void lireEnt(String id) {
-		try {
-			IdVal i = Yaka.tabIdent.chercherIdent(id) ;
-			if(i.estVar()){
-				Ecriture.ecrireStringln(output, "lireEnt " + i.getValOuOffset());
-			}
-			else{
-				System.out.println("Affectation d'une nouvelle valeur a une constante :(");
-			}
+		IdVal i = Yaka.tabIdent.chercherIdent(id) ;
+		if(i.estVar()){
+			Ecriture.ecrireStringln(output, "lireEnt " + i.getValOuOffset());
 		}
-		catch (Exception e){
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
+		else{
+			System.out.println("Affectation d'une nouvelle valeur a une constante :(");
 		}
 	}
 	

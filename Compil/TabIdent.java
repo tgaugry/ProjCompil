@@ -8,43 +8,26 @@ public class TabIdent {
 	private HashMap<String,IdFonc> globaux;
 	private HashMap<String,IdVal> locaux;
 	
-	
-	public static class NoSuchKeyException extends Exception {
-		private static final long serialVersionUID = 1L;
-
-		public NoSuchKeyException(String clef){
-			super("L'identifiant "+ clef + " n'existe pas" + Yaka.afficherLigne());
-		}
-	}
-	
-	public static class KeyAlreadyThereException extends Exception {
-		private static final long serialVersionUID = 1L;
-
-		public KeyAlreadyThereException(String clef){
-			super("L'identifiant " + clef + " est déclaré plusieurs fois" + Yaka.afficherLigne());
-		}
-	}
-	
 	public TabIdent()
 	{
 		globaux = new HashMap<String,IdFonc>();
 		locaux = new HashMap<String,IdVal>();
 	}
 	
-	public IdVal chercherIdent(String clef) throws NoSuchKeyException
+	public IdVal chercherIdent(String clef)
 	{	
 		IdVal i = locaux.get(clef); 
 		if (i == null){
-			throw new NoSuchKeyException(clef);
+			Yaka.afficherErreur("L'identifiant "+ clef + " n'existe pas");
 		}
 		return i;
 	}
 	
-	public IdFonc chercherFonc(String clef) throws NoSuchKeyException
+	public IdFonc chercherFonc(String clef)
 	{	
 		IdFonc i = globaux.get(clef); 
 		if (i == null){
-			throw new NoSuchKeyException(clef);
+			Yaka.afficherErreur("L'identifiant "+ clef + " n'existe pas");
 		}
 		return i;
 	}
@@ -54,20 +37,20 @@ public class TabIdent {
 		return locaux.containsKey(clef);
 	}
 	
-	public void rangeIdent(String clef, IdVal id)// throws KeyAlreadyThereException
+	public void rangeIdent(String clef, IdVal id)
 	{
 		Ident i = locaux.get(clef); 
 		if (i != null){
-			//throw new KeyAlreadyThereException(clef);
+			Yaka.afficherErreur("L'identifiant " + clef + " est déclaré plusieurs fois");
 		}
 		locaux.put(clef, id);
 	}
 	
-	public void rangeIdent(String clef, IdFonc id)// throws KeyAlreadyThereException
+	public void rangeIdent(String clef, IdFonc id)
 	{
 		Ident i = globaux.get(clef); 
 		if (i != null){
-			//throw new KeyAlreadyThereException(clef);
+			Yaka.afficherErreur("L'identifiant " + clef + " est déclaré plusieurs fois");
 		}
 		globaux.put(clef, id);
 	}
@@ -82,12 +65,7 @@ public class TabIdent {
 	}
 	
 	public void ajouteParam(String nom, int type) {
-		try {
-			chercherFonc(nom).ajouteParam(type);
-		} catch (NoSuchKeyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		chercherFonc(nom).ajouteParam(type);
 	}
 	
 	public int getNbParam(String foncName) throws NoSuchKeyException
