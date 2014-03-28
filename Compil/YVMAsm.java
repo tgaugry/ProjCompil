@@ -1,7 +1,5 @@
 package Compil;
 
-import Compil.TabIdent.NoSuchKeyException;
-
 public class YVMAsm extends YVM {
 	private int nbChaines;
 	
@@ -39,33 +37,21 @@ public class YVMAsm extends YVM {
 	
 	
 	public void lireConstOuVar(String nom) {
-		try {
-			Ident i = Yaka.tabIdent.chercherIdent(nom);
-			String texte = i.toYVMAsm();
-			Ecriture.ecrireStringln(output, texte + "\n");
-		}
-		catch (Exception e){
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
-		}
+		Ident i = Yaka.tabIdent.chercherIdent(nom);
+		String texte = i.toYVMAsm();
+		Ecriture.ecrireStringln(output, texte + "\n");
 	}
 	public void lireImmediat(int i){
 		Ecriture.ecrireStringln(output, "; iconst " + i + "\npush word ptr " + i + "\n");
 	}
 	public void affecter(String nom) {
-		try {
-			IdVal i = Yaka.tabIdent.chercherIdent(nom);
+		IdVal i = Yaka.tabIdent.chercherIdent(nom);
 		int offset = i.getValOuOffset();
 		Ecriture.ecrireStringln(output, "; istore " + offset + "\n"
 					+ "pop ax\n"
 					+ "mov word ptr[bp"
 				+ offset
-				+ "], ax\n");
-		}
-		catch (Exception e){
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
-		}
+			+ "], ax\n");
 	}
 	
 	
@@ -219,19 +205,13 @@ public class YVMAsm extends YVM {
 				+ "call ligsuiv\n");
 	}
 	public void lireEnt(String id) {
-		try {
-			IdVal i = Yaka.tabIdent.chercherIdent(id) ;
-			int ent = i.getValOuOffset();
-			Ecriture.ecrireStringln(output, "; lireEnt "
-					+ ent + "\n"
-					+ "lea dx, [bp" + ent + "]\n"
-					+ "push dx\n"
-					+ "call lirent\n");
-		}
-		catch (Exception e){
-			System.out.println(e.getMessage());
-			Yaka.nbErreurs++;
-		}
+		IdVal i = Yaka.tabIdent.chercherIdent(id) ;
+		int ent = i.getValOuOffset();
+		Ecriture.ecrireStringln(output, "; lireEnt "
+				+ ent + "\n"
+				+ "lea dx, [bp" + ent + "]\n"
+				+ "push dx\n"
+				+ "call lirent\n");
 	}
 	
 	public void dtantQue() {

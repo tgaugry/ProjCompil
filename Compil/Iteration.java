@@ -29,8 +29,7 @@ public class Iteration {
 	public void verifieTypeExpr()
 	{
 		if(Yaka.expression.dernierOperande() != YakaConstants.BOOLEEN) {
-			System.out.println("Condition non booléenne" + Yaka.afficherLigne());
-			Yaka.nbErreurs++;
+			Yaka.afficherErreur("Condition non booléenne");
 		}
 	}
 }
