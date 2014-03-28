@@ -200,9 +200,9 @@ void analyse() : {}
 void declFonction() : {}
 {
 	type() <FONCTION> <ident> {nomFonc = YakaTokenManager.identLu; tabIdent.rangeIdent(nomFonc, new IdFonc(type));}
-	 paramForms()
+	 paramForms() 
 	bloc()
-	<FFONCTION>
+	<FFONCTION> {yvm.lireFinFonc(tabIdent.getNbParam(nomFonc));}
 }
 
 void paramForms() : {}
@@ -217,17 +217,18 @@ void paramForm() : {}
 
 void retourne() : {}
 {
-	<RETOURNE> expression()
+	<RETOURNE> expression() {yvm.lireRetourne(tabIdent.getNbParam(nomFonc));}
 }
 
 void argumentsFonction() : {}
 {
-	"("(expression() (","expression())*)?")"
+	"("((expression() { fonction.empilerParam(expression.dernierOperande()); } )
+	(","expression() { fonction.empilerParam(expression.dernierOperande()); } )*)?")"
 }
 
 void bloc() : {}{
  (declConst())*
- (declVar())* {yvm.ouvrePrinc();}	
+ (declVar())* {yvm.lireDebutFonc(nomFonc);}	
    suiteInstr() 
 }
 
@@ -354,8 +355,6 @@ void expression(): {}
   )?) 
 }
 
-
-
 void simpleExpr() : {}
 {
    terme() 
@@ -383,10 +382,20 @@ void primaire() : {}
  
 }
 
-void valeur() : {} { 
+void valeur() : {}
+{
    <entier> { expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}
- | ( <ident> 	{ expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
- 	(argumentsFonction())? )
+ | ( <ident> { boolean isFonction = false; String oldIdent = YakaTokenManager.identLu; }
+ 	( { isFonction = true; yvm.lireAppelDebut(); fonction.empilerFonct(oldIdent); } argumentsFonction())?
+ 	{ if(isFonction)
+	 	{	 	  	expression.addIdent(oldIdent);
+	 		yvm.lireConstOuVar(oldIdent);
+	 	}
+	 	else
+	 	{			yvm.lireAppelFin();
+			fonction.verifieParams();
+	 	}
+ 	})
  | <VRAI> 	{ expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.vrai);}
  | <FAUX> 	{ expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.faux);}
 }
