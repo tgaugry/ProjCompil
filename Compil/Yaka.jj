@@ -224,7 +224,8 @@ void retourne() : {}
 
 void argumentsFonction() : {}
 {
-	"("(expression() (","expression())*)?")"
+	"("((expression() { fonction.empilerParam(expression.dernierOperande()); } )
+	(","expression() { fonction.empilerParam(expression.dernierOperande()); } )*)?")"
 }
 
 void bloc() : {}{
@@ -356,8 +357,6 @@ void expression(): {}
   )?) 
 }
 
-
-
 void simpleExpr() : {}
 {
    terme() 
@@ -385,10 +384,20 @@ void primaire() : {}
  
 }
 
-void valeur() : {} { 
+void valeur() : {}
+{
    <entier> { expression.addImmediate(YakaConstants.ENTIER); yvm.lireImmediat(YakaTokenManager.entierLu);}
- | ( <ident> 	{ expression.addIdent(YakaTokenManager.identLu); yvm.lireConstOuVar(YakaTokenManager.identLu);}
- 	(argumentsFonction())? )
+ | ( <ident> { boolean isFonction = false; String oldIdent = YakaTokenManager.identLu; }
+ 	( { isFonction = true; yvm.lireAppelDebut(); fonction.empilerFonct(oldIdent); } argumentsFonction())?
+ 	{ if(isFonction)
+	 	{	 	  	expression.addIdent(oldIdent);
+	 		yvm.lireConstOuVar(oldIdent);
+	 	}
+	 	else
+	 	{			yvm.lireAppelFin();
+			fonction.verifieParams();
+	 	}
+ 	})
  | <VRAI> 	{ expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.vrai);}
  | <FAUX> 	{ expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.faux);}
 }

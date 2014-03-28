@@ -68,7 +68,7 @@ public class TabIdent {
 		chercherFonc(nom).ajouteParam(type);
 	}
 	
-	public int getNbParam(String foncName) throws NoSuchKeyException
+	public int getNbParam(String foncName)
 	{
 		return chercherFonc(foncName).getParam().size();
 	}
