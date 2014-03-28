@@ -90,4 +90,9 @@ public class TabIdent {
 		}
 	}
 	
+	public int getNbParam(String foncName) throws NoSuchKeyException
+	{
+		return chercherFonc(foncName).getParam().size();
+	}
+	
 }

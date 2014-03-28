@@ -197,9 +197,9 @@ void analyse() : {}
 void declFonction() : {}
 {
 	type() <FONCTION> <ident> {nomFonc = YakaTokenManager.identLu; tabIdent.rangeIdent(nomFonc, new IdFonc(type));}
-	 paramForms()
+	 paramForms() 
 	bloc()
-	<FFONCTION>
+	<FFONCTION> {yvm.lireFinFonc(tabIdent.getNbParam(nomFonc));}
 }
 
 void paramForms() : {}
@@ -214,7 +214,7 @@ void paramForm() : {}
 
 void retourne() : {}
 {
-	<RETOURNE> expression()
+	<RETOURNE> expression() {yvm.lireRetourne(tabIdent.getNbParam(nomFonc));}
 }
 
 void argumentsFonction() : {}
@@ -224,7 +224,7 @@ void argumentsFonction() : {}
 
 void bloc() : {}{
  (declConst())*
- (declVar())* {yvm.ouvrePrinc();}	
+ (declVar())* {yvm.lireDebutFonc(nomFonc);}	
    suiteInstr() 
 }
 

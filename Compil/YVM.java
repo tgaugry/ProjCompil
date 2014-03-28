@@ -260,16 +260,15 @@ public class YVM
 	/*
 	 * Fonctions de ... Fonctions 
 	 */
-	public void lireDebutFonc(int tailleParam) {
-		String nom = Yaka.fonction.depilerFonct();
-		Ecriture.ecrireStringln(output, nom+":");
-		Ecriture.ecrireStringln(output, "ouvbloc "+tailleParam);
+	public void lireDebutFonc(String nomFonc) {
+		Ecriture.ecrireStringln(output, nomFonc+":");
+		Ecriture.ecrireStringln(output, "ouvbloc "+Yaka.tabIdent.compteVariables()*2);
 	}
-	public void lireFinFonc(int tailleParam) {
-		Ecriture.ecrireStringln(output, "fermebloc "+tailleParam);
+	public void lireFinFonc(int nbParam) {
+		Ecriture.ecrireStringln(output, "fermebloc "+nbParam*2);
 	}
-	public void lireRetourne(int offset) {
-		Ecriture.ecrireStringln(output, "ireturn "+offset);
+	public void lireRetourne(int nbParam) {
+		Ecriture.ecrireStringln(output, "ireturn "+nbParam*2+4);
 	}
 	public void lireAppelDebut(){
 		Ecriture.ecrireStringln(output, "reserveRetour");

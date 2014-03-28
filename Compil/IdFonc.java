@@ -24,7 +24,6 @@ public class IdFonc extends Ident {
 
 	@Override
 	public boolean estVar() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
