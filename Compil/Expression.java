@@ -108,7 +108,7 @@ public class Expression {
 					Yaka.afficherErreur("Operande Manquante");
 				}
 				break;
-			case INF :case SUP :case INFEG :case SUPEG :case DIFF :case EGAL :
+			case INF :case SUP :case INFEG :case SUPEG :
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
@@ -117,6 +117,21 @@ public class Expression {
 					}
 					else  {
 						Yaka.afficherErreur("Type incorrect, 2 INT étaient attendus");
+					}
+				}
+				else {
+					Yaka.afficherErreur("Operande Manquante");
+				}
+				break;
+			case DIFF :case EGAL :
+				if (operandes.size() >= 2) {
+					n1 = operandes.pop();
+					n2 = operandes.pop();
+					if(n1 == n2){
+						operandes.push(YakaConstants.BOOLEEN);
+					}
+					else  {
+						Yaka.afficherErreur("Type incorrect, 2 opérandes de même type attendues");
 					}
 				}
 				else {
