@@ -73,4 +73,9 @@ public class TabIdent {
 		return chercherFonc(foncName).getParam().size();
 	}
 	
+	public void videLocaux()
+	{
+		locaux.clear();
+	}
+	
 }
