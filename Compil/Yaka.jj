@@ -388,12 +388,12 @@ void valeur() : {}
  | ( <ident> { boolean isFonction = false; String oldIdent = YakaTokenManager.identLu; }
  	( { isFonction = true; yvm.lireAppelDebut(); fonction.empilerFonct(oldIdent); } argumentsFonction())?
  	{ if(isFonction)
-	 	{	 	  	expression.addIdent(oldIdent);
-	 		yvm.lireConstOuVar(oldIdent);
-	 	}
-	 	else
 	 	{			yvm.lireAppelFin();
 			fonction.verifieParams();
+	 	}
+	 	else
+	 	{	 	  	expression.addIdent(oldIdent);
+	 		yvm.lireConstOuVar(oldIdent);
 	 	}
  	})
  | <VRAI> 	{ expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.vrai);}
