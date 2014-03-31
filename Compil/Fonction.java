@@ -4,20 +4,22 @@ import java.util.Stack;
 
 public class Fonction {
 	public Stack<String> foncts;
-	public Stack<Integer> typesParam; // prends ses valeurs dans YakaConstants
+	public Stack<Stack<Integer>> typesParam; // prends ses valeurs dans YakaConstants
 
 	public Fonction(){
 		foncts = new Stack<String>();
-		typesParam = new Stack<Integer>();
+		typesParam = new Stack<Stack<Integer>>();
 	}
 
 	public void empilerFonct(String name)
 	{
+		typesParam.push(new Stack<Integer>());
 		foncts.push(name);
 	}
 	
 	public String depilerFonct()
 	{
+		typesParam.pop();
 		return foncts.pop();
 	}
 
@@ -28,12 +30,12 @@ public class Fonction {
 	
 	public void empilerParam(int type)
 	{
-		typesParam.push(type);
+		typesParam.peek().push(type);
 	}
 	
-	public void depilerParam()
+	public int depilerParam()
 	{
-		typesParam.pop();
+		return typesParam.peek().pop();
 	}
 
 	private static String typeToString(int type)
@@ -62,7 +64,7 @@ public class Fonction {
 		while(!typesParam.empty() && nbParamsAttendus > 0)
 		{
 			nbParamsAttendus--; //pour l'utiliser comme index
-			if((temp1 = typesParam.pop()) != (temp2 = paramAttendus.get(nbParamsAttendus))) {
+			if((temp1 = depilerParam()) != (temp2 = paramAttendus.get(nbParamsAttendus))) {
 				Yaka.afficherErreur("Parametre incorrect : "+typeToString(temp1)+" lu, "+typeToString(temp2)+" attendu");
 			}
 		}
@@ -72,6 +74,6 @@ public class Fonction {
 		if(nbParamsAttendus > 0) { //si tout se passe bien il est à -1 à la fin de la boucle
 			Yaka.afficherErreur("Parametre manquant");
 		}
-		typesParam.clear();
+		//typesParam.pop(); //géré dans dépileFonction
 	}
 }
