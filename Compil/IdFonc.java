@@ -17,9 +17,13 @@ public class IdFonc extends Ident {
 	public void ajouteParam(int type ){
 		typeParam.push(type);
 	}
-	
+
 	public Stack<Integer> getParam() {
 		return typeParam;
+	}
+	
+	public int getRetour() {
+		return typeRetour;
 	}
 
 	@Override

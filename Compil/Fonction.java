@@ -20,6 +20,11 @@ public class Fonction {
 	{
 		return foncts.pop();
 	}
+
+	public String getFonctCourante()
+	{
+		return foncts.peek();
+	}
 	
 	public void empilerParam(int type)
 	{

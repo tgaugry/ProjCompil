@@ -389,7 +389,8 @@ void valeur() : {}
  	( { isFonction = true; yvm.lireAppelDebut(); fonction.empilerFonct(oldIdent); } argumentsFonction())?
  	{ if(isFonction)
 	 	{
-			fonction.verifieParams();			yvm.lireAppelFin();
+			fonction.verifieParams();
+			expression.addImmediate(tabIdent.chercherFonc(fonction.getFonctCourante()).getRetour());			yvm.lireAppelFin();
 	 	}
 	 	else
 	 	{	 	  	expression.addIdent(oldIdent);
