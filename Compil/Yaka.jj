@@ -190,7 +190,7 @@ void analyse() : {}
 {
    <PROGRAMME> <ident>	{yvm.debutProg();}
    (declFonction())*
-   <PRINCIPAL> bloc() <FPRINCIPAL>
+   <PRINCIPAL>   {nomFonc = "main";} bloc() <FPRINCIPAL>
    <FPROGRAMME> {yvm.finProg();}
 }
 
@@ -200,7 +200,7 @@ void analyse() : {}
 void declFonction() : {}
 {
 	type() <FONCTION> <ident> {nomFonc = YakaTokenManager.identLu; tabIdent.rangeIdent(nomFonc, new IdFonc(type));}
-	 paramForms() 
+	paramForms() 
 	bloc()
 	<FFONCTION> {yvm.lireFinFonc(tabIdent.getNbParam(nomFonc));}
 }
@@ -307,8 +307,8 @@ void iteration() : {}
 void conditionnelle() : {} 
 {
 	<SI> expression() {conditionnelle.verifieTypeExpr(); yvm.lireAlors();}
-	<ALORS> (instruction()";")* {yvm.lireSinon();}
-	(<SINON> (instruction()";")*)?
+	<ALORS> (suiteInstr())? {yvm.lireSinon();}
+	(<SINON> (suiteInstr())?)?
 	<FSI> {yvm.lireFSi();}
 }
 
