@@ -32,7 +32,11 @@ public class IdVar extends IdVal {
 	}
 	
 	public String toYVMAsm() {
-		return "; iload " + valOuOffset + "\npush word ptr[bp" + valOuOffset + "]";
+		String s = "" ;
+		if (valOuOffset > 0) {
+			s = "+";
+		}
+		return "; iload " + valOuOffset + "\npush word ptr[bp" + s + valOuOffset + "]";
 	}
 	
 	public static void resetOffsets()

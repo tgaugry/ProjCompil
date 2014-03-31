@@ -45,13 +45,18 @@ public class YVMAsm extends YVM {
 		Ecriture.ecrireStringln(output, "; iconst " + i + "\npush word ptr " + i + "\n");
 	}
 	public void affecter(String nom) {
+		String s = "" ;
 		IdVal i = Yaka.tabIdent.chercherIdent(nom);
 		int offset = i.getValOuOffset();
+		if (offset > 0) {
+			s = "+";
+		}
 		Ecriture.ecrireStringln(output, "; istore " + offset + "\n"
 					+ "pop ax\n"
-					+ "mov word ptr[bp"
-				+ offset
-			+ "], ax\n");
+					+ "mov word ptr[bp" 
+					+ s
+					+ offset
+					+ "], ax\n");
 	}
 	
 	
