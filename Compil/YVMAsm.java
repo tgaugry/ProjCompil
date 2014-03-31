@@ -276,8 +276,8 @@ public class YVMAsm extends YVM {
 	 * Fonctions de ... Fonctions 
 	 */
 	public void lireDebutFonc(String nomFonc) {
-		String nom = Yaka.fonction.depilerFonct();
-		Ecriture.ecrireStringln(output, nom+":");
+		//String nom = Yaka.fonction.depilerFonct();
+		Ecriture.ecrireStringln(output, nomFonc+":");
 		Ecriture.ecrireStringln(output, "; ouvbloc "+ Yaka.tabIdent.compteVariables()*2);
 		Ecriture.ecrireStringln(output, "enter "+ Yaka.tabIdent.compteVariables()*2 +",0\n");
 	
