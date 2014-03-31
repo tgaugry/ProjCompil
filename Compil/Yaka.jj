@@ -388,8 +388,8 @@ void valeur() : {}
  | ( <ident> { boolean isFonction = false; String oldIdent = YakaTokenManager.identLu; }
  	( { isFonction = true; yvm.lireAppelDebut(); fonction.empilerFonct(oldIdent); } argumentsFonction())?
  	{ if(isFonction)
-	 	{			yvm.lireAppelFin();
-			fonction.verifieParams();
+	 	{
+			fonction.verifieParams();			yvm.lireAppelFin();
 	 	}
 	 	else
 	 	{	 	  	expression.addIdent(oldIdent);
