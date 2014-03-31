@@ -20,7 +20,7 @@ VAR BOOLEEN b;
    TANTQUE j+1<>25 FAIRE
       ECRIRE("                            ");
       TANTQUE i+1<>25 FAIRE
-        b= trace(i+1,j+1);
+        b = trace(i+1,j+1);
          i=i+1
       FAIT;
       j=j+1;
