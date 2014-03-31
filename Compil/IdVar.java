@@ -10,10 +10,14 @@ public class IdVar extends IdVal {
 	}
 	
 	public static IdVar newIdVarParam(int t) {
+		if(lastOffset <= 0)
+			lastOffset = 2;
 		return new IdVar(t, lastOffset+=2);
 	}
 	
 	public static IdVar newIdVarLocal(int t) {
+		if(lastOffset >= 0)
+			lastOffset = 0;
 		return new IdVar(t, lastOffset-=2);
 	}
 	
