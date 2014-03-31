@@ -48,6 +48,7 @@ public class YVMAsm extends YVM {
 		String s = "" ;
 		IdVal i = Yaka.tabIdent.chercherIdent(nom);
 		int offset = i.getValOuOffset();
+		
 		if (offset > 0) {
 			s = "+";
 		}
@@ -274,11 +275,11 @@ public class YVMAsm extends YVM {
 	/*
 	 * Fonctions de ... Fonctions 
 	 */
-	public void lireDebutFonc(int tailleParam) {
+	public void lireDebutFonc(String nomFonc) {
 		String nom = Yaka.fonction.depilerFonct();
 		Ecriture.ecrireStringln(output, nom+":");
-		Ecriture.ecrireStringln(output, ";ouvbloc "+tailleParam);
-		Ecriture.ecrireStringln(output, "enter "+tailleParam+",0\n");
+		Ecriture.ecrireStringln(output, "; ouvbloc "+ Yaka.tabIdent.compteVariables()*2);
+		Ecriture.ecrireStringln(output, "enter "+ Yaka.tabIdent.compteVariables()*2 +",0\n");
 	
 	}
 	public void lireFinFonc(int tailleParam) {
