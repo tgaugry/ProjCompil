@@ -278,8 +278,9 @@ public class YVMAsm extends YVM {
 		Ecriture.ecrireStringln(output, nomFonc+":");
 		if(nomFonc == "debut")
 			Ecriture.ecrireStringln(output, "STARTUPCODE");
-		Ecriture.ecrireStringln(output, "; ouvbloc "+ Yaka.tabIdent.compteVariables()*2);
-		Ecriture.ecrireStringln(output, "enter "+ Yaka.tabIdent.compteVariables()*2 +",0\n");
+		int var = (Yaka.tabIdent.compteVariables()-((nomFonc != "debut")?Yaka.tabIdent.getNbParam(nomFonc):0))*2;
+		Ecriture.ecrireStringln(output, "; ouvbloc "+ var);
+		Ecriture.ecrireStringln(output, "enter "+ var +",0\n");
 	
 	}
 	public void lireFinFonc(int tailleParam) {
