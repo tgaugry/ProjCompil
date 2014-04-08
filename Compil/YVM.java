@@ -244,7 +244,7 @@ public class YVM
 	public void lireDebutFonc(String nomFonc) {
 		Ecriture.ecrireStringln(output, "");
 		Ecriture.ecrireStringln(output, nomFonc+":");
-		Ecriture.ecrireStringln(output, "ouvbloc "+Yaka.tabIdent.compteVariables()*2);
+		Ecriture.ecrireStringln(output, "ouvbloc "+(Yaka.tabIdent.compteVariables()-((nomFonc != "debut")?Yaka.tabIdent.getNbParam(nomFonc):0))*2);
 	}
 	public void lireFinFonc(int nbParam) {
 		Ecriture.ecrireStringln(output, "fermebloc "+nbParam*2);
