@@ -9,8 +9,11 @@ public class Declaration {
 	}
 	
 	public void declConst(String nom, String nomBis) {
-		IdConst id = new IdConst(Yaka.tabIdent.chercherIdent(nomBis));
-		Yaka.tabIdent.rangeIdent (nom, id);
+		IdVal a = Yaka.tabIdent.chercherIdent(nomBis);
+		if (a != null) {
+			IdConst id = new IdConst(a);
+			Yaka.tabIdent.rangeIdent (nom, id);
+		}
 	}
 	
 	public void declVar(String nom, int type) {
