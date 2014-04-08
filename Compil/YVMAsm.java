@@ -16,9 +16,7 @@ public class YVMAsm extends YVM {
 				+ "; entete\n"
 				+ ".model SMALL\n"
 				+ ".586\n\n"
-				+ ".CODE\n"
-				+ "debut:\n"
-				+ "STARTUPCODE\n");
+				+ ".CODE\n");
 	}
 	public void ouvrePrinc() {
 		int nbVar = Yaka.tabIdent.compteVariables()*2;
@@ -278,6 +276,8 @@ public class YVMAsm extends YVM {
 	public void lireDebutFonc(String nomFonc) {
 		//String nom = Yaka.fonction.depilerFonct();
 		Ecriture.ecrireStringln(output, nomFonc+":");
+		if(nomFonc == "debut")
+			Ecriture.ecrireStringln(output, "STARTUPCODE");
 		Ecriture.ecrireStringln(output, "; ouvbloc "+ Yaka.tabIdent.compteVariables()*2);
 		Ecriture.ecrireStringln(output, "enter "+ Yaka.tabIdent.compteVariables()*2 +",0\n");
 	

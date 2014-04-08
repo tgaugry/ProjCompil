@@ -190,7 +190,7 @@ void analyse() : {}
 {
    <PROGRAMME> <ident>	{yvm.debutProg();}
    (declFonction())*
-   <PRINCIPAL>   {nomFonc = "main";} bloc() <FPRINCIPAL>
+   <PRINCIPAL>   {nomFonc = "debut";} bloc() <FPRINCIPAL>
    <FPROGRAMME> {yvm.finProg();}
 }
 
