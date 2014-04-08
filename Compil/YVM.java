@@ -213,7 +213,7 @@ public class YVM
 		Ecriture.ecrireInt(output, Iteration.getEtiquette());
 		Ecriture.ecrireStringln(output, "\n");
 		
-		Ecriture.ecrireString(output, "FAIT");
+		Ecriture.ecrireString(output, "\nFAIT");
 		Ecriture.ecrireInt(output, Iteration.getEtiquette());
 		Ecriture.ecrireStringln(output, ":");
 	}
@@ -235,7 +235,7 @@ public class YVM
 	}
 	
 	public void lireFSi(){
-		Ecriture.ecrireStringln(output, "FSI" + Yaka.conditionnelle.finitCond()+" :");
+		Ecriture.ecrireStringln(output, "\nFSI" + Yaka.conditionnelle.finitCond()+" :");
 	}
 	
 	/*
