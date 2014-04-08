@@ -231,7 +231,7 @@ public class YVM
 	
 	public void lireSinon(){
 		Ecriture.ecrireStringln(output, "goto FSI" + Yaka.conditionnelle.getCondCourante());
-		Ecriture.ecrireStringln(output, "SINON" + Yaka.conditionnelle.getCondCourante()+" :");
+		Ecriture.ecrireStringln(output, "\nSINON" + Yaka.conditionnelle.getCondCourante()+" :");
 	}
 	
 	public void lireFSi(){
