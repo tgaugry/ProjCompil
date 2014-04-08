@@ -39,6 +39,9 @@ public class Expression {
 
 	public void stockeAffectation(String nom) {
 		IdVal i = Yaka.tabIdent.chercherIdent(nom);
+		if (!i.estVar()) {
+			Yaka.afficherErreur(nom + " n'est pas une variable");
+		}
 		typeAffectation = i.getType();
 	}
 
