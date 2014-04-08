@@ -287,7 +287,8 @@ public class YVMAsm extends YVM {
 		Ecriture.ecrireStringln(output, "leave");
 		Ecriture.ecrireStringln(output, "ret "+tailleParam+"\n");
 	}
-	public void lireRetourne(int offset) {
+	public void lireRetourne(int nbParam) {
+		int offset = nbParam*2+4;
 		Ecriture.ecrireStringln(output, ";ireturn "+offset);
 		Ecriture.ecrireStringln(output, "pop ax");
 		Ecriture.ecrireStringln(output, "mov [bp+"+offset+"], ax\n");
