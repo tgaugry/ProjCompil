@@ -4,7 +4,17 @@ PRINCIPAL
 VAR ENTIER ent1,ent2,lon1,lon2,a;
 VAR BOOLEEN true,peutetre,b;
 
-    b=b+1;      (* erreur de type operande unaire OK*)
+    lon1=1; (*erreur de type a l'affectation OK*)
+    b=4 * a; 
+    b=-b;      (* erreur de type operande unaire OK*)
+    ent2=12 + 1 -5 * (52/b)+6;(*erreur de type sur b OK*)
+    ent2=true/ent2;  (*erreur de type sur ent2 entier attendu OK*)
+    peutetre=(a=b); (* erreur de type sur b : entier attendu OK*)
+    true=b >= VRAI; (* operateur incompatible avec operandes OK*)
+    peutetre= true/peutetre ; (* operateur incompatible avec operandes OK*)
+    true=true  ET (NON(NON true)); (*correct*)
+    peutetre=NON(FAUX) ET (22>ent1); (*correct*)
+    true=peutetre ET (a<>10)(*correct*)
 FPRINCIPAL
 FPROGRAMME
 (*

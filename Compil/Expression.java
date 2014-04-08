@@ -137,11 +137,11 @@ public class Expression {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
 					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
-						operandes.push(YakaConstants.BOOLEEN);
 					}
 					else  {
 						Yaka.afficherErreur("Type incorrect, 2 INT étaient attendus");
 					}
+						operandes.push(YakaConstants.BOOLEEN);
 				}
 				else {
 					Yaka.afficherErreur("Operande Manquante");
