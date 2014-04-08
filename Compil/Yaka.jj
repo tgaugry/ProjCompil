@@ -329,7 +329,7 @@ void affectation() : {}
 {
     <ident> {String ident = YakaTokenManager.identLu;expression.stockeAffectation(ident);}
     "=" 
-    expression() {expression.evaluerAffectation();yvm.affecter(ident);}
+    expression() {if(expression.evaluerAffectation())yvm.affecter(ident);}
 }
 
 /*
