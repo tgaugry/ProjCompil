@@ -76,4 +76,11 @@ public class Fonction {
 		}
 		//typesParam.pop(); //géré dans dépileFonction
 	}
+	
+	public void verifieRetour(int operande, String nomFonc) {
+		int typeRetourVoulu = Yaka.tabIdent.chercherFonc(nomFonc).getRetour();
+		if (typeRetourVoulu != operande){
+			Yaka.afficherErreur("Mauvais type de retour pur la fonction " + nomFonc + ", un " + (typeRetourVoulu == 15 ? "ENTIER" : "BOOLEEN") + " était attendu.");
+		}
+	}
 }
