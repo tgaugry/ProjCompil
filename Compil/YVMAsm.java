@@ -283,7 +283,8 @@ public class YVMAsm extends YVM {
 		Ecriture.ecrireStringln(output, "enter "+ var +",0\n");
 	
 	}
-	public void lireFinFonc(int tailleParam) {
+	public void lireFinFonc(int nbParam) {
+		int tailleParam = nbParam*2;
 		Ecriture.ecrireStringln(output, ";fermebloc "+tailleParam);
 		Ecriture.ecrireStringln(output, "leave");
 		Ecriture.ecrireStringln(output, "ret "+tailleParam+"\n");
