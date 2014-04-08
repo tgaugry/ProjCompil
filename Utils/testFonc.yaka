@@ -22,6 +22,7 @@ VAR BOOLEEN b;
 i=5;LIRE(j);ALALIGNE;
 k=max(i, min(j, 5) ) +2;
 b=sup(1+max(i,j-5),min(i*2,j));
+ECRIRE(k);
 ALALIGNE;
 ECRIRE(b);
 FPRINCIPAL

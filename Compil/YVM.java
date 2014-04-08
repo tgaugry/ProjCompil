@@ -30,8 +30,11 @@ public class YVM
 
 	public void lireConstOuVar(String nom) {
 		Ident i = Yaka.tabIdent.chercherIdent(nom);
-		String texte = i.toYVM();
-		Ecriture.ecrireStringln(output, texte);
+		if(i != null)
+		{
+			String texte = i.toYVM();
+			Ecriture.ecrireStringln(output, texte);
+		}
 	}
 	
 	public void lireOp(Expression.Op op)
