@@ -226,7 +226,9 @@ void paramForm() : {}
 
 void retourne() : {}
 {
-	<RETOURNE> expression() {fonction.verifieRetour(expression.dernierOperande(), nomFonc); yvm.lireRetourne(tabIdent.getNbParam(nomFonc));}
+	<RETOURNE> expression() {if (fonction.verifieRetour(expression.dernierOperande(), nomFonc))		{
+	 	 yvm.lireRetourne(tabIdent.getNbParam(nomFonc));
+		}	}
 }
 
 void argumentsFonction() : {}
