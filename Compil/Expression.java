@@ -52,7 +52,7 @@ public class Expression {
 		}
 	}
 
-	public Boolean evaluerAffectation() {
+	public boolean evaluerAffectation() {
 		int op = operandes.pop();
 		if(op != -1 && typeAffectation != -1)
 		{
