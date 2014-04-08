@@ -79,12 +79,16 @@ public class Expression {
 			case NEG :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
-					if(n1 == YakaConstants.ENTIER){
+					if(n1 == -1) //opérande buggée, on ignore et le résultat est buggé
+					{
+						operandes.push(-1);
+					}
+					else if(n1 == YakaConstants.ENTIER){
 						operandes.push(YakaConstants.ENTIER);
 					}
 					else {
 						Yaka.afficherErreur("Type incorrect, 1 INT était attendu");
-						operandes.push(-1);
+						operandes.push(-1); //opérand buggée
 					}
 				}
 				else {
@@ -95,7 +99,11 @@ public class Expression {
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
-					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
+					if(n1 == -1 || n2 == -1) //opérande buggée, on ignore et le résultat est buggé
+					{
+						operandes.push(-1);
+					}
+					else if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
 						operandes.push(YakaConstants.ENTIER);
 					}
 					else {
@@ -110,7 +118,11 @@ public class Expression {
 			case NON :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
-					if(n1 == YakaConstants.BOOLEEN){
+					if(n1 == -1) //opérande buggée, on ignore et le résultat est buggé
+					{
+						operandes.push(-1);
+					}
+					else if(n1 == YakaConstants.BOOLEEN){
 						operandes.push(YakaConstants.BOOLEEN);
 					}
 					else {
@@ -126,7 +138,11 @@ public class Expression {
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
-					if(n1 == YakaConstants.BOOLEEN && n2 == YakaConstants.BOOLEEN){
+					if(n1 == -1 || n2 == -1) //opérande buggée, on ignore et le résultat est buggé
+					{
+						operandes.push(-1);
+					}
+					else if(n1 == YakaConstants.BOOLEEN && n2 == YakaConstants.BOOLEEN){
 						operandes.push(YakaConstants.BOOLEEN);
 					}
 					else {
@@ -142,7 +158,11 @@ public class Expression {
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
-					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
+					if(n1 == -1 || n2 == -1) //opérande buggée, on ignore et le résultat est buggé
+					{
+						operandes.push(-1);
+					}
+					else if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
 						operandes.push(YakaConstants.BOOLEEN);
 					}
 					else  {
@@ -158,7 +178,11 @@ public class Expression {
 				if (operandes.size() >= 2) {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
-					if(n1 == n2){
+					if(n1 == -1 || n2 == -1) //opérande buggée, on ignore et le résultat est buggé
+					{
+						operandes.push(-1);
+					}
+					else if(n1 == n2){
 						operandes.push(YakaConstants.BOOLEEN);
 					}
 					else  {
