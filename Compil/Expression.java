@@ -46,7 +46,8 @@ public class Expression {
 	}
 
 	public void evaluerAffectation() {
-		if (typeAffectation != operandes.pop()) {
+		int op = operandes.pop();
+		if (typeAffectation != op && op != -1) {
 			Yaka.afficherErreur("Type incorrect, 1 " + ((typeAffectation == YakaConstants.BOOLEEN) ? "BOOL" : "INT") +" était attendu");
 		}
 	}
