@@ -200,9 +200,9 @@ void analyse() : {}
 void declFonction() : {}
 {
 	type() <FONCTION> <ident> {nomFonc = YakaTokenManager.identLu; tabIdent.rangeIdent(nomFonc, new IdFonc(type));}
-	paramForms() 
-	bloc()
-	<FFONCTION> {yvm.lireFinFonc(tabIdent.getNbParam(nomFonc)); tabIdent.videLocaux(); }
+	paramForms() {IdVar.resetOffsets();}
+	bloc() {IdVar.resetOffsets();}
+	<FFONCTION> {yvm.lireFinFonc(tabIdent.getNbParam(nomFonc)); tabIdent.videLocaux();IdVar.resetOffsets(); }
 }
 
 void paramForms() : {}
