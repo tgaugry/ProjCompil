@@ -33,7 +33,8 @@ public class Yaka {
 	public static Conditionnelle conditionnelle;
 	public static Fonction fonction;
 	public static String nomFonc;
-	
+	public static Stack<String> params;
+	 
 	public static String afficherLigne() {
 		return " a la ligne " + Yaka.token.beginLine + ", colonne " + Yaka.token.beginColumn;
 	}
@@ -212,7 +213,8 @@ void paramForms() : {}
 
 void paramForm() : {}
 {
-	type() <ident> {tabIdent.ajouteParam(nomFonc, type); tabIdent.rangeIdent(YakaTokenManager.identLu, IdVar.newIdVarParam(type));}
+	type() <ident> {tabIdent.ajouteParam(nomFonc, type); 
+					tabIdent.rangeIdent(YakaTokenManager.identLu, IdVar.newIdVarParam(type));}
 }
 
 void retourne() : {}
