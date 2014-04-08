@@ -100,6 +100,7 @@ public class Expression {
 					}
 					else {
 						Yaka.afficherErreur("Type incorrect, 2 INT étaient attendus");
+						operandes.push(-1);
 					}
 				}
 				else {
@@ -114,6 +115,7 @@ public class Expression {
 					}
 					else {
 						Yaka.afficherErreur("Type incorrect, 1 BOOL était attendu");
+						operandes.push(-1);
 					}
 				}
 				else {
@@ -129,6 +131,7 @@ public class Expression {
 					}
 					else {
 						Yaka.afficherErreur("Type incorrect, 2 BOOL étaient attendus");
+						operandes.push(-1);
 					}
 				}
 				else {
@@ -140,11 +143,12 @@ public class Expression {
 					n1 = operandes.pop();
 					n2 = operandes.pop();
 					if(n1 == YakaConstants.ENTIER && n2 == YakaConstants.ENTIER){
+						operandes.push(YakaConstants.BOOLEEN);
 					}
 					else  {
 						Yaka.afficherErreur("Type incorrect, 2 INT étaient attendus");
+						operandes.push(-1);
 					}
-						operandes.push(YakaConstants.BOOLEEN);
 				}
 				else {
 					Yaka.afficherErreur("Operande Manquante");
@@ -159,6 +163,7 @@ public class Expression {
 					}
 					else  {
 						Yaka.afficherErreur("Type incorrect, 2 opérandes de même type attendues");
+						operandes.push(-1);
 					}
 				}
 				else {
