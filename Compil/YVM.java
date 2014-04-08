@@ -242,6 +242,7 @@ public class YVM
 	 * Fonctions de ... Fonctions 
 	 */
 	public void lireDebutFonc(String nomFonc) {
+		Ecriture.ecrireStringln(output, "");
 		Ecriture.ecrireStringln(output, nomFonc+":");
 		Ecriture.ecrireStringln(output, "ouvbloc "+Yaka.tabIdent.compteVariables()*2);
 	}
