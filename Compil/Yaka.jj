@@ -413,7 +413,7 @@ void valeur() : {}
 void opRel() : {} {
    "=" 		{expression.addOp(Op.EGAL);}
  | "<>" 	{expression.addOp(Op.DIFF);}
- | "<" 		{expression.addOp(Op.INFEG);}
+ | "<" 		{expression.addOp(Op.INF);}
  | "<=" 	{expression.addOp(Op.INFEG);}
  | ">" 		{expression.addOp(Op.SUP);}
  | ">=" 	{expression.addOp(Op.SUPEG);}
