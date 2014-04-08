@@ -20,9 +20,12 @@ package Compil;
 
 
 import Compil.Expression.*;
-
+import java.util.Stack;
 
 public class Yaka {
+
+	
+	
 	public static Declaration declaration;
 	public static TabIdent tabIdent;
 	public static Expression expression;
@@ -33,7 +36,8 @@ public class Yaka {
 	public static Conditionnelle conditionnelle;
 	public static Fonction fonction;
 	public static String nomFonc;
-	public static Stack<String> params;
+	public static Stack<String> paramsNom;
+	public static Stack<Integer> paramsType;
 	 
 	public static String afficherLigne() {
 		return " a la ligne " + Yaka.token.beginLine + ", colonne " + Yaka.token.beginColumn;
@@ -89,6 +93,8 @@ public class Yaka {
       tabIdent = new TabIdent();
       conditionnelle = new Conditionnelle();
       iteration = new Iteration();
+      paramsNom = new Stack<String>();
+      paramsType = new Stack<Integer>();
       analyseur.analyse();
     }
     catch (ParseException e) {
@@ -201,7 +207,7 @@ void analyse() : {}
 void declFonction() : {}
 {
 	type() <FONCTION> <ident> {nomFonc = YakaTokenManager.identLu; tabIdent.rangeIdent(nomFonc, new IdFonc(type));}
-	paramForms() {IdVar.resetOffsets();}
+	paramForms() {IdVar.resetOffsets(); tabIdent.ajouteToutParam(nomFonc, paramsNom, paramsType);}
 	bloc() {IdVar.resetOffsets();}
 	<FFONCTION> {yvm.lireFinFonc(tabIdent.getNbParam(nomFonc)); tabIdent.videLocaux();IdVar.resetOffsets(); }
 }
@@ -213,8 +219,8 @@ void paramForms() : {}
 
 void paramForm() : {}
 {
-	type() <ident> {tabIdent.ajouteParam(nomFonc, type); 
-					tabIdent.rangeIdent(YakaTokenManager.identLu, IdVar.newIdVarParam(type));}
+	type() <ident> {paramsType.push(type); 
+					paramsNom.push(YakaTokenManager.identLu);}
 }
 
 void retourne() : {}

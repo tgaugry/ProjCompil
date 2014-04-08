@@ -2,6 +2,7 @@ package Compil;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Stack;
 
 public class TabIdent {
 	
@@ -66,6 +67,14 @@ public class TabIdent {
 	
 	public void ajouteParam(String nom, int type) {
 		chercherFonc(nom).ajouteParam(type);
+	}
+	
+	public void ajouteToutParam(String nomFonc, Stack<String> nomParams, Stack<Integer> typeParams) {
+		while(!nomParams.empty()) {
+			int type = typeParams.pop();
+			ajouteParam(nomFonc, type); 
+			rangeIdent(nomParams.pop(), IdVar.newIdVarParam(type));
+		}
 	}
 	
 	public int getNbParam(String foncName)
