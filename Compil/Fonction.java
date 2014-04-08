@@ -61,14 +61,14 @@ public class Fonction {
 		int temp2;
 		Stack<Integer> paramAttendus = Yaka.tabIdent.chercherFonc(foncts.peek()).getParam();
 		int nbParamsAttendus = paramAttendus.size();
-		while(!typesParam.empty() && nbParamsAttendus > 0)
+		while(!typesParam.peek().empty() && nbParamsAttendus > 0)
 		{
 			nbParamsAttendus--; //pour l'utiliser comme index
 			if((temp1 = depilerParam()) != (temp2 = paramAttendus.get(nbParamsAttendus))) {
 				Yaka.afficherErreur("Parametre incorrect : "+typeToString(temp1)+" lu, "+typeToString(temp2)+" attendu");
 			}
 		}
-		if(!typesParam.empty()) {
+		if(!typesParam.peek().empty()) {
 			Yaka.afficherErreur("Trop de parametres");
 		}
 		if(nbParamsAttendus > 0) { //si tout se passe bien il est à -1 à la fin de la boucle
