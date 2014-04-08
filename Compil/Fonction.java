@@ -78,7 +78,7 @@ public class Fonction {
 	}
 	
 	public boolean verifieRetour(int operande, String nomFonc) {
-		if (nomFonc != "debut") {
+		if (nomFonc == "debut") {
 			Yaka.afficherErreur("Retourne interdit dans le main");
 			return false;
 		}
