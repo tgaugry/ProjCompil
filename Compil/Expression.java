@@ -23,12 +23,18 @@ public class Expression {
 		operateurs.push(t);
 	}
 
-	public void addIdent(String nom){
+	public Boolean addIdent(String nom){
 		IdVal i = Yaka.tabIdent.chercherIdent(nom);
 		if(i != null)
+		{
 			operandes.push(i.getType());
+			return true;
+		}
 		else
+		{
 			operandes.push(-1);
+			return false;
+		}
 	}
 
 	public void stockeAffectation(String nom) {

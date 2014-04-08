@@ -402,8 +402,8 @@ void valeur() : {}
 			expression.addImmediate(tabIdent.chercherFonc(fonction.getFonctCourante()).getRetour());			yvm.lireAppelFin();
 	 	}
 	 	else
-	 	{	 	  	expression.addIdent(oldIdent);
-	 		yvm.lireConstOuVar(oldIdent);
+	 	{	 	  	if(expression.addIdent(oldIdent)) //returns false if oldIdent not found
+	 			yvm.lireConstOuVar(oldIdent);
 	 	}
  	})
  | <VRAI> 	{ expression.addImmediate(YakaConstants.BOOLEEN); yvm.lireImmediat(YVM.vrai);}
