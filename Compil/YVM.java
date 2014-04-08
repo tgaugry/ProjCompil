@@ -249,7 +249,7 @@ public class YVM
 		Ecriture.ecrireStringln(output, "fermebloc "+nbParam*2);
 	}
 	public void lireRetourne(int nbParam) {
-		Ecriture.ecrireStringln(output, "ireturn "+nbParam*2+4);
+		Ecriture.ecrireStringln(output, "ireturn "+(nbParam*2+4));
 	}
 	public void lireAppelDebut(){
 		Ecriture.ecrireStringln(output, "reserveRetour");
