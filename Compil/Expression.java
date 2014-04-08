@@ -39,17 +39,30 @@ public class Expression {
 
 	public void stockeAffectation(String nom) {
 		IdVal i = Yaka.tabIdent.chercherIdent(nom);
-		if (!i.estVar()) {
-			Yaka.afficherErreur(nom + " n'est pas une variable");
+		if(i != null)
+		{
+			if (!i.estVar()) {
+				Yaka.afficherErreur(nom + " n'est pas une variable");
+			}
+			typeAffectation = i.getType();
 		}
-		typeAffectation = i.getType();
+		else
+		{
+			typeAffectation = -1;
+		}
 	}
 
-	public void evaluerAffectation() {
+	public Boolean evaluerAffectation() {
 		int op = operandes.pop();
-		if (typeAffectation != op && op != -1) {
-			Yaka.afficherErreur("Type incorrect, 1 " + ((typeAffectation == YakaConstants.BOOLEEN) ? "BOOL" : "INT") +" était attendu");
+		if(op != -1 && typeAffectation != -1)
+		{
+			if (typeAffectation != op) {
+				Yaka.afficherErreur("Type incorrect, 1 " + ((typeAffectation == YakaConstants.BOOLEEN) ? "BOOL" : "INT") +" était attendu");
+			}
+			return true;
 		}
+		//else
+		return false;
 	}
 
 	public void evaluate() {
