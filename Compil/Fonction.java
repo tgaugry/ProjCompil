@@ -77,10 +77,18 @@ public class Fonction {
 		//typesParam.pop(); //géré dans dépileFonction
 	}
 	
-	public void verifieRetour(int operande, String nomFonc) {
-		int typeRetourVoulu = Yaka.tabIdent.chercherFonc(nomFonc).getRetour();
-		if (typeRetourVoulu != operande){
-			Yaka.afficherErreur("Mauvais type de retour pour la fonction " + nomFonc + ", un " + (typeRetourVoulu == 15 ? "ENTIER" : "BOOLEEN") + " était attendu.");
+	public boolean verifieRetour(int operande, String nomFonc) {
+		if (nomFonc == "debut") {
+			Yaka.afficherErreur("Retourne interdit dans le main");
+			return false;
 		}
+		else {
+			int typeRetourVoulu = Yaka.tabIdent.chercherFonc(nomFonc).getRetour();
+			if (typeRetourVoulu != operande){
+				Yaka.afficherErreur("Mauvais type de retour pour la fonction " + nomFonc + ", un " + (typeRetourVoulu == 15 ? "ENTIER" : "BOOLEEN") + " était attendu.");
+				return false;
+			}
+		}
+		return true;
 	}
 }
