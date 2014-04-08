@@ -79,12 +79,10 @@ public class Expression {
 			case NEG :
 				if (operandes.size() >= 1) {
 					n1 = operandes.pop();
-					if(n1 == YakaConstants.ENTIER){
-						operandes.push(YakaConstants.ENTIER);
-					}
-					else {
+					if(n1 != YakaConstants.ENTIER){
 						Yaka.afficherErreur("Type incorrect, 1 INT était attendu");
 					}
+						operandes.push(YakaConstants.ENTIER);
 				}
 				else {
 					Yaka.afficherErreur("Operande Manquante");
