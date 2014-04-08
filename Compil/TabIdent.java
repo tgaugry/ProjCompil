@@ -71,8 +71,7 @@ public class TabIdent {
 	
 	public void ajouteToutParam(String nomFonc, Stack<String> nomParams, Stack<Integer> typeParams) {
 		while(!nomParams.empty()) {
-			int type = typeParams.pop();
-			ajouteParam(nomFonc, type); 
+			int type = typeParams.pop(); 
 			rangeIdent(nomParams.pop(), IdVar.newIdVarParam(type));
 		}
 	}

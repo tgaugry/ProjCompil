@@ -219,7 +219,8 @@ void paramForms() : {}
 
 void paramForm() : {}
 {
-	type() <ident> {paramsType.push(type); 
+	type() <ident> {tabIdent.ajouteParam(nomFonc, type);
+					paramsType.push(type); 
 					paramsNom.push(YakaTokenManager.identLu);}
 }
 
